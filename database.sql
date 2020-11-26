@@ -1,4 +1,4 @@
-﻿CREATE DATABASE QL_QuanCafe_KeycodeMon;
+﻿CREATE DATABASE QL_QuanCafe_KeycodeMon CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 USE QL_QuanCafe_KeycodeMon;
 
@@ -45,7 +45,7 @@ CREATE TABLE Account
 	birthday DATE NOT NULL,
 	address NVARCHAR(100) NOT NULL,
 
-	FOREIGN KEY(typeID) REFERENCES dbo.AccountType(id)
+	FOREIGN KEY(typeID) REFERENCES AccountType(id)
 );
 
 /*
@@ -71,8 +71,8 @@ CREATE TABLE Food
 	price FLOAT NOT NULL DEFAULT 0,
 	stateID INT NOT NULL DEFAULT 1,
 	
-	FOREIGN KEY (idCategory) REFERENCES dbo.FoodCategory(id),
-	FOREIGN KEY (stateID) REFERENCES dbo.State(id)
+	FOREIGN KEY (idCategory) REFERENCES FoodCategory(id),
+	FOREIGN KEY (stateID) REFERENCES State(id)
 );
 
 /*
@@ -88,7 +88,7 @@ CREATE TABLE Bill
 	timeOut DATETIME DEFAULT NULL,
 	status NVARCHAR(100) NOT NULL DEFAULT N'Chưa thanh toán',
 
-	FOREIGN KEY (idTable) REFERENCES dbo.TableFood(id)
+	FOREIGN KEY (idTable) REFERENCES TableFood(id)
 );
 
 CREATE TABLE BillInfo
@@ -98,8 +98,8 @@ CREATE TABLE BillInfo
 	idFood INT NOT NULL,
 	count INT NOT NULL DEFAULT 1,
 	
-	FOREIGN KEY (idBill) REFERENCES dbo.Bill(id),
-	FOREIGN KEY (idFood) REFERENCES dbo.Food(id)
+	FOREIGN KEY (idBill) REFERENCES Bill(id),
+	FOREIGN KEY (idFood) REFERENCES Food(id)
 );
 
 /**************************************** END CREATE TABLES *****************************************/
@@ -107,14 +107,14 @@ CREATE TABLE BillInfo
 
 /***************************************** INSERT DATA *****************************************/
 
-INSERT INTO dbo.AccountType(name) VALUES(N'Quản trị viên');
-INSERT INTO dbo.AccountType(name) VALUES(N'Nhân viên');    
+INSERT INTO AccountType(name) VALUES(N'Quản trị viên');
+INSERT INTO AccountType(name) VALUES(N'Nhân viên');    
 
-INSERT INTO dbo.Account(username, password, displayName, typeID, gender, birthday, address)
+INSERT INTO Account(username, password, displayName, typeID, gender, birthday, address)
 VALUES('admin', '21232f297a57a5a743894a0e4a801fc3', N'ADMIN', 1, N'Nam', '19990927', N'Khánh Hòa');
-INSERT INTO dbo.Account(username, password, displayName, typeID, gender, birthday, address)
+INSERT INTO Account(username, password, displayName, typeID, gender, birthday, address)
 VALUES('htthinh', '202cb962ac59075b964b07152d234b70', N'Huỳnh Tấn Thịnh', 2, N'Nam', '19990927', N'Khánh Hòa');
-INSERT INTO dbo.Account(username, password, displayName, typeID, gender, birthday, address)
+INSERT INTO Account(username, password, displayName, typeID, gender, birthday, address)
 VALUES('thoathoa', '202cb962ac59075b964b07152d234b70', N'Nguyễn Thị Kim Thoa', 1, N'Nữ', '19990512', N'Khánh Hòa');
 
 DELIMITER $$
@@ -123,40 +123,42 @@ CREATE PROCEDURE InsertTableFood()
 BEGIN
 	DECLARE i INT DEFAULT 1;
 	WHILE i<=20 DO
-		INSERT INTO dbo.TableFood(name) VALUES (N'Bàn số ' + CAST(i as CHAR(3)));
+		INSERT INTO TableFood(name) VALUES (N'Bàn số ' + CAST(i as CHAR(3)));
 		SET i = i + 1;
 	END WHILE;
 END; $$
 DELIMITER ;
 
-INSERT INTO dbo.State(name) VALUES(N'Sử dụng');
-INSERT INTO dbo.State(name) VALUES(N'Ngưng sử dụng');
+CALL InsertTableFood();
 
-INSERT INTO dbo.FoodCategory(name) VALUES(N'Thức ăn');
-INSERT INTO dbo.FoodCategory(name) VALUES(N'Thức uống');
+INSERT INTO State(name) VALUES(N'Sử dụng');
+INSERT INTO State(name) VALUES(N'Ngưng sử dụng');
 
-INSERT INTO dbo.Food(name, idCategory, price) VALUES(N'Bánh mì thịt', 1, 20000.0);
-INSERT INTO dbo.Food(name, idCategory, price) VALUES(N'Bò né', 1, 50000.0);
-INSERT INTO dbo.Food(name, idCategory, price) VALUES(N'Cafe đen', 2, 15000.0);
-INSERT INTO dbo.Food(name, idCategory, price) VALUES(N'Cafe sữa', 2, 20000.0);
-INSERT INTO dbo.Food(name, idCategory, price) VALUES(N'Cafe đá xay', 2, 30000.0);
+INSERT INTO FoodCategory(name) VALUES(N'Thức ăn');
+INSERT INTO FoodCategory(name) VALUES(N'Thức uống');
 
-INSERT INTO dbo.Bill(idTable) VALUES(1);
-INSERT INTO dbo.Bill(idTable) VALUES(4);
-INSERT INTO dbo.Bill(idTable) VALUES(5);
-INSERT INTO dbo.Bill(idTable) VALUES(10);
+INSERT INTO Food(name, idCategory, price) VALUES(N'Bánh mì thịt', 1, 20000.0);
+INSERT INTO Food(name, idCategory, price) VALUES(N'Bò né', 1, 50000.0);
+INSERT INTO Food(name, idCategory, price) VALUES(N'Cafe đen', 2, 15000.0);
+INSERT INTO Food(name, idCategory, price) VALUES(N'Cafe sữa', 2, 20000.0);
+INSERT INTO Food(name, idCategory, price) VALUES(N'Cafe đá xay', 2, 30000.0);
 
-INSERT INTO dbo.BillInfo(idBill, idFood, count) VALUES(1, 2, 5);
-INSERT INTO dbo.BillInfo(idBill, idFood, count) VALUES(1, 4, 5);
-INSERT INTO dbo.BillInfo(idBill, idFood, count) VALUES(2, 1, 4);
-INSERT INTO dbo.BillInfo(idBill, idFood, count) VALUES(2, 3, 2);
-INSERT INTO dbo.BillInfo(idBill, idFood, count) VALUES(2, 4, 2);
-INSERT INTO dbo.BillInfo(idBill, idFood, count) VALUES(3, 3, 1);
-INSERT INTO dbo.BillInfo(idBill, idFood, count) VALUES(3, 4, 1);
-INSERT INTO dbo.BillInfo(idBill, idFood, count) VALUES(3, 5, 1);
-INSERT INTO dbo.BillInfo(idBill, idFood, count) VALUES(4, 4, 1);
+INSERT INTO Bill(idTable) VALUES(1);
+INSERT INTO Bill(idTable) VALUES(4);
+INSERT INTO Bill(idTable) VALUES(5);
+INSERT INTO Bill(idTable) VALUES(10);
 
-UPDATE dbo.TableFood
+INSERT INTO BillInfo(idBill, idFood, count) VALUES(1, 2, 5);
+INSERT INTO BillInfo(idBill, idFood, count) VALUES(1, 4, 5);
+INSERT INTO BillInfo(idBill, idFood, count) VALUES(2, 1, 4);
+INSERT INTO BillInfo(idBill, idFood, count) VALUES(2, 3, 2);
+INSERT INTO BillInfo(idBill, idFood, count) VALUES(2, 4, 2);
+INSERT INTO BillInfo(idBill, idFood, count) VALUES(3, 3, 1);
+INSERT INTO BillInfo(idBill, idFood, count) VALUES(3, 4, 1);
+INSERT INTO BillInfo(idBill, idFood, count) VALUES(3, 5, 1);
+INSERT INTO BillInfo(idBill, idFood, count) VALUES(4, 4, 1);
+
+UPDATE TableFood
 SET status = N'Đã có người'
 WHERE id = 1 OR id = 4 OR id = 5 OR id = 10;
 
@@ -165,7 +167,7 @@ WHERE id = 1 OR id = 4 OR id = 5 OR id = 10;
 
 /***************************************** CREATE PROCEDURES *****************************************/
 
-/*------------------------------ PROCEDURES OF dbo.State ------------------------------*/
+/*------------------------------ PROCEDURES OF State ------------------------------*/
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_LoadStateList$$
@@ -173,68 +175,68 @@ CREATE PROCEDURE USP_LoadStateList()
 	SELECT * FROM State; $$
 DELIMITER ;
 
-/*------------------------------ END PROCEDURES OF dbo.State ------------------------------*/
+/*------------------------------ END PROCEDURES OF State ------------------------------*/
 
-/*------------------------------ PROCEDURES OF dbo.FoodCategory ------------------------------*/
+/*------------------------------ PROCEDURES OF FoodCategory ------------------------------*/
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_LoadFoodCategoryList$$
 CREATE PROCEDURE USP_LoadFoodCategoryList()
-	SELECT * FROM dbo.FoodCategory; $$
+	SELECT * FROM FoodCategory; $$
 DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_ExistCategory$$
 CREATE PROCEDURE USP_ExistCategory(IN categoryName NVARCHAR(100))
 	SELECT *
-	FROM dbo.FoodCategory
+	FROM FoodCategory
 	WHERE Name = categoryName; $$
 DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_AddFoodCategory$$
 CREATE PROCEDURE USP_AddFoodCategory(IN categoryName NVARCHAR(100))
-    INSERT INTO dbo.FoodCategory(name)
+    INSERT INTO FoodCategory(name)
 	VALUES(categoryName); $$
 DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_UpdateFoodCategory$$
 CREATE PROCEDURE USP_UpdateFoodCategory(IN idFC INT, IN categoryName NVARCHAR(100))
-    UPDATE dbo.FoodCategory SET name = categoryName
+    UPDATE FoodCategory SET name = categoryName
 	WHERE id = idFC; $$
 DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_DeleteFoodCategory$$
 CREATE PROCEDURE USP_DeleteFoodCategory(idFC INT)
-	DELETE FROM dbo.FoodCategory WHERE id = idFC; $$
+	DELETE FROM FoodCategory WHERE id = idFC; $$
 DELIMITER ;
 
-/*------------------------------ END PROCEDURES OF dbo.FoodCategory ------------------------------*/
+/*------------------------------ END PROCEDURES OF FoodCategory ------------------------------*/
 
-/*------------------------------ PROCEDURES OF dbo.Food ------------------------------*/
+/*------------------------------ PROCEDURES OF Food ------------------------------*/
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_LoadFoodList$$
 CREATE PROCEDURE USP_LoadFoodList()
 	SELECT f.id 'ID', f.name 'Tên món', fc.name 'Danh mục', price 'Giá tiền', s.name 'Trạng thái'
-    FROM dbo.Food f INNER JOIN dbo.FoodCategory fc ON fc.id = f.idCategory
-				INNER JOIN dbo.State s ON f.stateID = s.id; $$
+    FROM Food f INNER JOIN FoodCategory fc ON fc.id = f.idCategory
+				INNER JOIN State s ON f.stateID = s.id; $$
 DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_LoadFoodListByCategoryID$$
 CREATE PROCEDURE USP_LoadFoodListByCategoryID(IN idCategory INT)
 	SELECT *
-	FROM dbo.Food
+	FROM Food
 	WHERE idCategory = idCategory AND stateID = 1; $$
 DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_ExistFood$$
 CREATE PROCEDURE USP_ExistFood(IN foodName NVARCHAR(100))
-	SELECT * FROM dbo.Food where name = foodName; $$
+	SELECT * FROM Food where name = foodName; $$
 DELIMITER ;
 
 DELIMITER $$
@@ -243,48 +245,50 @@ CREATE PROCEDURE USP_AddFoodToTable(IN foodID INT, IN count INT, IN tableID INT)
 BEGIN
 	DECLARE billID INT;
     DECLARE numberOfFoodNameOnTable INT;
+	DECLARE existFood INT DEFAULT 0;
+	DECLARE rest INT;
 	
-	SELECT billID = id
-	FROM dbo.Bill
+	SELECT id
+	INTO billID
+	FROM Bill
 	WHERE idTable = tableID AND status = N'Chưa thanh toán';
 	
 	SELECT numberOfFoodNameOnTable = COUNT(*)
-	FROM dbo.BillInfo
+	FROM BillInfo
 	WHERE idBill = billID;
 
 	IF (numberOfFoodNameOnTable > 0) THEN
-		SET existFood = 0;
 		
 		SELECT existFood = COUNT(*)
-		FROM dbo.BillInfo
+		FROM BillInfo
 		WHERE idBill = billID AND idFood = foodID;
 		
 		IF (existFood > 0) THEN
 			SET rest = 0;
 
 			SELECT rest = count + count
-			FROM dbo.BillInfo
+			FROM BillInfo
 			WHERE idBill = billID AND idFood = foodID;
 
 			IF (rest <= 0) THEN
-				DELETE FROM dbo.BillInfo
+				DELETE FROM BillInfo
 				WHERE idBill = billID AND idFood = foodID;
 			ELSE
-				UPDATE dbo.BillInfo
+				UPDATE BillInfo
 				SET count = rest
 				WHERE idBill = billID AND idFood = foodID;
 			END IF;
 		ELSE
-            INSERT INTO dbo.BillInfo(idBill, idFood, count)
+            INSERT INTO BillInfo(idBill, idFood, count)
             VALUES(billID, foodID, count);
 		END IF;
 	ELSEIF (count > 0) THEN
-		INSERT INTO dbo.Bill(idTable) VALUES (tableID);
+		INSERT INTO Bill(idTable) VALUES (tableID);
 
 		SELECT billID = MAX(id)
-		FROM dbo.Bill;
+		FROM Bill;
 
-		INSERT INTO dbo.BillInfo(idBill, idFood, count)
+		INSERT INTO BillInfo(idBill, idFood, count)
 		VALUES(billID, foodID, count);
 	END IF;
 END; $$
@@ -294,20 +298,20 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_SearchFood$$
 CREATE PROCEDURE USP_SearchFood(IN text NVARCHAR(100))
 	SELECT f.id 'ID', f.name 'Tên món', fc.name 'Loại món', price 'Giá tiền'
-	FROM dbo.Food f INNER JOIN dbo.FoodCategory fc ON fc.id = f.idCategory
-	WHERE dbo.fuConvertToUnsign(f.name) LIKE dbo.fuConvertToUnsign(text); $$
+	FROM Food f INNER JOIN FoodCategory fc ON fc.id = f.idCategory
+	WHERE fuConvertToUnsign(f.name) LIKE fuConvertToUnsign(text); $$
 DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_AddFood$$
 CREATE PROCEDURE USP_AddFood(IN foodName NVARCHAR(100), IN idCategory INT, IN price FLOAT)
-	INSERT INTO dbo.Food(name, idCategory, price) VALUES(foodName, idCategory, price); $$
+	INSERT INTO Food(name, idCategory, price) VALUES(foodName, idCategory, price); $$
 DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_UpdateFood$$
 CREATE PROCEDURE USP_UpdateFood(IN idFood INT, IN foodName NVARCHAR(100), IN idCategory INT, IN price FLOAT, IN stateID INT)
-	UPDATE dbo.Food
+	UPDATE Food
 	SET name = foodName, idCategory = idCategory, price = price, stateID = stateID
 	WHERE id = idFood; $$
 DELIMITER ;
@@ -315,18 +319,18 @@ DELIMITER ;
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_DeleteFood$$
 CREATE PROCEDURE USP_DeleteFood(IN idFood INT)
-	DELETE FROM dbo.Food WHERE id = idFood; $$
+	DELETE FROM Food WHERE id = idFood; $$
 DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_FoodWasUsing$$
 CREATE PROCEDURE USP_FoodWasUsing(IN idFood INT)
-	SELECT id FROM dbo.BillInfo WHERE idFood = idFood; $$
+	SELECT id FROM BillInfo WHERE idFood = idFood; $$
 DELIMITER ;
 
-/*------------------------------ END PROCEDURES OF dbo.Food ------------------------------*/
+/*------------------------------ END PROCEDURES OF Food ------------------------------*/
 
-/*------------------------------ PROCEDURES OF dbo.Bill & dbo.BillInfo ------------------------------*/
+/*------------------------------ PROCEDURES OF Bill & BillInfo ------------------------------*/
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_GetBillUnCheckOutByTableID$$
@@ -342,14 +346,14 @@ BEGIN
     DECLARE billID INT;
 	
 	SELECT billID = id
-	FROM dbo.Bill
+	FROM Bill
 	WHERE idTable = tableID AND status = N'Chưa thanh toán';
 
-	UPDATE dbo.Bill
+	UPDATE Bill
 	SET timeOut = GETDATE(), totalPrice = totalPrice, discount = discount, status = N'Đã thanh toán'
 	WHERE id = billID;
 
-	UPDATE dbo.TableFood
+	UPDATE TableFood
 	SET status = N'Trống'
 	WHERE id = tableID;
 END; $$
@@ -361,7 +365,7 @@ DROP PROCEDURE IF EXISTS USP_GetListBillCheckedOutByDate$$
 CREATE PROCEDURE USP_GetListBillCheckedOutByDate(IN fromDate DATETIME, IN toDate DATETIME)
 BEGIN
     SELECT name 'Tên bàn', DATE_FORMAT(timeIn, '%Y-%m-%d %T') 'Thời gian vào', DATE_FORMAT(timeOut, '%Y-%m-%d %T') 'Thời gian ra', totalPrice 'Tổng hóa đơn', discount 'Giảm giá'
-	FROM dbo.Bill INNER JOIN dbo.TableFood ON TableFood.id = Bill.idTable
+	FROM Bill INNER JOIN TableFood ON TableFood.id = Bill.idTable
 	WHERE Bill.status = N'Đã thanh toán' AND timeOut >= fromDate AND timeOut <= toDate + 1;
 END; $$
 DELIMITER ;
@@ -372,7 +376,7 @@ CREATE PROCEDURE USP_GetListBillCheckedOutByDateAndPage(IN fromDate DATETIME, IN
 BEGIN
     SET page = page*rowsPerPage;
     SELECT name 'Tên bàn', DATE_FORMAT(timeIn, '%Y-%m-%d %T') 'Thời gian vào', DATE_FORMAT(timeOut, '%Y-%m-%d %T') 'Thời gian ra', totalPrice 'Tổng hóa đơn', discount 'Giảm giá'
-	FROM dbo.Bill INNER JOIN dbo.TableFood ON TableFood.id = Bill.idTable
+	FROM Bill INNER JOIN TableFood ON TableFood.id = Bill.idTable
 	WHERE Bill.status = N'Đã thanh toán' AND timeOut >= fromDate AND timeOut <= toDate + 1
 	LIMIT rowsPerPage, page;
 END; $$
@@ -382,7 +386,7 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_GetMaxPageOfListBillCheckedOutByDate$$
 CREATE PROCEDURE USP_GetMaxPageOfListBillCheckedOutByDate(IN fromDate DATETIME, IN toDate DATETIME)
     SELECT COUNT(*)
-	FROM dbo.Bill INNER JOIN dbo.TableFood ON dbo.TableFood.id = Bill.idTable
+	FROM Bill INNER JOIN TableFood ON TableFood.id = Bill.idTable
 	WHERE Bill.status = N'Đã thanh toán' AND timeOut >= fromDate AND timeOut <= toDate + 1; $$
 DELIMITER ;
 
@@ -390,20 +394,20 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_GetBillByTableID$$
 CREATE PROCEDURE USP_GetBillByTableID(IN idTable INT)
 	SELECT f.name, bi.count, f.price, totalPrice = f.price * count
-	FROM dbo.Food f INNER JOIN dbo.BillInfo bi ON bi.idFood = f.id
-					INNER JOIN dbo.Bill b ON b.id = bi.idBill
+	FROM Food f INNER JOIN BillInfo bi ON bi.idFood = f.id
+					INNER JOIN Bill b ON b.id = bi.idBill
 	WHERE b.idTable = idTable AND b.status = N'Chưa thanh toán'; $$
 DELIMITER ;
 
-/*------------------------------ END PROCEDURES OF dbo.Bill & dbo.BillInfo ------------------------------*/
+/*------------------------------ END PROCEDURES OF Bill & BillInfo ------------------------------*/
 
-/*------------------------------ PROCEDURES OF dbo.Account & dbo.AccountInfo ------------------------------*/
+/*------------------------------ PROCEDURES OF Account & AccountInfo ------------------------------*/
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_LoadAccountList$$
 CREATE PROCEDURE USP_LoadAccountList()
 	SELECT username 'Tên tài khoản', displayName 'Tên hiển thị', t.name 'Loại tài khoản', sex 'Giới tính', birthday 'Ngày sinh', address 'Địa chỉ'
-    FROM dbo.Account a INNER JOIN dbo.AccountType t ON t.id = a.typeID; $$
+    FROM Account a INNER JOIN AccountType t ON t.id = a.typeID; $$
 DELIMITER ;
 
 DELIMITER $$
@@ -425,7 +429,7 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_Login$$
 CREATE PROCEDURE USP_Login(username VARCHAR(100), password VARCHAR(100))
 	SELECT username
-	FROM dbo.Account
+	FROM Account
 	WHERE username = username AND password = password; $$
 DELIMITER ;
 
@@ -433,14 +437,14 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_GetAccountInfoByUsername$$
 CREATE PROCEDURE USP_GetAccountInfoByUsername(IN username VARCHAR(100))
     SELECT *
-	FROM dbo.Account
+	FROM Account
 	WHERE username = username; $$
 DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_UpdateAccountInfo$$
 CREATE PROCEDURE USP_UpdateAccountInfo(IN username VARCHAR(100), IN displayName NVARCHAR(100), IN typeID INT, IN sex NVARCHAR(5), IN birthday DATE, IN address NVARCHAR(100))
-    UPDATE dbo.Account
+    UPDATE Account
 	SET displayName = displayName, typeID = typeID, sex = sex, birthday = birthday, address = address
 	WHERE username = username; $$
 DELIMITER ;
@@ -448,7 +452,7 @@ DELIMITER ;
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_UpdatePassword$$
 CREATE PROCEDURE USP_UpdatePassword(IN username VARCHAR(100), IN newPass VARCHAR(100))
-	UPDATE dbo.Account
+	UPDATE Account
 	SET password = newPass
 	WHERE username = username; $$
 DELIMITER ;
@@ -456,7 +460,7 @@ DELIMITER ;
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_AddAccount$$
 CREATE PROCEDURE USP_AddAccount(IN username VARCHAR(100), IN displayName NVARCHAR(100), IN typeID INT, IN sex NVARCHAR(5), IN birthday DATE, IN address NVARCHAR(100))
-    INSERT INTO dbo.Account
+    INSERT INTO Account
     (username, displayName, typeID, sex, birthday, address)
     VALUES
     (username, displayName, typeID, sex, birthday, address); $$
@@ -465,33 +469,33 @@ DELIMITER ;
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_DeleteAccount$$
 CREATE PROCEDURE USP_DeleteAccount(username VARCHAR(100))
-    DELETE FROM dbo.Account
+    DELETE FROM Account
 	WHERE username = username; $$
 DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_ResetPassword$$
 CREATE PROCEDURE USP_ResetPassword(username VARCHAR(100))
-    UPDATE dbo.Account
+    UPDATE Account
 	SET password = 'c4ca4238a0b923820dcc509a6f75849b'
-	WHERE username = username;
+	WHERE username = username; $$
 DELIMITER ;
 
-/*------------------------------ END PROCEDURES OF dbo.Account & dbo.AccountInfo ------------------------------*/
+/*------------------------------ END PROCEDURES OF Account & AccountInfo ------------------------------*/
 
-/*------------------------------ PROCEDURES OF dbo.TableFood ------------------------------*/
+/*------------------------------ PROCEDURES OF TableFood ------------------------------*/
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_LoadTableList$$
 CREATE PROCEDURE USP_LoadTableList()
-	SELECT * FROM dbo.TableFood; $$
+	SELECT * FROM TableFood; $$
 DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_ExistTableFood$$
 CREATE PROCEDURE USP_ExistTableFood(IN tableName NVARCHAR(100))
     SELECT *
-	FROM dbo.TableFood
+	FROM TableFood
 	WHERE name = tableName; $$
 DELIMITER ;
 
@@ -499,7 +503,7 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_LoadTableStatusByID$$
 CREATE PROCEDURE USP_LoadTableStatusByID(IN tableID INT)
     SELECT id, name, status
-	FROM dbo.TableFood
+	FROM TableFood
 	WHERE id = tableID; $$
 DELIMITER ;
 
@@ -517,29 +521,29 @@ BEGIN
     DECLARE newBillID int;
 	
 	SELECT oldBillID = id
-	FROM dbo.Bill
+	FROM Bill
 	WHERE idTable = firstTableID AND status = N'Chưa thanh toán';
 
 	SELECT newBillID = id
-	FROM dbo.Bill
+	FROM Bill
 	WHERE idTable = secondTableID AND status = N'Chưa thanh toán';
 
 	IF(newBillID IS NULL) THEN
-	    INSERT INTO dbo.Bill(idTable) VALUES (secondTableID);
+	    INSERT INTO Bill(idTable) VALUES (secondTableID);
 		
 		SELECT newBillID = MAX(id)
-		FROM dbo.Bill;
+		FROM Bill;
 	END IF;
 
-	UPDATE dbo.BillInfo
+	UPDATE BillInfo
 	SET idBill = newBillID
 	WHERE idBill = oldBillID;
 
-	UPDATE dbo.TableFood
+	UPDATE TableFood
 	SET status = N'Trống'
 	WHERE id = firstTableID;
 
-	UPDATE dbo.TableFood
+	UPDATE TableFood
 	SET status = N'Đã có người'
 	WHERE id = secondTableID;
 END; $$
@@ -548,14 +552,14 @@ DELIMITER ;
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_AddTableFood$$
 CREATE PROCEDURE USP_AddTableFood(IN tableName NVARCHAR(100))
-    INSERT INTO dbo.TableFood
+    INSERT INTO TableFood
     (name) VALUES(tableName); $$
 DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_AddTableFood$$
 CREATE PROCEDURE USP_UpdateTableFood(IN id INT, IN tableName NVARCHAR(100))
-    UPDATE dbo.TableFood
+    UPDATE TableFood
 	SET name = tableName
 	WHERE id = id; $$
 DELIMITER ;
@@ -563,19 +567,19 @@ DELIMITER ;
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_DeleteTableFood$$
 CREATE PROCEDURE USP_DeleteTableFood(id INT)
-	DELETE FROM dbo.TableFood
+	DELETE FROM TableFood
 	WHERE id = id; $$
 DELIMITER ;
-/*------------------------------ END PROCEDURES OF dbo.TableFood ------------------------------*/
+/*------------------------------ END PROCEDURES OF TableFood ------------------------------*/
 
 /*--**************************************** END CREATE PROCEDURES ****************************************--*/
 
 
 /*--**************************************** CREATE TRIGGERS ****************************************--*/
-DROP TRIGGER IF EXISTS UTG_UpdateBillInfo;
 DELIMITER $$
+DROP TRIGGER IF EXISTS UTG_UpdateBillInfo$$
 CREATE TRIGGER UTG_UpdateBillInfo
-AFTER INSERT ON dbo.BillInfo
+AFTER INSERT ON BillInfo
 FOR EACH ROW
 BEGIN
     DECLARE billID INT;
@@ -585,69 +589,72 @@ BEGIN
     DECLARE idFoodInserted INT;
 	DECLARE firstDuplicateID INT;
     DECLARE secondDuplicateID INT;
-    
-	SET existFoodOnTable = 0;
+    DECLARE existFoodOnTable INT DEFAULT 0;
 
-	SELECT billID = idBill
-	FROM Inserted;
+	SELECT idBill
+	INTO billID
+	FROM NEW;
 
-	UPDATE dbo.Bill
+	UPDATE Bill
 	SET status = N'Chưa thanh toán'
 	WHERE id = billID;
 
 
-	SELECT tableID = idTable
-	FROM dbo.Bill
+	SELECT idTable
+	INTO tableID
+	FROM Bill
 	WHERE id = billID;
 
-	UPDATE dbo.TableFood
+	UPDATE TableFood
 	SET status = N'Đã có người'
 	WHERE id = tableID;
 	
 
-	SELECT existFoodOnTable = COUNT(*)
-	FROM dbo.BillInfo
+	SELECT COUNT(*)
+	INTO existFoodOnTable
+	FROM BillInfo
 	WHERE idBill = billID;
 
 	IF (existFoodOnTable = 0)
 	THEN
-	    UPDATE dbo.TableFood
+	    UPDATE TableFood
 		SET status = N'Trống'
 		WHERE id = tableID;
 	END IF;
 
-	SELECT numberFoodToCheckDuplicate = COUNT(*)
-	FROM Inserted;
-    
-    CREATE VIEW FoodInserted
-    AS
-		SELECT id 'RowNum', idFood
-		FROM Inserted
-        ORDER BY (id);
+	SELECT COUNT(*)
+	INTO numberFoodToCheckDuplicate
+	FROM NEW;
 
 	WHILE (numberFoodToCheckDuplicate > 0) DO
-		SELECT idFoodInserted = idFood
-		FROM FoodInserted
-		WHERE RowNum = numberFoodToCheckDuplicate;
+		SELECT idFood
+		INTO idFoodInserted
+		FROM (SELECT id, idFood
+				FROM NEW
+				ORDER BY (id)) as foodInserted
+		WHERE foodInserted.id = numberFoodToCheckDuplicate;
 
-		SELECT duplicateFood = COUNT(*)
-		FROM dbo.BillInfo
+		SELECT COUNT(*)
+		INTO duplicateFood
+		FROM BillInfo
 		WHERE idBill = billID AND idFood = idFoodInserted;
 
 		IF(duplicateFood>1) THEN
-			SELECT firstDuplicateID = MIN(id)
-			FROM dbo.BillInfo
+			SELECT MIN(id)
+			INTO firstDuplicateID
+			FROM BillInfo
 			WHERE idBill = billID AND idFood = idFoodInserted;
 
-			SELECT secondDuplicateID = MAX(id)
-			FROM dbo.BillInfo
+			SELECT MAX(id)
+			INTO secondDuplicateID
+			FROM BillInfo
 			WHERE idBill = billID AND idFood = idFoodInserted;
 
-			UPDATE dbo.BillInfo
-			SET count = count + (SELECT count FROM dbo.BillInfo WHERE id = secondDuplicateID)
+			UPDATE BillInfo
+			SET count = count + (SELECT count FROM BillInfo WHERE id = secondDuplicateID)
 			WHERE id = firstDuplicateID;
 
-			DELETE FROM dbo.BillInfo
+			DELETE FROM BillInfo
 			WHERE id = secondDuplicateID;
 		END IF;
 
