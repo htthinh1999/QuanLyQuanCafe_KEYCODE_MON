@@ -110,10 +110,15 @@ CREATE TABLE BillInfo
 INSERT INTO AccountType(name) VALUES(N'Quản trị viên');
 INSERT INTO AccountType(name) VALUES(N'Nhân viên');    
 
+-- user: admin, pass: admin
 INSERT INTO Account(username, password, displayName, typeID, gender, birthday, address)
 VALUES('admin', '21232f297a57a5a743894a0e4a801fc3', N'ADMIN', 1, N'Nam', '19990927', N'Khánh Hòa');
+
+-- user: htthinh, pass: 123
 INSERT INTO Account(username, password, displayName, typeID, gender, birthday, address)
 VALUES('htthinh', '202cb962ac59075b964b07152d234b70', N'Huỳnh Tấn Thịnh', 2, N'Nam', '19990927', N'Khánh Hòa');
+
+-- userL thoathoa, pass: 123
 INSERT INTO Account(username, password, displayName, typeID, gender, birthday, address)
 VALUES('thoathoa', '202cb962ac59075b964b07152d234b70', N'Nguyễn Thị Kim Thoa', 1, N'Nữ', '19990512', N'Khánh Hòa');
 

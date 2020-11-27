@@ -1,4 +1,8 @@
 <?php
+	include '../config/config.php';
+?>
+
+<?php
 	
 class Database{
 
@@ -10,7 +14,7 @@ class Database{
 	public $link;
 	public $error;
 
-	public function __constructor(){
+	public function Database(){
 		$this->connectDB();
 	}
 
