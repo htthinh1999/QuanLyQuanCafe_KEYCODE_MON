@@ -4,7 +4,7 @@
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
         <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-fw fa-coffee"></i>
+            <i class="fas fa-fw fa-coffee logo-size"></i>
         </div>
         <div class="sidebar-brand-text mx-3">Quán cafe KEYCODE MON</div>
     </a>
@@ -13,7 +13,7 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
+    <li class="nav-item">
         <a class="nav-link" href="index.php">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Trang chủ</span></a>
@@ -59,21 +59,21 @@
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Quản lý:</h6>
-                <a class="collapse-item" href="revenue.html">Doanh thu</a>
-                <a class="collapse-item" href="food.html">Món</a>
-                <a class="collapse-item" href="category.html">Danh mục</a>
-                <a class="collapse-item" href="table.html">Bàn</a>
-                <a class="collapse-item" href="account.html">Tài khoản</a>
+                <a class="collapse-item" href="revenue.php">Doanh thu</a>
+                <a class="collapse-item" href="food.php">Món</a>
+                <a class="collapse-item" href="category.php">Danh mục</a>
+                <a class="collapse-item" href="table.php">Bàn</a>
+                <a class="collapse-item" href="account.php">Tài khoản</a>
             </div>
         </div>
     </li>
 
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
     <?php
         }
     ?>
-
-    <!-- Divider -->
-    <hr class="sidebar-divider d-none d-md-block">
 
     <!-- Heading -->
     <div class="sidebar-heading">
