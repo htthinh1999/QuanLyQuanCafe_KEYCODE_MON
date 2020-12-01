@@ -53,7 +53,7 @@
                             <div class="col-12">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">QUÁN CAFE KEYCODE MON</h1>
+                                        <h1 class="h4 text-gray-900 font-weight-bold mb-4">QUÁN CAFE KEYCODE MON</h1>
                                     </div>
                                     <form class="user" action="login.php" method="post">
                                         <div class="form-group">

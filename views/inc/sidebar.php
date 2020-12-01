@@ -42,6 +42,13 @@
         </div>
     </li>
 
+
+    <!-- Only admin can access -->
+    <?php
+        $account = unserialize(serialize(Session::get('account')));
+        if($account->getAccountTypeName() == 'Quản trị viên'){
+    ?>
+
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
@@ -61,6 +68,10 @@
             </div>
         </div>
     </li>
+
+    <?php
+        }
+    ?>
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

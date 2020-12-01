@@ -1,6 +1,7 @@
 <?php
     include '../lib/session.php';
     Session::checkSession();
+    include '../models/account-view-model.php';
 ?>
 
 <!DOCTYPE html>
@@ -217,13 +218,16 @@
                                     </div>
                                     <div class="mt-4 text-center small">
                                         <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Direct
+                                            <i class="fas fa-circle text-primary"></i> Cà phê sữa
                                         </span>
                                         <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Social
+                                            <i class="fas fa-circle text-success"></i> Trà sữa
                                         </span>
                                         <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Referral
+                                            <i class="fas fa-circle text-info"></i> Bò né
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-warning"></i> Khác
                                         </span>
                                     </div>
                                 </div>
