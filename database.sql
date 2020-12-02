@@ -1,4 +1,5 @@
-﻿CREATE DATABASE QL_QuanCafe_KeycodeMon CHARACTER SET utf8 COLLATE utf8_general_ci;
+﻿DROP DATABASE IF EXISTS QL_QuanCafe_KeycodeMon;
+CREATE DATABASE QL_QuanCafe_KeycodeMon CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 USE QL_QuanCafe_KeycodeMon;
 
@@ -122,31 +123,53 @@ VALUES('htthinh', '202cb962ac59075b964b07152d234b70', N'Huỳnh Tấn Thịnh', 
 INSERT INTO Account(username, password, displayName, typeID, gender, birthday, address)
 VALUES('thoathoa', '202cb962ac59075b964b07152d234b70', N'Nguyễn Thị Kim Thoa', 1, N'Nữ', '19990512', N'Khánh Hòa');
 
-DELIMITER $$
-DROP PROCEDURE IF EXISTS InsertTableFood$$
-CREATE PROCEDURE InsertTableFood()
-BEGIN
-	DECLARE i INT DEFAULT 1;
-	WHILE i<=20 DO
-		INSERT INTO TableFood(name) VALUES (N'Bàn số ' + CAST(i as CHAR(3)));
-		SET i = i + 1;
-	END WHILE;
-END; $$
-DELIMITER ;
-
-CALL InsertTableFood();
+INSERT INTO TableFood(name) VALUES (N'Bàn số 1');
+INSERT INTO TableFood(name) VALUES (N'Bàn số 2');
+INSERT INTO TableFood(name) VALUES (N'Bàn số 3');
+INSERT INTO TableFood(name) VALUES (N'Bàn số 4');
+INSERT INTO TableFood(name) VALUES (N'Bàn số 5');
+INSERT INTO TableFood(name) VALUES (N'Bàn số 6');
+INSERT INTO TableFood(name) VALUES (N'Bàn số 7');
+INSERT INTO TableFood(name) VALUES (N'Bàn số 8');
+INSERT INTO TableFood(name) VALUES (N'Bàn số 9');
+INSERT INTO TableFood(name) VALUES (N'Bàn số 10');
+INSERT INTO TableFood(name) VALUES (N'Bàn số 11');
+INSERT INTO TableFood(name) VALUES (N'Bàn số 12');
+INSERT INTO TableFood(name) VALUES (N'Bàn số 13');
+INSERT INTO TableFood(name) VALUES (N'Bàn số 14');
+INSERT INTO TableFood(name) VALUES (N'Bàn số 15');
+INSERT INTO TableFood(name) VALUES (N'Bàn số 16');
+INSERT INTO TableFood(name) VALUES (N'Bàn số 17');
+INSERT INTO TableFood(name) VALUES (N'Bàn số 18');
+INSERT INTO TableFood(name) VALUES (N'Bàn số 19');
+INSERT INTO TableFood(name) VALUES (N'Bàn số 20');
 
 INSERT INTO State(name) VALUES(N'Sử dụng');
 INSERT INTO State(name) VALUES(N'Ngưng sử dụng');
 
-INSERT INTO FoodCategory(name) VALUES(N'Thức ăn');
-INSERT INTO FoodCategory(name) VALUES(N'Thức uống');
+INSERT INTO FoodCategory(name) VALUES(N'Thức ăn khô');
+INSERT INTO FoodCategory(name) VALUES(N'Thức ăn nước');
+INSERT INTO FoodCategory(name) VALUES(N'Cafe');
+INSERT INTO FoodCategory(name) VALUES(N'Trà sữa');
 
-INSERT INTO Food(name, idCategory, price) VALUES(N'Bánh mì thịt', 1, 20000.0);
-INSERT INTO Food(name, idCategory, price) VALUES(N'Bò né', 1, 50000.0);
-INSERT INTO Food(name, idCategory, price) VALUES(N'Cafe đen', 2, 15000.0);
-INSERT INTO Food(name, idCategory, price) VALUES(N'Cafe sữa', 2, 20000.0);
-INSERT INTO Food(name, idCategory, price) VALUES(N'Cafe đá xay', 2, 30000.0);
+INSERT INTO Food(name, idCategory, price) VALUES(N'Bánh mì thường', 1, 15000.0);
+INSERT INTO Food(name, idCategory, price) VALUES(N'Bánh mì heo quay', 1, 15000.0);
+INSERT INTO Food(name, idCategory, price) VALUES(N'Bánh mì ốp la', 1, 15000.0);
+INSERT INTO Food(name, idCategory, price) VALUES(N'Bánh mì đặt biệt', 1, 25000.0);
+INSERT INTO Food(name, idCategory, price) VALUES(N'Bò né 1', 1, 45000.0);
+INSERT INTO Food(name, idCategory, price) VALUES(N'Bò né 2', 1, 55000.0);
+INSERT INTO Food(name, idCategory, price) VALUES(N'Hủ tiếu', 2, 40000.0);
+INSERT INTO Food(name, idCategory, price) VALUES(N'Phở giò', 2, 40000.0);
+INSERT INTO Food(name, idCategory, price) VALUES(N'Phở tái', 2, 35000.0);
+INSERT INTO Food(name, idCategory, price) VALUES(N'Bún bò', 2, 40000.0);
+INSERT INTO Food(name, idCategory, price) VALUES(N'Cafe đen', 3, 15000.0);
+INSERT INTO Food(name, idCategory, price) VALUES(N'Cafe nguyên chất', 3, 25000.0);
+INSERT INTO Food(name, idCategory, price) VALUES(N'Cafe sữa', 3, 17000.0);
+INSERT INTO Food(name, idCategory, price) VALUES(N'Cafe đá xay', 3, 25000.0);
+INSERT INTO Food(name, idCategory, price) VALUES(N'Trà sữa thường', 4, 20000.0);
+INSERT INTO Food(name, idCategory, price) VALUES(N'Sữa tươi trân châu đường đen', 4, 25000.0);
+INSERT INTO Food(name, idCategory, price) VALUES(N'Trà đào', 4, 30000.0);
+INSERT INTO Food(name, idCategory, price) VALUES(N'Trà sen', 4, 30000.0);
 
 INSERT INTO Bill(idTable) VALUES(1);
 INSERT INTO Bill(idTable) VALUES(4);

@@ -3,6 +3,8 @@
     Session::checkSession();
     include '../models/account-view-model.php';
     include '../controllers/table-food.php';
+    include '../controllers/food-category.php';
+    include '../controllers/food.php';
 ?>
 
 <!DOCTYPE html>
@@ -69,7 +71,7 @@
                                         
                                         echo "<div class='col-xl-3 col-lg-4 col-md-6 text-center text-white mb-4'>
                                             <div class='table-food ".(($tableStatus=='Trống')?"bg-success":"bg-danger")."'>
-                                                <h5>Bàn số ". $tableName ."</h5>
+                                                <h5>". $tableName ."</h5>
                                                 <p class='table-description'>". $tableStatus ."</p>
                                             </div>
                                         </div>";
@@ -81,29 +83,61 @@
                         </div>
                         
                         <!-- Function -->
-                        <div class="col-md-4">
+                        <div class="col-md-4 wrap-functions shadow bg-white">
                         
                             <!-- Rows -->
-                            <div class="row wrap-functions shadow bg-white">
+                            <div class="row">
                                 <form class="row w-100 mx-auto">
                                     <div class="col-md-6 form-group">
                                         <label for="category">Loại món</label>
                                         <select class="form-control" id="category">
-                                            <option>Thức ăn</option>
-                                            <option>Thức uống</option>
+
+                                            <?php
+                                                $foodCategory = new FoodCategory();
+                                                $categoryList = $foodCategory->getAllCategories();
+
+                                                foreach($categoryList as $categoryViewModel){
+                                                    $categoryName = $categoryViewModel->getName();
+                                                    
+                                                    echo "<option>".$categoryName."</option>";
+                                                }
+                                            ?>
+
                                         </select>
                                     </div>
                                     <div class="col-md-6 form-group">
                                         <label for="category">Tên món</label>
                                         <select class="form-control" id="category">
-                                            <option>Caffe đen</option>
-                                            <option>Caffe sữa</option>
-                                            <option>Bánh mì</option>
-                                            <option>Bánh mì đặc biệt</option>
-                                            <option>Bò né</option>
+
+                                            <?php
+                                                $food = new Food();
+                                                $foodList = $food->getAllFoods();
+
+                                                foreach($foodList as $foodViewModel){
+                                                    $foodName = $foodViewModel->getName();
+                                                    
+                                                    echo "<option>".$foodName."</option>";
+                                                }
+                                            ?>
+                                            
                                         </select>
                                     </div>
                                 </form>
+                            </div>
+
+                            
+                            <!-- Rows -->
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <button class="btn btn-primary btn-icon-split w-100 h-100">
+                                        <span class="text-uppercase font-weight-bold mt-auto mb-auto">Thêm món</span>
+                                    </button>
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label for="count">Số lượng</label>
+                                    <input id="count" class="form-control" type="number" min="-10" max="10" step="1" value="1">
+                                </div>
                             </div>
 
                         </div>
