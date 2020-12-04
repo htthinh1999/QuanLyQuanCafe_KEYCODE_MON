@@ -66,7 +66,10 @@ class Database{
 	public function procedure($query)
 	{
 		$stmt = $this->link->query($query) or die($this->link->error.__LINE__);
-		return $stmt;
+		if($stmt){
+			return $stmt;
+		}
+		return false;
 	}
 
 }

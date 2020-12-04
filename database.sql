@@ -155,7 +155,7 @@ INSERT INTO FoodCategory(name) VALUES(N'Trà sữa');
 INSERT INTO Food(name, idCategory, price) VALUES(N'Bánh mì thường', 1, 15000.0);
 INSERT INTO Food(name, idCategory, price) VALUES(N'Bánh mì heo quay', 1, 15000.0);
 INSERT INTO Food(name, idCategory, price) VALUES(N'Bánh mì ốp la', 1, 15000.0);
-INSERT INTO Food(name, idCategory, price) VALUES(N'Bánh mì đặt biệt', 1, 25000.0);
+INSERT INTO Food(name, idCategory, price) VALUES(N'Bánh mì đặc biệt', 1, 25000.0);
 INSERT INTO Food(name, idCategory, price) VALUES(N'Bò né 1', 1, 45000.0);
 INSERT INTO Food(name, idCategory, price) VALUES(N'Bò né 2', 1, 55000.0);
 INSERT INTO Food(name, idCategory, price) VALUES(N'Hủ tiếu', 2, 40000.0);
@@ -421,7 +421,7 @@ DELIMITER ;
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_GetBillByTableID$$
 CREATE PROCEDURE USP_GetBillByTableID(IN idTable INT)
-	SELECT f.name, bi.count, f.price, totalPrice = f.price * count
+	SELECT f.name, bi.count, f.price, (f.price * count) as totalPrice
 	FROM Food f INNER JOIN BillInfo bi ON bi.idFood = f.id
 					INNER JOIN Bill b ON b.id = bi.idBill
 	WHERE b.idTable = idTable AND b.status = N'Chưa thanh toán'; $$
