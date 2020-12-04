@@ -3,6 +3,7 @@
     Session::checkLogin();
     include '../lib/database.php';
     include '../helpers/format.php';
+    include '../models/account-view-model.php';
 ?>
 
 <?php
@@ -28,14 +29,16 @@
                 $alertText = "Tên đăng nhập hoặc mật khẩu chưa được nhập";
                 return $alertText;
             }else{
-                $query = "SELECT * FROM account WHERE username = '$username' AND password = '$password' LIMIT 1";
+                $query = "SELECT *
+                            FROM account ac INNER JOIN accountType act ON ac.typeID = act.id
+                            WHERE username = '$username' AND password = '$password' LIMIT 1";
                 $result = $this->db->select($query);
-                var_dump($result);
+                
                 if($result > 0){
                     $value = $result->fetch_assoc();
                     Session::set('login', true);
-                    Session::set('username', $value['username']);
-                    Session::set('password', $value['password']);
+                    $account = new AccountViewModel($value['username'], $value['name'], $value['displayName'], $value['gender'], $value['address']);
+                    Session::set('account', $account);
                     header('Location:index.php');
                 }else{
                     $alertText = "Tên tài khoản hoặc mật khẩu không hợp lệ";
