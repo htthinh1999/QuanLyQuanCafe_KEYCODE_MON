@@ -1,4 +1,9 @@
 <?php
+    include '../lib/session.php';
+	include '../config/config.php';
+    include '../lib/database.php';
+    include '../helpers/format.php';
+    include '../models/account-view-model.php';
     include '../controllers/account.php';
 ?>
 

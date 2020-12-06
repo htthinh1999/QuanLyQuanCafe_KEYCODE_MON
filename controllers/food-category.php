@@ -1,6 +1,5 @@
 <?php
     Session::checkSession();
-    include '../models/category-view-model.php';
 ?>
 
 <?php

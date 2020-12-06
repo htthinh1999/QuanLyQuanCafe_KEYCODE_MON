@@ -248,17 +248,18 @@ DELIMITER ;
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_LoadFoodList$$
 CREATE PROCEDURE USP_LoadFoodList()
-	SELECT f.id 'ID', f.name 'Tên món', fc.name 'Danh mục', price 'Giá tiền', s.name 'Trạng thái'
+	SELECT f.id 'ID', f.name 'Tên món', fc.id 'Mã danh mục', fc.name 'Danh mục', price 'Giá tiền', s.name 'Trạng thái'
     FROM Food f INNER JOIN FoodCategory fc ON fc.id = f.idCategory
 				INNER JOIN State s ON f.stateID = s.id; $$
 DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_LoadFoodListByCategoryID$$
-CREATE PROCEDURE USP_LoadFoodListByCategoryID(IN idCategory INT)
-	SELECT *
-	FROM Food
-	WHERE idCategory = idCategory AND stateID = 1; $$
+CREATE PROCEDURE USP_LoadFoodListByCategoryID(IN categoryID INT)
+	SELECT f.id 'ID', f.name 'Tên món', fc.id 'Mã danh mục', fc.name 'Danh mục', price 'Giá tiền', s.name 'Trạng thái'
+    FROM Food f INNER JOIN FoodCategory fc ON fc.id = f.idCategory
+				INNER JOIN State s ON f.stateID = s.id
+	WHERE fc.id = categoryID; $$
 DELIMITER ;
 
 DELIMITER $$

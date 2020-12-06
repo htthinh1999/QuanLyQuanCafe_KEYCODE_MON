@@ -184,6 +184,29 @@ _fnLog:K,_fnMap:F,_fnBindAction:Xa,_fnCallbackReg:z,_fnCallbackFire:t,_fnLengthO
 
 
 $(document).ready(function() {
+
+  // Load foods when change category
+  $('#category').on('change', function() {
+    var target = $("#food");
+    var value = $(this).val();
+
+    $.ajax({
+      url: 'inc/all-tables/get-foods-by-categoryID.php',
+      data: {currentCategoryID: value},
+      type: 'POST',
+      success: function(response){
+        $(target).find('option').remove();
+        $.each(JSON.parse(response), function(){
+          $(target).append($('<option></option>')
+              .attr('value', this.id)
+              .text(this.name));
+        });
+      }
+    })
+  })
+
+
+  // Load bill datatable
   $('#dataTable').DataTable();
 });
-  
+

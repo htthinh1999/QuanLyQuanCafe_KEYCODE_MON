@@ -1,9 +1,5 @@
 <?php
     Session::checkSession();
-    include '../lib/database.php';
-    include '../helpers/format.php';
-    include '../models/table-view-model.php';
-    include '../models/food-in-bill-view-model.php';
 ?>
 
 <?php
@@ -32,7 +28,7 @@
         }
 
         public function getTableByID($tableID){
-            $query = "SELECT * FROM TableFood WHERE id = '$tableID' LIMIT 1";
+            $query = "SELECT * FROM TableFood WHERE id = $tableID LIMIT 1";
             $result = $this->db->select($query);
             if($result !== false){
                 $value = $result->fetch_assoc();
@@ -44,7 +40,7 @@
         }
 
         public function getBillByTableID($tableID){
-            $query = "CALL USP_GetBillByTableID(".$tableID.")";
+            $query = "CALL USP_GetBillByTableID($tableID)";
             $result = $this->db->procedure($query);
 
             $bill = array();

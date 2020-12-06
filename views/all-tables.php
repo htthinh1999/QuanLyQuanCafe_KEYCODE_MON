@@ -1,10 +1,41 @@
 <?php
-    include '../lib/session.php';
+    require_once '../lib/session.php';
     Session::checkSession();
-    include '../models/account-view-model.php';
-    include '../controllers/table-food.php';
-    include '../controllers/food-category.php';
-    include '../controllers/food.php';
+    // important
+	require_once '../config/config.php';
+    require_once '../lib/database.php';
+    require_once '../helpers/format.php';
+
+    // models
+    require_once '../models/account-view-model.php';
+    require_once '../models/table-view-model.php';
+    require_once '../models/category-view-model.php';
+    require_once '../models/food-view-model.php';
+    require_once '../models/food-in-bill-view-model.php';
+
+    // controllers
+    require_once '../controllers/table-food.php';
+    require_once '../controllers/food-category.php';
+    require_once '../controllers/food.php';
+?>
+
+<?php
+
+    // get current table id
+    $currentTableID = 1;
+    if(isset($_GET["currentTableID"])){
+        $currentTableID = $_GET["currentTableID"];
+    }
+    
+    // get current table name
+    $tableFood = new TableFood();
+    $currentTable = $tableFood->getTableByID($currentTableID);
+    $currentTableName = $currentTable->getName();
+
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +70,6 @@
             <!-- Main Content -->
             <div id="content">
 
-                
                 <?php
                     include 'inc/topbar.php';
                 ?>
@@ -55,178 +85,30 @@
                     <!-- Content Row -->
                     <div class="row">
 
-                        <!-- Function -->
-                        <div class="col-12 wrap-functions mb-4">
-                            
-                            <!-- Function Card -->
-                            <div class="card shadow">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Chức năng</h6>
-                                </div>
+                        <!-- Add Food -->
+                        <div class="col-lg-6 wrap-add-food mb-4">
+                            <?php include 'inc/all-tables/add-food.php';?>
+                        </div>
 
-                                <div class="card-body">
-                                    <!-- Rows -->
-                                    <div class="row">
-                                        <form class="row w-100 mx-auto">
-                                            <div class="col-md-6 form-group">
-                                                <label for="category">Loại món</label>
-                                                <select class="form-control" id="category">
+                        <!-- Checkout -->
+                        <div class="col-lg-3 wrap-check-out mb-4">
+                            <?php include 'inc/all-tables/check-out.php';?>
+                        </div>
 
-                                                    <?php
-                                                        $foodCategory = new FoodCategory();
-                                                        $categoryList = $foodCategory->getAllCategories();
-
-                                                        foreach($categoryList as $categoryViewModel){
-                                                            $categoryName = $categoryViewModel->getName();
-                                                            
-                                                            echo "<option>".$categoryName."</option>";
-                                                        }
-                                                    ?>
-
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6 form-group">
-                                                <label for="food">Tên món</label>
-                                                <select class="form-control" id="food">
-
-                                                    <?php
-                                                        $food = new Food();
-                                                        $foodList = $food->getAllFoods();
-
-                                                        foreach($foodList as $foodViewModel){
-                                                            $foodName = $foodViewModel->getName();
-                                                            
-                                                            echo "<option>".$foodName."</option>";
-                                                        }
-                                                    ?>
-                                                    
-                                                </select>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    
-                                    <!-- Rows -->
-                                    <div class="row">
-                                        <div class="col-md-6 form-group">
-                                            <button class="btn btn-primary btn-icon-split w-100 h-100">
-                                                <span class="text-uppercase font-weight-bold mt-auto mb-auto">Thêm món</span>
-                                            </button>
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label for="count">Số lượng</label>
-                                            <input id="count" class="form-control" type="number" min="-10" max="10" step="1" value="1">
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
+                        <!-- Change Table -->
+                        <div class="col-lg-3 wrap-change-table mb-4">
+                            <?php include 'inc/all-tables/change-table.php';?>
                         </div>
 
                         <!-- Tables -->
                         <div class="col-xl-7 col-lg-6 wrap-all-tables-left">
-                            <!-- Table Card -->
-                            <div class="card shadow">
-                                
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Danh sách các bàn</h6>
-                                </div>
-
-                                <div class="card-body wrap-tables" id="table-foods">
-                                    <!-- Rows -->
-                                    <div class="row">
-                                        
-                                        <?php
-                                            $tableFood = new TableFood();
-                                            $tableList = $tableFood->getAllTables();
-
-                                            foreach($tableList as $tableViewModel){
-                                                $tableName = $tableViewModel->getName();
-                                                $tableStatus = $tableViewModel->getStatus();
-                                                
-                                                echo "<a href='?tableID=".$tableViewModel->getID()."#table-foods' class='col-xl-3 col-lg-4 col-md-6 text-center text-white mb-3 wrap-table-food'>
-                                                    <div class='table-food ".(($tableStatus=='Trống')?"bg-success":"bg-danger")."'>
-                                                        <h5>". $tableName ."</h5>
-                                                        <p class='table-description'>". $tableStatus ."</p>
-                                                    </div>
-                                                </a>";
-                                            }
-                                        ?>
-
-                                    </div>
-                                </div>
-                            </div>
+                            <?php include 'inc/all-tables/tables.php';?>
                         </div>
 
                         <!-- Bill -->
                         <div class="col-xl-5 col-lg-6">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">
-                                        <?php
-                                            $tableID = 1;
-                                            if(isset($_GET["tableID"])){
-                                                $tableID = $_GET["tableID"];
-                                            }
-                                            $tableFood = new TableFood();
-                                            $table = $tableFood->getTableByID($tableID);
-                                            if($table!==false){
-                                                $tableName = $table->getName();
-                                                echo "Hoá đơn của '".$tableName."'";
-                                            }
-                                        ?>
-                                    </h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                            <thead>
-                                                <tr>
-                                                    <th>Tên</th>
-                                                    <th>Số lượng</th>
-                                                    <th>Giá</th>
-                                                    <th>Tổng tiền</th>
-                                                </tr>
-                                            </thead>
-                                            <tfoot>
-                                                <tr>
-                                                    <th>Tên</th>
-                                                    <th>Số lượng</th>
-                                                    <th>Giá</th>
-                                                    <th>Tổng tiền</th>
-                                                </tr>
-                                            </tfoot>
-                                            <tbody>
-                                            
-                                                <?php
-                                                    $tableFood = new TableFood();
-                                                    $bill = $tableFood->getBillByTableID($tableID);
-
-                                                    foreach($bill as $foodInBillViewModel){
-                                                        $foodInBillName = $foodInBillViewModel->getName();
-                                                        $foodInBillCount = $foodInBillViewModel->getCount();
-                                                        $foodInBillPrice = $foodInBillViewModel->getPrice();
-                                                        $foodInBillTotalPrice = $foodInBillViewModel->getTotalPrice();
-                                                        
-                                                        echo "<tr>
-                                                            <td>".$foodInBillName."</td>
-                                                            <td>".$foodInBillCount."</td>
-                                                            <td>".$foodInBillPrice."</td>
-                                                            <td>".$foodInBillTotalPrice."</td>
-                                                            </tr>";
-                                                    }
-                                                ?>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
+                            <?php include 'inc/all-tables/bill.php';?>
                         </div>
-                    </div>
-
-                    <!-- Content Row -->
-                    <div class="row">
 
                     </div>
                 </div>
