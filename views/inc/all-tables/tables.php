@@ -18,8 +18,8 @@
                     $tableFoodName = $tableViewModel->getName();
                     $tableFoodStatus = $tableViewModel->getStatus();
                     
-                    echo "<a href='?currentTableID=$tableFoodID#table-foods' class='col-xl-3 col-lg-4 col-md-6 text-center text-white mb-3 wrap-table-food'>
-                        <div class='table-food ".(($tableFoodStatus=='Trống')?"bg-success":"bg-danger")."'>
+                    echo "<a href='#table-foods' class='col-xl-3 col-lg-4 col-md-6 text-center text-white mb-3 wrap-table-food'>
+                        <div class='table-food ".(($tableFoodStatus=='Trống')?"bg-success":"bg-danger")."' data-table-id='$tableFoodID'>
                             <h5>$tableFoodName</h5>
                             <p class='table-description'>$tableFoodStatus</p>
                         </div>

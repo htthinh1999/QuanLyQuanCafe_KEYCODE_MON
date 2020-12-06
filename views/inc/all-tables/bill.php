@@ -1,9 +1,13 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">
+        <h6 class="m-0 font-weight-bold text-primary" id='bill-title'>
         
             <?php
-                echo "Hoá đơn của '".$GLOBALS["currentTableName"]."'";
+                $currentTableID = 1;
+                $tableFood = new TableFood();
+                $tableName = $tableFood->getTableByID($currentTableID)->getName();
+
+                echo "Hoá đơn của '$tableName'";
             ?>
             
         </h6>

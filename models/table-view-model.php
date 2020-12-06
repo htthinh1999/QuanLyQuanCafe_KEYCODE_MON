@@ -24,6 +24,14 @@ class TableViewModel{
         return $this->status;
     }
 
+    public function getJson(){
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'status' => $this->status,
+        ];
+    }
+
 }
 
 ?>

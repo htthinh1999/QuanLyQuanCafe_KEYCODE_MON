@@ -30,6 +30,15 @@
             return $this->totalPrice;
         }
 
+        public function getJson(){
+            return [
+                'food_name' => $this->name,
+                'food_count' => $this->count,
+                'food_price' => $this->price,
+                'total_price' => $this->totalPrice,
+            ];
+        }
+
     }
 
 ?>

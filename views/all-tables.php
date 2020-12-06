@@ -21,17 +21,6 @@
 
 <?php
 
-    // get current table id
-    $currentTableID = 1;
-    if(isset($_GET["currentTableID"])){
-        $currentTableID = $_GET["currentTableID"];
-    }
-    
-    // get current table name
-    $tableFood = new TableFood();
-    $currentTable = $tableFood->getTableByID($currentTableID);
-    $currentTableName = $currentTable->getName();
-
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         
     }

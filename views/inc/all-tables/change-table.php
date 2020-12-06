@@ -9,10 +9,14 @@
             <!-- Rows -->
             <div class="row">
                 <div class="col-12 form-group">
-                    <label for="from-table">
+                    <label for="from-table" id="change-table-description">
 
                         <?php
-                            echo "Từ bàn '".$GLOBALS["currentTableName"]."'";
+                            // get current table
+                            $currentTableID = 1;
+                            $tableFood = new TableFood();
+                            $table = $tableFood->getTableByID($currentTableID);
+                            echo "Từ bàn '".$table->getName()."'";
                         ?>
                             
                     </label>
@@ -21,11 +25,12 @@
 
                         <?php
                             // get all table except current table
+                            $currentTableID = 1;
                             $tableFood = new TableFood();
                             $tableList = $tableFood->getAllTables();
 
                             foreach($tableList as $tableViewModel){
-                                if($tableViewModel->getID() != $GLOBALS["currentTableID"]){
+                                if($tableViewModel->getID() != $currentTableID){
                                     $tableName = $tableViewModel->getName();
                                     echo "<option>$tableName</option>";
                                 }

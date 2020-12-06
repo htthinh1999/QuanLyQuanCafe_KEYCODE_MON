@@ -144,7 +144,7 @@ function(a){var d=this.selector.opts,e=this;return this.iterator(b,function(f,g,
 _sFilterRow:null,_sRowStripe:"",src:null,idx:-1};n.models.oColumn={idx:null,aDataSort:null,asSorting:null,bSearchable:null,bSortable:null,bVisible:null,_sManualType:null,_bAttrSrc:!1,fnCreatedCell:null,fnGetData:null,fnSetData:null,mData:null,mRender:null,nTh:null,nTf:null,sClass:null,sContentPadding:null,sDefaultContent:null,sName:null,sSortDataType:"std",sSortingClass:null,sSortingClassJUI:null,sTitle:null,sType:null,sWidth:null,sWidthOrig:null};n.defaults={aaData:null,aaSorting:[[0,"asc"]],aaSortingFixed:[],
 ajax:null,aLengthMenu:[5,10,15,20,25],aoColumns:null,aoColumnDefs:null,aoSearchCols:[],asStripeClasses:null,bAutoWidth:!0,bDeferRender:!1,bDestroy:!1,bFilter:!0,bInfo:!0,bLengthChange:!0,bPaginate:!0,bProcessing:!1,bRetrieve:!1,bScrollCollapse:!1,bServerSide:!1,bSort:!0,bSortMulti:!0,bSortCellsTop:!1,bSortClasses:!0,bStateSave:!1,fnCreatedRow:null,fnDrawCallback:null,fnFooterCallback:null,fnFormatNumber:function(a){return a.toString().replace(/\B(?=(\d{3})+(?!\d))/g,this.oLanguage.sThousands)},fnHeaderCallback:null,
 fnInfoCallback:null,fnInitComplete:null,fnPreDrawCallback:null,fnRowCallback:null,fnServerData:null,fnServerParams:null,fnStateLoadCallback:function(a){try{return JSON.parse((a.iStateDuration===-1?sessionStorage:localStorage).getItem("DataTables_"+a.sInstance+"_"+location.pathname))}catch(b){return{}}},fnStateLoadParams:null,fnStateLoaded:null,fnStateSaveCallback:function(a,b){try{(a.iStateDuration===-1?sessionStorage:localStorage).setItem("DataTables_"+a.sInstance+"_"+location.pathname,JSON.stringify(b))}catch(c){}},
-fnStateSaveParams:null,iStateDuration:7200,iDeferLoading:null,iDisplayLength:5,iDisplayStart:0,iTabIndex:0,oClasses:{},oLanguage:{oAria:{sSortAscending:": activate to sort column ascending",sSortDescending:": activate to sort column descending"},oPaginate:{sFirst:"Đầu",sLast:"Cuối",sNext:"Sau",sPrevious:"Trước"},sEmptyTable:"Không có dữ liệu trong bảng",sInfo:"Hiển thị _START_ - _END_ của _TOTAL_ dữ liệu",sInfoEmpty:"Dữ liệu rỗng",sInfoFiltered:"(Đã lọc từ _MAX_ dữ liệu)",
+fnStateSaveParams:null,iStateDuration:7200,iDeferLoading:null,iDisplayLength:5,iDisplayStart:0,iTabIndex:0,oClasses:{},oLanguage:{oAria:{sSortAscending:": activate to sort column ascending",sSortDescending:": activate to sort column descending"},oPaginate:{sFirst:"Đầu",sLast:"Cuối",sNext:"Sau",sPrevious:"Trước"},sEmptyTable:"Chưa có món nào được gọi!",sInfo:"Hiển thị _START_ - _END_ của _TOTAL_ dữ liệu",sInfoEmpty:"Dữ liệu rỗng",sInfoFiltered:"(Đã lọc từ _MAX_ dữ liệu)",
 sInfoPostFix:"",sDecimal:"",sThousands:",",sLengthMenu:"Hiển thị _MENU_ dữ liệu",sLoadingRecords:"Đang tải...",sProcessing:"Đang xử lý...",sSearch:"Tìm kiếm:",sSearchPlaceholder:"",sUrl:"",sZeroRecords:"Không tìm thấy dữ iệu phù hợp"},oSearch:h.extend({},n.models.oSearch),sAjaxDataProp:"data",sAjaxSource:null,sDom:"lfrtip",searchDelay:null,sPaginationType:"simple_numbers",sScrollX:"",sScrollXInner:"",sScrollY:"",sServerMethod:"GET",renderer:null,rowId:"DT_RowId"};$(n.defaults);n.defaults.column={aDataSort:null,
 iDataSort:-1,asSorting:["asc","desc"],bSearchable:!0,bSortable:!0,bVisible:!0,fnCreatedCell:null,mData:null,mRender:null,sCellType:"td",sClass:"",sContentPadding:"",sDefaultContent:null,sName:"",sSortDataType:"std",sTitle:null,sType:null,sWidth:null};$(n.defaults.column);n.models.oSettings={oFeatures:{bAutoWidth:null,bDeferRender:null,bFilter:null,bInfo:null,bLengthChange:null,bPaginate:null,bProcessing:null,bServerSide:null,bSort:null,bSortMulti:null,bSortClasses:null,bStateSave:null},oScroll:{bCollapse:null,
 iBarWidth:0,sX:null,sXInner:null,sY:null},oLanguage:{fnInfoCallback:null},oBrowser:{bScrollOversize:!1,bScrollbarLeft:!1,bBounding:!1,barWidth:0},ajax:null,aanFeatures:[],aoData:[],aiDisplay:[],aiDisplayMaster:[],aIds:{},aoColumns:[],aoHeader:[],aoFooter:[],oPreviousSearch:{},aoPreSearchCols:[],aaSorting:null,aaSortingFixed:[],asStripeClasses:null,asDestroyStripes:[],sDestroyWidth:0,aoRowCallback:[],aoHeaderCallback:[],aoFooterCallback:[],aoDrawCallback:[],aoRowCreatedCallback:[],aoPreDrawCallback:[],
@@ -187,7 +187,7 @@ $(document).ready(function() {
 
   // Load foods when change category
   $('#category').on('change', function() {
-    var target = $("#food");
+    var foods = $("#food");
     var value = $(this).val();
 
     $.ajax({
@@ -195,18 +195,75 @@ $(document).ready(function() {
       data: {currentCategoryID: value},
       type: 'POST',
       success: function(response){
-        $(target).find('option').remove();
+        $(foods).find('option').remove();
         $.each(JSON.parse(response), function(){
-          $(target).append($('<option></option>')
+          $(foods).append($('<option></option>')
               .attr('value', this.id)
               .text(this.name));
         });
       }
     })
-  })
+  });
 
+  var currentTableID = 1;
+  // Load bill, change table when table was clicked
+  $(".table-food").on('click', function(){
+    var tableID = $(this).data('table-id');
+    currentTableID = tableID;
+
+    // Reload bill datatable
+    $('#dataTable').DataTable().ajax.reload();
+    
+    // Update bill-title
+    $.ajax({
+      url: 'inc/all-tables/get-table-by-tableID.php',
+      data: {currentTableID: currentTableID},
+      type: 'POST',
+      success: function(response){
+        var tableInfo = JSON.parse(response);
+        $('#bill-title').text("Hoá đơn của '"+tableInfo.name+"'");
+
+        // Update change-table-description
+        $('#change-table-description').text("Từ bàn '"+tableInfo.name+"'");
+
+        // Update tables to change except current table
+        var tablesToChange = $('#to-table');
+        $.ajax({
+          url: 'inc/all-tables/get-tables-except-current.php',
+          data: {currentTableID: currentTableID},
+          type: 'POST',
+          success: function(response){
+            $(tablesToChange).find('option').remove();
+            $.each(JSON.parse(response), function(){
+              $(tablesToChange).append($('<option></option>')
+                  .attr('value', this.id)
+                  .text(this.name));
+            });
+          }
+        });
+      }
+    });
+
+  });
 
   // Load bill datatable
-  $('#dataTable').DataTable();
+  $('#dataTable').DataTable({
+    ajax: {
+      url: 'inc/all-tables/get-bill-by-tableID.php',
+      data: {
+        currentTableID: 
+          function getCurrentTableID(){
+            return currentTableID;
+          }
+      },
+      type: 'POST'
+    },
+    columns: [
+      { "data": "food_name" },
+      { "data": "food_count" },
+      { "data": "food_price" },
+      { "data": "total_price" }
+    ]
+  });
+  
 });
-
