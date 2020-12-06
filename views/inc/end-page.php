@@ -42,3 +42,6 @@
 
 <!-- Main JavaScript -->
 <script src="../assets/js/main.js"></script>
+
+<!-- Data Table -->
+<script src="../assets/js/all-tables.js"></script>

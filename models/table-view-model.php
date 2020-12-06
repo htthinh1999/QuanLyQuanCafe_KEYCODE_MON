@@ -2,12 +2,18 @@
 
 class TableViewModel{
 
+    private $id;
     private $name;
     private $status;
 
-    public function TableViewModel($name, $status){
+    public function TableViewModel($id, $name, $status){
+        $this->id = $id;
         $this->name = $name;
         $this->status = $status;
+    }
+
+    public function getID(){
+        return $this->id;
     }
 
     public function getName(){
