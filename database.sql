@@ -1,4 +1,4 @@
-﻿DROP DATABASE IF EXISTS QL_QuanCafe_KeycodeMon;
+DROP DATABASE IF EXISTS QL_QuanCafe_KeycodeMon;
 CREATE DATABASE QL_QuanCafe_KeycodeMon CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 USE QL_QuanCafe_KeycodeMon;
@@ -272,10 +272,12 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_AddFoodToTable$$
 CREATE PROCEDURE USP_AddFoodToTable(IN foodID INT, IN count INT, IN tableID INT)
 BEGIN
-DECLARE billID INT;
-    DECLARE numberOfFoodNameOnTable INT;
+	DECLARE billID INT DEFAULT 0;
+    DECLARE numberOfFoodNameOnTable INT DEFAULT 0;
 	DECLARE existFood INT DEFAULT 0;
-	DECLARE rest INT;
+	DECLARE rest INT DEFAULT 0;
+    DECLARE existFoodOnTable INT DEFAULT 0;
+    DECLARE existBillID INT DEFAULT 0;
 
 	SELECT id
 	INTO billID
@@ -288,14 +290,14 @@ DECLARE billID INT;
 	FROM BillInfo
 	WHERE idBill = billID;
 
-	IF (numberOfFoodNameOnTable > 0) THEN
+	IF numberOfFoodNameOnTable > 0 THEN
 
 		SELECT COUNT(*)
 		INTO existFood
 		FROM BillInfo
 		WHERE idBill = billID AND idFood = foodID;
-
-		IF (existFood > 0) THEN
+        
+		IF existFood > 0 THEN
 			SET rest = 0;
 
 			SELECT bi.count + count
@@ -304,9 +306,21 @@ DECLARE billID INT;
 			WHERE idBill = billID AND idFood = foodID
 			LIMIT 1;
 
-			IF (rest <= 0) THEN
+			IF rest <= 0 THEN
 				DELETE FROM BillInfo
 				WHERE idBill = billID AND idFood = foodID;
+                
+                SELECT COUNT(*)
+				INTO existFoodOnTable
+				FROM BillInfo
+				WHERE idBill = billID;
+				
+				IF existFoodOnTable = 0 THEN
+					UPDATE TableFood
+					SET status = N'Trống'
+					WHERE id = tableID;
+				END IF;
+                
 			ELSE
 				UPDATE BillInfo
 				SET count = rest
@@ -318,13 +332,20 @@ DECLARE billID INT;
 			VALUES(billID, foodID, count);
 		END IF;
 
-	ELSEIF (count > 0) THEN
+	ELSEIF count > 0 THEN
 	
-		INSERT INTO Bill(idTable) VALUES (tableID);
+		SELECT id
+        INTO existBillID
+        FROM Bill
+        WHERE id = billID;
+        
+        IF existBillID = 0 THEN
+			INSERT INTO Bill(idTable) VALUES (tableID);
 
-		SELECT MAX(id)
-		INTO billID
-		FROM Bill;
+			SELECT MAX(id)
+			INTO billID
+			FROM Bill;
+		END IF;
 
 		INSERT INTO BillInfo(idBill, idFood, count)
 		VALUES(billID, foodID, count);
@@ -605,14 +626,19 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_DeleteTableFood$$
-CREATE PROCEDURE USP_DeleteTableFood(id INT)
+CREATE PROCEDURE USP_DeleteTableFood(IN tableID INT)
 	DELETE FROM TableFood
-	WHERE id = id; $$
+	WHERE id = tableID; $$
 DELIMITER ;
 /*------------------------------ END PROCEDURES OF TableFood ------------------------------*/
 
 /*--**************************************** END CREATE PROCEDURES ****************************************--*/
-
+CREATE TABLE messages (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  message VARCHAR(255) DEFAULT NULL,
+  time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id)
+);
 
 /*--**************************************** CREATE TRIGGERS ****************************************--*/
 DELIMITER $$
@@ -621,7 +647,7 @@ CREATE TRIGGER UTG_UpdateBillInfo
 AFTER INSERT ON BillInfo
 FOR EACH ROW
 BEGIN
-    DECLARE billID INT;
+    DECLARE billID INT DEFAULT 0;
 	DECLARE tableID INT;
 	DECLARE numberFoodToCheckDuplicate INT;
 	DECLARE duplicateFood INT;
@@ -636,28 +662,27 @@ BEGIN
 	SET status = N'Chưa thanh toán'
 	WHERE id = billID;
 
-
 	SELECT idTable
 	INTO tableID
 	FROM Bill
-	WHERE id = billID;
+	WHERE id = billID
+	LIMIT 1;
 
 	UPDATE TableFood
 	SET status = N'Đã có người'
 	WHERE id = tableID;
-	
 
 	SELECT COUNT(*)
 	INTO existFoodOnTable
 	FROM BillInfo
 	WHERE idBill = billID;
-
+    
 	IF existFoodOnTable = 0 THEN
 	    UPDATE TableFood
 		SET status = N'Trống'
 		WHERE id = tableID;
 	END IF;
-
+    
 	SET numberFoodToCheckDuplicate = IF(NEW.idBill>0, 1, 0);
 
 	WHILE (numberFoodToCheckDuplicate > 0) DO
@@ -689,7 +714,8 @@ BEGIN
 
 		SET numberFoodToCheckDuplicate = numberFoodToCheckDuplicate - 1;
 	END WHILE;
+    
 END; $$
 DELIMITER ;
-
 /*--**************************************** END CREATE TRIGGERS ****************************************--*/
+
