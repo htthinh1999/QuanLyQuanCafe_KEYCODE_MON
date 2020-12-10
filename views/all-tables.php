@@ -19,14 +19,6 @@
     require_once '../controllers/food.php';
 ?>
 
-<?php
-
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        
-    }
-
-?>
-
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -73,6 +65,9 @@
 
                     <!-- Content Row -->
                     <div class="row">
+                        
+                        <!-- Current Table ID -->
+                        <input type="hidden" class="currentTableID" name="currentTableID" value="1" />
 
                         <!-- Add Food -->
                         <div class="col-lg-6 wrap-add-food mb-4">

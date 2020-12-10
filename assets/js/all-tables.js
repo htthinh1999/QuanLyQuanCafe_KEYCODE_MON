@@ -265,5 +265,30 @@ $(document).ready(function() {
       { "data": "total_price" }
     ]
   });
+
+  // Add food to table
+  $('#btn-add-food').click(function(){
+    // alert('Mã bàn: ' + currentTableID);
+    // alert('Mã món ăn: ' + $('#food option:selected').val());
+    // alert('Số lượng: ' + $('#count').val());
+
+    var foodID = $('#food option:selected').val();
+    var foodCount = $('#count').val();
+
+    $.ajax({
+      url: 'inc/all-tables/add-food-to-table.php',
+      data: {
+        currentTableID: currentTableID,
+        foodID: foodID,
+        foodCount: foodCount
+      },
+      type: 'POST',
+      success: function(response){
+        // alert(response);
+        $('#dataTable').DataTable().ajax.reload();
+      }
+    });
+
+  });
   
 });

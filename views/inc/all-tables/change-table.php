@@ -1,4 +1,5 @@
 <form method="post" action="#" class="h-100">
+    
     <!-- Change Table Card -->
     <div class="card shadow h-100">
         <div class="card-header py-3">
@@ -25,12 +26,11 @@
 
                         <?php
                             // get all table except current table
-                            $currentTableID = 1;
                             $tableFood = new TableFood();
                             $tableList = $tableFood->getAllTables();
 
                             foreach($tableList as $tableViewModel){
-                                if($tableViewModel->getID() != $currentTableID){
+                                if($tableViewModel->getID() != $GLOBALS["currentTableID"]){
                                     $tableName = $tableViewModel->getName();
                                     echo "<option>$tableName</option>";
                                 }

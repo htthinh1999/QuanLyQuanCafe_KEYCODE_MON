@@ -51,6 +51,16 @@
 
             return $bill;
         }
+
+        public function addFoodToTable($foodID, $count, $tableID){
+            $query = "CALL USP_AddFoodToTable($foodID, $count, $tableID)";
+            $result = $this->db->procedure($query);
+
+            if($result){
+                return true;
+            }
+            return false;
+        }
     }
 
 ?>

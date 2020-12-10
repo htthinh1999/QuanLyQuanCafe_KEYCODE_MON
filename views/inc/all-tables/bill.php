@@ -34,8 +34,9 @@
                 <tbody>
                 
                     <?php
+                        $currentTableID = 1;
                         $tableFood = new TableFood();
-                        $bill = $tableFood->getBillByTableID($GLOBALS["currentTableID"]);
+                        $bill = $tableFood->getBillByTableID($currentTableID);
 
                         foreach($bill as $foodInBillViewModel){
                             $foodInBillName = $foodInBillViewModel->getName();

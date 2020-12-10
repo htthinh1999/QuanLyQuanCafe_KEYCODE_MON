@@ -1,4 +1,5 @@
 <form method="post" action="#" class="h-100">
+        
     <!-- Change Table Card -->
     <div class="card shadow h-100">
         <div class="card-header py-3">
@@ -9,7 +10,7 @@
             <!-- Rows -->
             <div class="row">
                 <div class="col-12 form-group">
-                    <label for="discount">Giảm giá</label>
+                    <label for="discount">Giảm giá (%)</label>
                     <input id="discount" name="discount" class="form-control" type="number" min="-10" max="10" step="1" value="1">
                 </div>
             </div>
