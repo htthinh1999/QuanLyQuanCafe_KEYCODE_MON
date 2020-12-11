@@ -285,6 +285,24 @@ $(document).ready(function() {
       type: 'POST',
       success: function(response){
         // alert(response);
+
+        // reload all tables
+        $.ajax({
+          url: 'inc/all-tables/get-all-tables.php',
+          type: 'GET',
+          success: function(response){
+            var tableFoods = $("#table-foods");
+            var divTags = $(tableFoods).find('div');
+            $.each(JSON.parse(response), function(i){
+              $(divTags[i]).attr('class', 'table-food '+((this.status=='Trống')?"bg-success":"bg-danger"))
+                        .attr('data-table-id', this.id);
+              $(divTags[i]).find('h5').text(this.name);
+              $(divTags[i]).find('p').text(this.status);
+            });
+          }
+        });
+
+        // reload bill datatable
         $('#dataTable').DataTable().ajax.reload();
       }
     });

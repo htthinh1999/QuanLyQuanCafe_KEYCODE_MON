@@ -5,9 +5,9 @@
         <h6 class="m-0 font-weight-bold text-primary">Danh sách các bàn</h6>
     </div>
     
-    <div class="card-body wrap-tables" id="table-foods">
+    <div class="card-body wrap-tables">
         <!-- Rows -->
-        <div class="row">
+        <div class="row" id="table-foods">
             
             <?php
                 $tableFood = new TableFood();

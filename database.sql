@@ -290,14 +290,15 @@ BEGIN
 	FROM BillInfo
 	WHERE idBill = billID;
 
-	IF numberOfFoodNameOnTable > 0 THEN
+	SELECT COUNT(*)
+	INTO existFood
+	FROM BillInfo
+	WHERE idBill = billID AND idFood = foodID;
 
-		SELECT COUNT(*)
-		INTO existFood
-		FROM BillInfo
-		WHERE idBill = billID AND idFood = foodID;
+	IF numberOfFoodNameOnTable > 0 THEN
         
 		IF existFood > 0 THEN
+
 			SET rest = 0;
 
 			SELECT bi.count + count
@@ -327,9 +328,11 @@ BEGIN
 				WHERE idBill = billID AND idFood = foodID;
 			END IF;
 
-		ELSE
+		ELSEIF count > 0 THEN
+
 			INSERT INTO BillInfo(idBill, idFood, count)
 			VALUES(billID, foodID, count);
+
 		END IF;
 
 	ELSEIF count > 0 THEN
