@@ -191,7 +191,7 @@ $(document).ready(function() {
     var value = $(this).val();
 
     $.ajax({
-      url: 'inc/all-tables/get-foods-by-categoryID.php',
+      url: 'inc/all-tables/data/get-foods-by-categoryID.php',
       data: {currentCategoryID: value},
       type: 'POST',
       success: function(response){
@@ -216,7 +216,7 @@ $(document).ready(function() {
     
     // Update bill-title
     $.ajax({
-      url: 'inc/all-tables/get-table-by-tableID.php',
+      url: 'inc/all-tables/data/get-table-by-tableID.php',
       data: {currentTableID: currentTableID},
       type: 'POST',
       success: function(response){
@@ -229,7 +229,7 @@ $(document).ready(function() {
         // Update tables to change except current table
         var tablesToChange = $('#to-table');
         $.ajax({
-          url: 'inc/all-tables/get-tables-except-current.php',
+          url: 'inc/all-tables/data/dataget-tables-except-current.php',
           data: {currentTableID: currentTableID},
           type: 'POST',
           success: function(response){
@@ -249,7 +249,7 @@ $(document).ready(function() {
   // Load bill datatable
   $('#dataTable').DataTable({
     ajax: {
-      url: 'inc/all-tables/get-bill-by-tableID.php',
+      url: 'inc/all-tables/data/get-bill-by-tableID.php',
       data: {
         currentTableID: 
           function getCurrentTableID(){
@@ -276,7 +276,7 @@ $(document).ready(function() {
     var foodCount = $('#count').val();
 
     $.ajax({
-      url: 'inc/all-tables/add-food-to-table.php',
+      url: 'inc/all-tables/data/add-food-to-table.php',
       data: {
         currentTableID: currentTableID,
         foodID: foodID,
@@ -288,7 +288,7 @@ $(document).ready(function() {
 
         // reload all tables
         $.ajax({
-          url: 'inc/all-tables/get-all-tables.php',
+          url: 'inc/all-tables/data/get-all-tables.php',
           type: 'GET',
           success: function(response){
             var tableFoods = $("#table-foods");
