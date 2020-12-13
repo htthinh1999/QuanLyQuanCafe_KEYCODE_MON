@@ -185,9 +185,79 @@ _fnLog:K,_fnMap:F,_fnBindAction:Xa,_fnCallbackReg:z,_fnCallbackFire:t,_fnLengthO
 
 $(document).ready(function() {
 
+  /*
+    ////////////////////////////////////////////////
+      Variables
+    ////////////////////////////////////////////////
+  */
+  var foods = $("#food");
+  var tablesToChange = $('#to-table');
+  var tableFoods = $("#table-foods");
+  var discount = $("#discount");
+
+  var currentTableID = 1;
+
+  /*
+    ////////////////////////////////////////////////
+      End Variables
+    ////////////////////////////////////////////////
+  */
+
+
+
+  /*
+    ////////////////////////////////////////////////
+      Functions
+    ////////////////////////////////////////////////
+  */
+
+  // Update foods follow category
+  function updateFoods(foodsData){
+    $(foods).find('option').remove();
+    $.each(JSON.parse(foodsData), function(){
+      $(foods).append($('<option></option>')
+          .attr('value', this.id)
+          .text(this.name));
+    });
+  }
+  
+  // Update tables to change
+  function updateTablesToChange(tablesToChangeData){
+    $(tablesToChange).find('option').remove();
+    $.each(JSON.parse(tablesToChangeData), function(){
+      $(tablesToChange).append($('<option></option>')
+          .attr('value', this.id)
+          .text(this.name));
+    });
+  }
+
+  // Update all tables
+  function reloadAllTables(tableFoodsData){
+    var divTags = $(tableFoods).find('div');
+    $.each(JSON.parse(tableFoodsData), function(i){
+      $(divTags[i]).attr('class', 'table-food '+((this.status=='Trống')?"bg-success":"bg-danger"))
+                .attr('data-table-id', this.id);
+      $(divTags[i]).find('h5').text(this.name);
+      $(divTags[i]).find('p').text(this.status);
+    });
+  }
+
+  /*
+    ////////////////////////////////////////////////
+      End Functions
+    ////////////////////////////////////////////////
+  */
+
+
+
+  /*
+    ////////////////////////////////////////////////
+      Events  
+    ////////////////////////////////////////////////
+  */
+
   // Load foods when change category
   $('#category').on('change', function() {
-    var foods = $("#food");
     var value = $(this).val();
 
     $.ajax({
@@ -195,17 +265,11 @@ $(document).ready(function() {
       data: {currentCategoryID: value},
       type: 'POST',
       success: function(response){
-        $(foods).find('option').remove();
-        $.each(JSON.parse(response), function(){
-          $(foods).append($('<option></option>')
-              .attr('value', this.id)
-              .text(this.name));
-        });
+        updateFoods(response);
       }
     })
   });
 
-  var currentTableID = 1;
   // Load bill, change table when table was clicked
   $(".table-food").on('click', function(){
     var tableID = $(this).data('table-id');
@@ -214,31 +278,25 @@ $(document).ready(function() {
     // Reload bill datatable
     $('#dataTable').DataTable().ajax.reload();
     
-    // Update bill-title
     $.ajax({
       url: 'inc/all-tables/data/get-table-by-tableID.php',
       data: {currentTableID: currentTableID},
       type: 'POST',
       success: function(response){
+        // Update bill-title
         var tableInfo = JSON.parse(response);
         $('#bill-title').text("Hoá đơn của '"+tableInfo.name+"'");
 
         // Update change-table-description
-        $('#change-table-description').text("Từ bàn '"+tableInfo.name+"'");
+        $('#change-table-description').text("Từ '"+tableInfo.name+"'");
 
         // Update tables to change except current table
-        var tablesToChange = $('#to-table');
         $.ajax({
-          url: 'inc/all-tables/data/dataget-tables-except-current.php',
+          url: 'inc/all-tables/data/get-tables-except-current.php',
           data: {currentTableID: currentTableID},
           type: 'POST',
           success: function(response){
-            $(tablesToChange).find('option').remove();
-            $.each(JSON.parse(response), function(){
-              $(tablesToChange).append($('<option></option>')
-                  .attr('value', this.id)
-                  .text(this.name));
-            });
+            updateTablesToChange(response);
           }
         });
       }
@@ -291,14 +349,7 @@ $(document).ready(function() {
           url: 'inc/all-tables/data/get-all-tables.php',
           type: 'GET',
           success: function(response){
-            var tableFoods = $("#table-foods");
-            var divTags = $(tableFoods).find('div');
-            $.each(JSON.parse(response), function(i){
-              $(divTags[i]).attr('class', 'table-food '+((this.status=='Trống')?"bg-success":"bg-danger"))
-                        .attr('data-table-id', this.id);
-              $(divTags[i]).find('h5').text(this.name);
-              $(divTags[i]).find('p').text(this.status);
-            });
+            reloadAllTables(response);
           }
         });
 
@@ -308,5 +359,44 @@ $(document).ready(function() {
     });
 
   });
-  
+
+  // Checkout Table
+  $('#btn-check-out').click(function(){
+    $.ajax({
+      url: 'inc/all-tables/data/check-out-table.php',
+      data: {
+        currentTableID: function getCurrentTableID(){
+            return currentTableID;
+          },
+        discount: function getDiscount(){
+          return $(discount).val();
+        }
+      },
+      type: 'POST',
+      success: function(response){
+        // alert(response);
+
+        // reload all tables
+        $.ajax({
+          url: 'inc/all-tables/data/get-all-tables.php',
+          type: 'POST',
+          success: function(response){
+            reloadAllTables(response);
+          }
+        });
+
+        // reload bill datatable
+        $('#dataTable').DataTable().ajax.reload();
+      }
+    });
+  });
+
+  /*
+    ////////////////////////////////////////////////
+      End Events
+    ////////////////////////////////////////////////
+  */
+
+
+
 });

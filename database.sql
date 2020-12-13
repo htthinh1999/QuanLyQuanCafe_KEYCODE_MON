@@ -404,16 +404,23 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_CheckoutTable$$
-CREATE PROCEDURE USP_CheckoutTable(IN tableID INT, IN totalPrice FLOAT, IN discount INT)
+CREATE PROCEDURE USP_CheckoutTable(IN tableID INT, IN discount INT)
 BEGIN
     DECLARE billID INT;
+	DECLARE totalPrice FLOAT;
 	
-	SELECT billID = id
+	SELECT id
+	INTO billID
 	FROM Bill
 	WHERE idTable = tableID AND status = N'Chưa thanh toán';
 
+	SELECT sum(price*count) as totalPrice
+	INTO totalPrice
+	FROM BillInfo bi INNER JOIN Food f ON bi.idFood = f.id
+	WHERE idBill = billID;
+
 	UPDATE Bill
-	SET timeOut = GETDATE(), totalPrice = totalPrice, discount = discount, status = N'Đã thanh toán'
+	SET timeOut = CURRENT_TIMESTAMP(), Bill.totalPrice = totalPrice, Bill.discount = discount, status = N'Đã thanh toán'
 	WHERE id = billID;
 
 	UPDATE TableFood

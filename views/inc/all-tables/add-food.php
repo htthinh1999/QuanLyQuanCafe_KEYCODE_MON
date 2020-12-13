@@ -1,11 +1,3 @@
-<?php
-
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-
-    }
-
-?>
-
 <!-- Add Food Card -->
 <div class="card shadow">
     <div class="card-header py-3">

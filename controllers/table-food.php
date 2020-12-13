@@ -61,6 +61,17 @@
             }
             return false;
         }
+
+        public function checkoutTable($tableID, $discount){
+            $query = "CALL USP_CheckoutTable($tableID, $discount)";
+            $result = $this->db->procedure($query);
+
+            if($result){
+                return true;
+            }
+            return false;
+        }
+
     }
 
 ?>
