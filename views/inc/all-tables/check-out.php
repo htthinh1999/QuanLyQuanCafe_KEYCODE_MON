@@ -16,7 +16,7 @@
         <!-- Rows -->
         <div class="row">
             <div class="col-12 form-group">
-                <button class="btn btn-primary w-100 h-100" id="btn-check-out">
+                <button class="btn btn-primary w-100 h-100" id="btn-check-out" data-toggle="modal" data-target="#checkoutModal">
                     <span class="text-uppercase font-weight-bold">Thanh toán</span>
                 </button>
             </div>
