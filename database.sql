@@ -1,4 +1,4 @@
-﻿DROP DATABASE IF EXISTS QL_QuanCafe_KeycodeMon;
+DROP DATABASE IF EXISTS QL_QuanCafe_KeycodeMon;
 CREATE DATABASE QL_QuanCafe_KeycodeMon CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 USE QL_QuanCafe_KeycodeMon;
@@ -272,53 +272,87 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_AddFoodToTable$$
 CREATE PROCEDURE USP_AddFoodToTable(IN foodID INT, IN count INT, IN tableID INT)
 BEGIN
-	DECLARE billID INT;
-    DECLARE numberOfFoodNameOnTable INT;
+	DECLARE billID INT DEFAULT 0;
+    DECLARE numberOfFoodNameOnTable INT DEFAULT 0;
 	DECLARE existFood INT DEFAULT 0;
-	DECLARE rest INT;
-	
+	DECLARE rest INT DEFAULT 0;
+    DECLARE existFoodOnTable INT DEFAULT 0;
+    DECLARE existBillID INT DEFAULT 0;
+
 	SELECT id
 	INTO billID
 	FROM Bill
-	WHERE idTable = tableID AND status = N'Chưa thanh toán';
-	
-	SELECT numberOfFoodNameOnTable = COUNT(*)
+	WHERE idTable = tableID AND status = N'Chưa thanh toán'
+	LIMIT 1;
+
+	SELECT COUNT(*)
+	INTO numberOfFoodNameOnTable
 	FROM BillInfo
 	WHERE idBill = billID;
 
-	IF (numberOfFoodNameOnTable > 0) THEN
-		
-		SELECT existFood = COUNT(*)
-		FROM BillInfo
-		WHERE idBill = billID AND idFood = foodID;
-		
-		IF (existFood > 0) THEN
+	SELECT COUNT(*)
+	INTO existFood
+	FROM BillInfo
+	WHERE idBill = billID AND idFood = foodID;
+
+	IF numberOfFoodNameOnTable > 0 THEN
+        
+		IF existFood > 0 THEN
+
 			SET rest = 0;
 
-			SELECT rest = count + count
-			FROM BillInfo
-			WHERE idBill = billID AND idFood = foodID;
+			SELECT bi.count + count
+			INTO rest
+			FROM BillInfo bi
+			WHERE idBill = billID AND idFood = foodID
+			LIMIT 1;
 
-			IF (rest <= 0) THEN
+			IF rest <= 0 THEN
 				DELETE FROM BillInfo
 				WHERE idBill = billID AND idFood = foodID;
+                
+                SELECT COUNT(*)
+				INTO existFoodOnTable
+				FROM BillInfo
+				WHERE idBill = billID;
+				
+				IF existFoodOnTable = 0 THEN
+					UPDATE TableFood
+					SET status = N'Trống'
+					WHERE id = tableID;
+				END IF;
+                
 			ELSE
 				UPDATE BillInfo
 				SET count = rest
 				WHERE idBill = billID AND idFood = foodID;
 			END IF;
-		ELSE
-            INSERT INTO BillInfo(idBill, idFood, count)
-            VALUES(billID, foodID, count);
-		END IF;
-	ELSEIF (count > 0) THEN
-		INSERT INTO Bill(idTable) VALUES (tableID);
 
-		SELECT billID = MAX(id)
-		FROM Bill;
+		ELSEIF count > 0 THEN
+
+			INSERT INTO BillInfo(idBill, idFood, count)
+			VALUES(billID, foodID, count);
+
+		END IF;
+
+	ELSEIF count > 0 THEN
+	
+		SELECT id
+        INTO existBillID
+        FROM Bill
+        WHERE id = billID;
+        
+        IF existBillID = 0 THEN
+			INSERT INTO Bill(idTable) VALUES (tableID);
+
+			SELECT MAX(id)
+			INTO billID
+			FROM Bill;
+		END IF;
 
 		INSERT INTO BillInfo(idBill, idFood, count)
 		VALUES(billID, foodID, count);
+
 	END IF;
 END; $$
 DELIMITER ;
@@ -370,16 +404,23 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_CheckoutTable$$
-CREATE PROCEDURE USP_CheckoutTable(IN tableID INT, IN totalPrice FLOAT, IN discount INT)
+CREATE PROCEDURE USP_CheckoutTable(IN tableID INT, IN discount INT)
 BEGIN
     DECLARE billID INT;
+	DECLARE totalPrice FLOAT;
 	
-	SELECT billID = id
+	SELECT id
+	INTO billID
 	FROM Bill
 	WHERE idTable = tableID AND status = N'Chưa thanh toán';
 
+	SELECT sum(price*count) as totalPrice
+	INTO totalPrice
+	FROM BillInfo bi INNER JOIN Food f ON bi.idFood = f.id
+	WHERE idBill = billID;
+
 	UPDATE Bill
-	SET timeOut = GETDATE(), totalPrice = totalPrice, discount = discount, status = N'Đã thanh toán'
+	SET timeOut = CURRENT_TIMESTAMP(), Bill.totalPrice = totalPrice, Bill.discount = discount, status = N'Đã thanh toán'
 	WHERE id = billID;
 
 	UPDATE TableFood
@@ -543,21 +584,23 @@ CREATE PROCEDURE USP_LoadTableStatusList()
 DELIMITER ;
 
 DELIMITER $$
-DROP PROCEDURE IF EXISTS USP_MoveTable$$
-CREATE PROCEDURE USP_MoveTable(IN firstTableID INT, IN secondTableID INT)
+DROP PROCEDURE IF EXISTS USP_ChangeTable$$
+CREATE PROCEDURE USP_ChangeTable(IN firstTableID INT, IN secondTableID INT)
 BEGIN
 	DECLARE oldBillID INT;
     DECLARE newBillID int;
 	
-	SELECT oldBillID = id
+	SELECT id
+	INTO oldBillID
 	FROM Bill
 	WHERE idTable = firstTableID AND status = N'Chưa thanh toán';
 
-	SELECT newBillID = id
+	SELECT id
+	INTO newBillID
 	FROM Bill
 	WHERE idTable = secondTableID AND status = N'Chưa thanh toán';
 
-	IF(newBillID IS NULL) THEN
+	IF newBillID IS NULL THEN
 	    INSERT INTO Bill(idTable) VALUES (secondTableID);
 		
 		SELECT newBillID = MAX(id)
@@ -595,14 +638,19 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_DeleteTableFood$$
-CREATE PROCEDURE USP_DeleteTableFood(id INT)
+CREATE PROCEDURE USP_DeleteTableFood(IN tableID INT)
 	DELETE FROM TableFood
-	WHERE id = id; $$
+	WHERE id = tableID; $$
 DELIMITER ;
 /*------------------------------ END PROCEDURES OF TableFood ------------------------------*/
 
 /*--**************************************** END CREATE PROCEDURES ****************************************--*/
-
+CREATE TABLE messages (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  message VARCHAR(255) DEFAULT NULL,
+  time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id)
+);
 
 /*--**************************************** CREATE TRIGGERS ****************************************--*/
 DELIMITER $$
@@ -611,7 +659,7 @@ CREATE TRIGGER UTG_UpdateBillInfo
 AFTER INSERT ON BillInfo
 FOR EACH ROW
 BEGIN
-    DECLARE billID INT;
+    DECLARE billID INT DEFAULT 0;
 	DECLARE tableID INT;
 	DECLARE numberFoodToCheckDuplicate INT;
 	DECLARE duplicateFood INT;
@@ -620,55 +668,44 @@ BEGIN
     DECLARE secondDuplicateID INT;
     DECLARE existFoodOnTable INT DEFAULT 0;
 
-	SELECT idBill
-	INTO billID
-	FROM NEW;
+	SET billID = IF(NEW.idBill>0, NEW.idBill, 0);
 
 	UPDATE Bill
 	SET status = N'Chưa thanh toán'
 	WHERE id = billID;
 
-
 	SELECT idTable
 	INTO tableID
 	FROM Bill
-	WHERE id = billID;
+	WHERE id = billID
+	LIMIT 1;
 
 	UPDATE TableFood
 	SET status = N'Đã có người'
 	WHERE id = tableID;
-	
 
 	SELECT COUNT(*)
 	INTO existFoodOnTable
 	FROM BillInfo
 	WHERE idBill = billID;
-
-	IF (existFoodOnTable = 0)
-	THEN
+    
+	IF existFoodOnTable = 0 THEN
 	    UPDATE TableFood
 		SET status = N'Trống'
 		WHERE id = tableID;
 	END IF;
-
-	SELECT COUNT(*)
-	INTO numberFoodToCheckDuplicate
-	FROM NEW;
+    
+	SET numberFoodToCheckDuplicate = IF(NEW.idBill>0, 1, 0);
 
 	WHILE (numberFoodToCheckDuplicate > 0) DO
-		SELECT idFood
-		INTO idFoodInserted
-		FROM (SELECT id, idFood
-				FROM NEW
-				ORDER BY (id)) as foodInserted
-		WHERE foodInserted.id = numberFoodToCheckDuplicate;
+		SET idFoodInserted = IF(NEW.idFood>0, NEW.idFood, 0);
 
 		SELECT COUNT(*)
 		INTO duplicateFood
 		FROM BillInfo
 		WHERE idBill = billID AND idFood = idFoodInserted;
 
-		IF(duplicateFood>1) THEN
+		IF duplicateFood>1 THEN
 			SELECT MIN(id)
 			INTO firstDuplicateID
 			FROM BillInfo
@@ -689,7 +726,8 @@ BEGIN
 
 		SET numberFoodToCheckDuplicate = numberFoodToCheckDuplicate - 1;
 	END WHILE;
+    
 END; $$
 DELIMITER ;
-
 /*--**************************************** END CREATE TRIGGERS ****************************************--*/
+

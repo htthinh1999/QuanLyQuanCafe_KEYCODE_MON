@@ -19,25 +19,6 @@
     require_once '../controllers/food.php';
 ?>
 
-<?php
-
-    // get current table id
-    $currentTableID = 1;
-    if(isset($_GET["currentTableID"])){
-        $currentTableID = $_GET["currentTableID"];
-    }
-    
-    // get current table name
-    $tableFood = new TableFood();
-    $currentTable = $tableFood->getTableByID($currentTableID);
-    $currentTableName = $currentTable->getName();
-
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        
-    }
-
-?>
-
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -84,6 +65,9 @@
 
                     <!-- Content Row -->
                     <div class="row">
+                        
+                        <!-- Current Table ID -->
+                        <input type="hidden" class="currentTableID" name="currentTableID" value="1" />
 
                         <!-- Add Food -->
                         <div class="col-lg-6 wrap-add-food mb-4">

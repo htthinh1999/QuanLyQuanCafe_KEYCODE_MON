@@ -5,9 +5,9 @@
         <h6 class="m-0 font-weight-bold text-primary">Danh sách các bàn</h6>
     </div>
     
-    <div class="card-body wrap-tables" id="table-foods">
+    <div class="card-body wrap-tables">
         <!-- Rows -->
-        <div class="row">
+        <div class="row" id="table-foods">
             
             <?php
                 $tableFood = new TableFood();
@@ -18,8 +18,8 @@
                     $tableFoodName = $tableViewModel->getName();
                     $tableFoodStatus = $tableViewModel->getStatus();
                     
-                    echo "<a href='?currentTableID=$tableFoodID#table-foods' class='col-xl-3 col-lg-4 col-md-6 text-center text-white mb-3 wrap-table-food'>
-                        <div class='table-food ".(($tableFoodStatus=='Trống')?"bg-success":"bg-danger")."'>
+                    echo "<a role='button' class='col-xl-3 col-lg-4 col-md-6 text-center text-white mb-3 wrap-table-food'>
+                        <div class='table-food ".(($tableFoodStatus=='Trống')?"bg-success":"bg-danger")."' data-table-id='$tableFoodID'>
                             <h5>$tableFoodName</h5>
                             <p class='table-description'>$tableFoodStatus</p>
                         </div>

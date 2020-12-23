@@ -51,6 +51,36 @@
 
             return $bill;
         }
+
+        public function addFoodToTable($foodID, $count, $tableID){
+            $query = "CALL USP_AddFoodToTable($foodID, $count, $tableID)";
+            $result = $this->db->procedure($query);
+
+            if($result){
+                return true;
+            }
+            return false;
+        }
+
+        public function checkoutTable($tableID, $discount){
+            $query = "CALL USP_CheckoutTable($tableID, $discount)";
+            $result = $this->db->procedure($query);
+
+            if($result){
+                return true;
+            }
+            return false;
+        }
+
+        public function changeTable($firstTableID, $secondTableID){
+            $query = "CALL USP_ChangeTable($firstTableID, $secondTableID)";
+            $result = $this->db->procedure($query);
+
+            if($result){
+                return true;
+            }
+            return false;
+        }
     }
 
 ?>
