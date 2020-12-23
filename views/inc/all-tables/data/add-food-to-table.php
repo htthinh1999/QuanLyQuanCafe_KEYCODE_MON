@@ -10,8 +10,6 @@
     require_once '../../../../controllers/table-food.php';
 ?>
 
-
-
 <?php
 
     // get current table id

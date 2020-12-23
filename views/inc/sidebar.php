@@ -59,11 +59,11 @@
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Quản lý:</h6>
-                <a class="collapse-item" href="revenue.php">Doanh thu</a>
-                <a class="collapse-item" href="food.php">Món</a>
-                <a class="collapse-item" href="category.php">Danh mục</a>
-                <a class="collapse-item" href="table.php">Bàn</a>
-                <a class="collapse-item" href="account.php">Tài khoản</a>
+                <a class="collapse-item" href="revenue-management.php">Doanh thu</a>
+                <a class="collapse-item" href="food-management.php">Món</a>
+                <a class="collapse-item" href="category-management.php">Danh mục</a>
+                <a class="collapse-item" href="table-management.php">Bàn</a>
+                <a class="collapse-item" href="account-management.php">Tài khoản</a>
             </div>
         </div>
     </li>

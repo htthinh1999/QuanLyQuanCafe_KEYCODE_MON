@@ -18,8 +18,8 @@ status: Trống / Đã có người
 CREATE TABLE TableFood
 (
 	id INT AUTO_INCREMENT PRIMARY KEY,
-	name NVARCHAR(100) NOT NULL,
-	status NVARCHAR(100) NOT NULL DEFAULT N'Trống'
+	name VARCHAR(100) CHARSET utf8 NOT NULL,
+	status VARCHAR(100) CHARSET utf8 NOT NULL DEFAULT N'Trống'
 );
 
 /*
@@ -28,7 +28,7 @@ CREATE TABLE TableFood
 CREATE TABLE AccountType
 (
 	id INT AUTO_INCREMENT PRIMARY KEY,
-	name NVARCHAR(50) NOT NULL
+	name VARCHAR(50) CHARSET utf8 NOT NULL
 );
 
 /*
@@ -40,11 +40,11 @@ CREATE TABLE Account
 (
 	username VARCHAR(100) PRIMARY KEY,
 	password VARCHAR(1000) NOT NULL DEFAULT 'c4ca4238a0b923820dcc509a6f75849b',
-	displayName NVARCHAR(100) NOT NULL,
+	displayName VARCHAR(100) CHARSET utf8 NOT NULL,
 	typeID INT NOT NULL DEFAULT 2,
-	gender NVARCHAR(5) NOT NULL DEFAULT N'Nam',
+	gender VARCHAR(5) CHARSET utf8 NOT NULL DEFAULT N'Nam',
 	birthday DATE NOT NULL,
-	address NVARCHAR(100) NOT NULL,
+	address VARCHAR(100) CHARSET utf8 NOT NULL,
 
 	FOREIGN KEY(typeID) REFERENCES AccountType(id)
 );
@@ -55,19 +55,19 @@ CREATE TABLE Account
 CREATE TABLE State
 (
 	id INT AUTO_INCREMENT PRIMARY KEY,
-	name NVARCHAR(50) NOT NULL
+	name VARCHAR(50) CHARSET utf8 NOT NULL
 );
 
 CREATE TABLE FoodCategory
 (
 	id INT AUTO_INCREMENT PRIMARY KEY,
-	name NVARCHAR(100) NOT NULL
+	name VARCHAR(100) CHARSET utf8 NOT NULL
 );
 
 CREATE TABLE Food
 (
 	id INT AUTO_INCREMENT PRIMARY KEY,
-	name NVARCHAR(100) NOT NULL,
+	name VARCHAR(100) CHARSET utf8 NOT NULL,
 	idCategory INT NOT NULL,
 	price FLOAT NOT NULL DEFAULT 0,
 	stateID INT NOT NULL DEFAULT 1,
@@ -87,7 +87,7 @@ CREATE TABLE Bill
 	discount INT NOT NULL DEFAULT 0,
 	timeIn DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
 	timeOut DATETIME DEFAULT NULL,
-	status NVARCHAR(100) NOT NULL DEFAULT N'Chưa thanh toán',
+	status VARCHAR(100) CHARSET utf8 NOT NULL DEFAULT N'Chưa thanh toán',
 
 	FOREIGN KEY (idTable) REFERENCES TableFood(id)
 );
@@ -215,7 +215,7 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_ExistCategory$$
-CREATE PROCEDURE USP_ExistCategory(IN categoryName NVARCHAR(100))
+CREATE PROCEDURE USP_ExistCategory(IN categoryName VARCHAR(100) CHARSET utf8)
 	SELECT *
 	FROM FoodCategory
 	WHERE Name = categoryName; $$
@@ -223,14 +223,14 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_AddFoodCategory$$
-CREATE PROCEDURE USP_AddFoodCategory(IN categoryName NVARCHAR(100))
+CREATE PROCEDURE USP_AddFoodCategory(IN categoryName VARCHAR(100) CHARSET utf8)
     INSERT INTO FoodCategory(name)
 	VALUES(categoryName); $$
 DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_UpdateFoodCategory$$
-CREATE PROCEDURE USP_UpdateFoodCategory(IN idFC INT, IN categoryName NVARCHAR(100))
+CREATE PROCEDURE USP_UpdateFoodCategory(IN idFC INT, IN categoryName VARCHAR(100) CHARSET utf8)
     UPDATE FoodCategory SET name = categoryName
 	WHERE id = idFC; $$
 DELIMITER ;
@@ -264,7 +264,7 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_ExistFood$$
-CREATE PROCEDURE USP_ExistFood(IN foodName NVARCHAR(100))
+CREATE PROCEDURE USP_ExistFood(IN foodName VARCHAR(100) CHARSET utf8)
 	SELECT * FROM Food where name = foodName; $$
 DELIMITER ;
 
@@ -359,7 +359,7 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_SearchFood$$
-CREATE PROCEDURE USP_SearchFood(IN text NVARCHAR(100))
+CREATE PROCEDURE USP_SearchFood(IN text VARCHAR(100) CHARSET utf8)
 	SELECT f.id 'ID', f.name 'Tên món', fc.name 'Loại món', price 'Giá tiền'
 	FROM Food f INNER JOIN FoodCategory fc ON fc.id = f.idCategory
 	WHERE fuConvertToUnsign(f.name) LIKE fuConvertToUnsign(text); $$
@@ -367,13 +367,13 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_AddFood$$
-CREATE PROCEDURE USP_AddFood(IN foodName NVARCHAR(100), IN idCategory INT, IN price FLOAT)
+CREATE PROCEDURE USP_AddFood(IN foodName VARCHAR(100) CHARSET utf8, IN idCategory INT, IN price FLOAT)
 	INSERT INTO Food(name, idCategory, price) VALUES(foodName, idCategory, price); $$
 DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_UpdateFood$$
-CREATE PROCEDURE USP_UpdateFood(IN idFood INT, IN foodName NVARCHAR(100), IN idCategory INT, IN price FLOAT, IN stateID INT)
+CREATE PROCEDURE USP_UpdateFood(IN idFood INT, IN foodName VARCHAR(100) CHARSET utf8, IN idCategory INT, IN price FLOAT, IN stateID INT)
 	UPDATE Food
 	SET name = foodName, idCategory = idCategory, price = price, stateID = stateID
 	WHERE id = idFood; $$
@@ -513,7 +513,7 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_UpdateAccountInfo$$
-CREATE PROCEDURE USP_UpdateAccountInfo(IN username VARCHAR(100), IN displayName NVARCHAR(100), IN typeID INT, IN sex NVARCHAR(5), IN birthday DATE, IN address NVARCHAR(100))
+CREATE PROCEDURE USP_UpdateAccountInfo(IN username VARCHAR(100), IN displayName VARCHAR(100) CHARSET utf8, IN typeID INT, IN sex VARCHAR(5) CHARSET utf8, IN birthday DATE, IN address VARCHAR(100) CHARSET utf8)
     UPDATE Account
 	SET displayName = displayName, typeID = typeID, sex = sex, birthday = birthday, address = address
 	WHERE username = username; $$
@@ -529,7 +529,7 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_AddAccount$$
-CREATE PROCEDURE USP_AddAccount(IN username VARCHAR(100), IN displayName NVARCHAR(100), IN typeID INT, IN sex NVARCHAR(5), IN birthday DATE, IN address NVARCHAR(100))
+CREATE PROCEDURE USP_AddAccount(IN username VARCHAR(100), IN displayName VARCHAR(100) CHARSET utf8, IN typeID INT, IN sex VARCHAR(5) CHARSET utf8, IN birthday DATE, IN address VARCHAR(100) CHARSET utf8)
     INSERT INTO Account
     (username, displayName, typeID, sex, birthday, address)
     VALUES
@@ -563,7 +563,7 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_ExistTableFood$$
-CREATE PROCEDURE USP_ExistTableFood(IN tableName NVARCHAR(100))
+CREATE PROCEDURE USP_ExistTableFood(IN tableName VARCHAR(100) CHARSET utf8)
     SELECT *
 	FROM TableFood
 	WHERE name = tableName; $$
@@ -623,14 +623,14 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_AddTableFood$$
-CREATE PROCEDURE USP_AddTableFood(IN tableName NVARCHAR(100))
+CREATE PROCEDURE USP_AddTableFood(IN tableName VARCHAR(100) CHARSET utf8)
     INSERT INTO TableFood
     (name) VALUES(tableName); $$
 DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_AddTableFood$$
-CREATE PROCEDURE USP_UpdateTableFood(IN id INT, IN tableName NVARCHAR(100))
+CREATE PROCEDURE USP_UpdateTableFood(IN id INT, IN tableName VARCHAR(100) CHARSET utf8)
     UPDATE TableFood
 	SET name = tableName
 	WHERE id = id; $$

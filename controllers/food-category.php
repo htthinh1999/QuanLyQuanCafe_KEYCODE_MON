@@ -26,6 +26,35 @@
             return $categoryList;
         }
 
+        public function addFoodCategory($categoryName){
+            $query = "CALL USP_AddFoodCategory('$categoryName')";
+            $result = $this->db->procedure($query);
+
+            if($result){
+                return true;
+            }
+            return false;
+        }
+
+        public function updateFoodCategory($categoryID, $categoryName){
+            $query = "CALL USP_UpdateFoodCategory($categoryID, '$categoryName')";
+            $result = $this->db->procedure($query);
+
+            if($result){
+                return true;
+            }
+            return false;
+        }
+        
+        public function deleteFoodCategory($categoryID){
+            $query = "CALL USP_DeleteFoodCategory($categoryID)";
+            $result = $this->db->procedure($query);
+
+            if($result){
+                return true;
+            }
+            return false;
+        }
     }
 
 ?>
