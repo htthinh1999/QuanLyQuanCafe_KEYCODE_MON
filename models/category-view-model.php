@@ -17,6 +17,13 @@
             return $this->name;
         }
 
+        public function getJson(){
+            return [
+                'id' => $this->id,
+                'name' => $this->name
+            ];
+        }
+
     }
 
 ?>

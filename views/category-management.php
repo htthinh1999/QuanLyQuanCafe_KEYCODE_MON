@@ -8,15 +8,10 @@
 
     // models
     require_once '../models/account-view-model.php';
-    require_once '../models/table-view-model.php';
     require_once '../models/category-view-model.php';
-    require_once '../models/food-view-model.php';
-    require_once '../models/food-in-bill-view-model.php';
 
     // controllers
-    require_once '../controllers/table-food.php';
     require_once '../controllers/food-category.php';
-    require_once '../controllers/food.php';
 ?>
 
 <!DOCTYPE html>
@@ -27,12 +22,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Danh sách các bàn quán cafe Keycode Mon">
+    <meta name="description" content="Quản lý danh mục quán cafe Keycode Mon">
     <meta name="author" content="Huỳnh Tấn Thịnh">
 
-    <title>Danh sách các bàn | Quán cafe Keycode Mon</title>
+    <title>Quản lý danh mục | Quán cafe Keycode Mon</title>
 
-    <link href="../assets/css/all-tables.css" rel="stylesheet">
+    <link href="../assets/css/category-management.css" rel="stylesheet">
 
 </head>
 
@@ -60,38 +55,20 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Danh sách các bàn</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Quản lý danh mục</h1>
                     </div>
 
                     <!-- Content Row -->
                     <div class="row">
-                        
-                        <!-- Current Table ID -->
-                        <input type="hidden" class="currentTableID" name="currentTableID" value="1" />
 
                         <!-- Add Food -->
-                        <div class="col-lg-6 wrap-add-food mb-4">
-                            <?php include 'inc/all-tables/add-food.php';?>
+                        <div class="col-lg-6 mb-4">
+                            <?php include 'inc/category-management/category-crud.php';?>
                         </div>
 
-                        <!-- Checkout -->
-                        <div class="col-lg-3 wrap-check-out mb-4">
-                            <?php include 'inc/all-tables/check-out.php';?>
-                        </div>
-
-                        <!-- Change Table -->
-                        <div class="col-lg-3 wrap-change-table mb-4">
-                            <?php include 'inc/all-tables/change-table.php';?>
-                        </div>
-
-                        <!-- Tables -->
-                        <div class="col-xl-7 col-lg-6 wrap-all-tables-left">
-                            <?php include 'inc/all-tables/tables.php';?>
-                        </div>
-
-                        <!-- Bill -->
-                        <div class="col-xl-5 col-lg-6">
-                            <?php include 'inc/all-tables/bill.php';?>
+                        <!-- Add Food -->
+                        <div class="col-lg-6 mb-4">
+                            <?php include 'inc/category-management/category-data.php';?>
                         </div>
 
                     </div>
@@ -115,8 +92,8 @@
         include 'inc/end-page.php';
     ?>
 
-    <!-- All Table JavaScript -->
-    <script src="../assets/js/all-tables.js"></script>
+    <!-- Main JavaScript -->
+    <script src="../assets/js/category-management.js"></script>
 
 </body>
 

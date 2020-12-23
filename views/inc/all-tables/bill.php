@@ -32,26 +32,6 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                
-                    <?php
-                        $currentTableID = 1;
-                        $tableFood = new TableFood();
-                        $bill = $tableFood->getBillByTableID($currentTableID);
-
-                        foreach($bill as $foodInBillViewModel){
-                            $foodInBillName = $foodInBillViewModel->getName();
-                            $foodInBillCount = $foodInBillViewModel->getCount();
-                            $foodInBillPrice = $foodInBillViewModel->getPrice();
-                            $foodInBillTotalPrice = $foodInBillViewModel->getTotalPrice();
-                            
-                            echo "<tr>
-                                <td>".$foodInBillName."</td>
-                                <td>".$foodInBillCount."</td>
-                                <td>".$foodInBillPrice."</td>
-                                <td>".$foodInBillTotalPrice."</td>
-                                </tr>";
-                        }
-                    ?>
 
                 </tbody>
             </table>

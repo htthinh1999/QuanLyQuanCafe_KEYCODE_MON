@@ -43,25 +43,42 @@
     </div>
 </div>
 
-<!-- Bootstrap core JavaScript-->
-<script src="../assets/vendor/jquery/jquery.min.js"></script>
-<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Update Modal-->
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="Update Modal"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="Update Modal">Xác nhận cập nhật dữ liệu</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Bạn có chắc chắn muốn cập nhật dữ liệu?</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Huỷ</button>
+                <a class="btn btn-primary" id="btn-update" data-dismiss="modal">Cập nhật</a>
+            </div>
+        </div>
+    </div>
+</div>
 
-<!-- Core plugin JavaScript-->
-<script src="../assets/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-<!-- Custom scripts for all pages-->
-<script src="../assets/js/sb-admin-2.min.js"></script>
-
-<!-- Page level plugins -->
-<script src="../assets/vendor/chart.js/Chart.min.js"></script>
-
-<!-- Page level custom scripts -->
-<script src="../assets/js/demo/chart-area-demo.js"></script>
-<script src="../assets/js/demo/chart-pie-demo.js"></script>
-
-<!-- Main JavaScript -->
-<script src="../assets/js/main.js"></script>
-
-<!-- Data Table -->
-<script src="../assets/js/all-tables.js"></script>
+<!-- Delete Modal-->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="Delete Modal"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="Delete Modal">Xác nhận xoá dữ liệu</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Bạn có chắc chắn muốn xoá dữ liệu?</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Huỷ</button>
+                <a class="btn btn-primary" id="btn-delete" data-dismiss="modal">Xoá</a>
+            </div>
+        </div>
+    </div>
+</div>
