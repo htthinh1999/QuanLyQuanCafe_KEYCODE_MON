@@ -584,17 +584,19 @@ CREATE PROCEDURE USP_LoadTableStatusList()
 DELIMITER ;
 
 DELIMITER $$
-DROP PROCEDURE IF EXISTS USP_MoveTable$$
-CREATE PROCEDURE USP_MoveTable(IN firstTableID INT, IN secondTableID INT)
+DROP PROCEDURE IF EXISTS USP_ChangeTable$$
+CREATE PROCEDURE USP_ChangeTable(IN firstTableID INT, IN secondTableID INT)
 BEGIN
 	DECLARE oldBillID INT;
     DECLARE newBillID int;
 	
-	SELECT oldBillID = id
+	SELECT id
+	INTO oldBillID
 	FROM Bill
 	WHERE idTable = firstTableID AND status = N'Chưa thanh toán';
 
-	SELECT newBillID = id
+	SELECT id
+	INTO newBillID
 	FROM Bill
 	WHERE idTable = secondTableID AND status = N'Chưa thanh toán';
 

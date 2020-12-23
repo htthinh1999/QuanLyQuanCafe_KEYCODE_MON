@@ -72,6 +72,15 @@
             return false;
         }
 
+        public function changeTable($firstTableID, $secondTableID){
+            $query = "CALL USP_ChangeTable($firstTableID, $secondTableID)";
+            $result = $this->db->procedure($query);
+
+            if($result){
+                return true;
+            }
+            return false;
+        }
     }
 
 ?>

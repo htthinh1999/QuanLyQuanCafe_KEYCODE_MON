@@ -263,6 +263,20 @@ $(document).ready(function() {
     return result;
   }
 
+  function reloadPage(){
+    // reload all tables
+    $.ajax({
+      url: 'inc/all-tables/data/get-all-tables.php',
+      type: 'GET',
+      success: function(response){
+        reloadAllTables(response);
+      }
+    });
+
+    // reload bill datatable
+    $('#bill-content').DataTable().ajax.reload();
+  }
+
   /*
     ////////////////////////////////////////////////
       End Functions
@@ -364,18 +378,13 @@ $(document).ready(function() {
       type: 'POST',
       success: function(response){
         // alert(response);
-
-        // reload all tables
-        $.ajax({
-          url: 'inc/all-tables/data/get-all-tables.php',
-          type: 'GET',
-          success: function(response){
-            reloadAllTables(response);
-          }
-        });
-
-        // reload bill datatable
-        $('#bill-content').DataTable().ajax.reload();
+        if(response.indexOf("KHÔNG") != -1){
+          toastr.error('Thêm món không thành công!');
+        }
+        reloadPage();
+      },
+      error: function(){
+        toastr.error('Thêm món không thành công!');
       }
     });
 
@@ -399,16 +408,18 @@ $(document).ready(function() {
         
         var modalContent = "";
         var discount = $('#discount').val();
-        if(discount == 0 || totalBillPrice == 0){
+        if(totalBillPrice == 0){
           modalContent = "Bạn có chắc chắn muốn thanh toán cho '" + tableName + "'?<br>"
                         + "Số tiền cần phải thanh toán: 0 VNĐ";
+        }else if(discount == 0){
+          modalContent = "Bạn có chắc chắn muốn thanh toán cho '" + tableName + "'?<br>"
+                        + "Số tiền cần phải thanh toán: "+ totalBillPrice + " VNĐ";
         }else{
           modalContent = "Bạn có chắc chắn muốn thanh toán cho '" + tableName + "'?<br>"
                         + "Số tiền cần phải thanh toán:<br>"
                         + totalBillPrice + " - " + totalBillPrice + " x " + discount + "% = " + totalBillPrice * (1 - discount/100) + " VNĐ";
         }
         
-
         $(checkoutModal).find('.modal-body').html(modalContent);
       }
     });
@@ -442,20 +453,44 @@ $(document).ready(function() {
             toastr.success('Thanh toán thành công!');
           }
   
-          // reload all tables
-          $.ajax({
-            url: 'inc/all-tables/data/get-all-tables.php',
-            type: 'POST',
-            success: function(response){
-              reloadAllTables(response);
-            }
-          });
-  
-          // reload bill datatable
-          $('#bill-content').DataTable().ajax.reload();
+          reloadPage();
         },
         error: function(){
           toastr.error('Thanh toán không thành công!');
+        }
+      });
+    }
+  });
+
+  // Change table
+  $('#btn-change-table').click(function(){
+    var firstTableID = currentTableID;
+    var secondTableID =  $('#to-table option:selected').val();
+    // alert(firstTableID + ' ' + secondTableID);
+
+    if($('.dataTables_empty').text().indexOf('Chưa có món nào được gọi!') != -1){
+      toastr.warning('Đây là bàn trống, không thể chuyển bàn!');
+    }else{
+      $.ajax({
+        url: 'inc/all-tables/data/change-table-from-to.php',
+        type: 'POST',
+        data: {
+          firstTableID: firstTableID,
+          secondTableID: secondTableID
+        },
+        success: function(response){
+          // alert(response);
+          if(response.indexOf("KHÔNG") != -1){
+            toastr.error('Chuyển bàn không thành công!');
+          }
+          else{
+            toastr.success('Chuyển bàn thành công!');
+          }
+
+          reloadPage();
+        },
+        error: function(){
+          toastr.error('Chuyển bàn không thành công!');
         }
       });
     }

@@ -28,9 +28,10 @@
                         $tableList = $tableFood->getAllTables();
 
                         foreach($tableList as $tableViewModel){
-                            if($tableViewModel->getID() != $GLOBALS["currentTableID"]){
+                            $tableID = $tableViewModel->getID();
+                            if($tableID != $GLOBALS["currentTableID"]){
                                 $tableName = $tableViewModel->getName();
-                                echo "<option>$tableName</option>";
+                                echo "<option value='$tableID'>$tableName</option>";
                             }
                         }
                     ?>
@@ -42,7 +43,7 @@
         <!-- Rows -->
         <div class="row">
             <div class="col-12 form-group">
-                <button type="submit" class="btn btn-primary w-100 h-100">
+                <button class="btn btn-primary w-100 h-100" id="btn-change-table">
                     <span class="text-uppercase font-weight-bold">Chuyển bàn</span>
                 </button>
             </div>

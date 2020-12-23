@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-12 form-group">
                 <label for="discount">Giảm giá (%)</label>
-                <input id="discount" name="discount" class="form-control" type="number" min="0" max="100" step="5" value="0">
+                <input id="discount" name="discount" class="form-control" type="number" min="0" max="80" step="5" value="0">
             </div>
         </div>
         
