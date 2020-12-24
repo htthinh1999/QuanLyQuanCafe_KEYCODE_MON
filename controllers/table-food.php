@@ -27,6 +27,36 @@
             return $tableList;
         }
 
+        public function addTableFood($tableName){
+            $query = "CALL USP_AddTableFood('$tableName')";
+            $result = $this->db->procedure($query);
+            
+            if($result){
+                return true;
+            }
+            return false;
+        }
+
+        public function updateTableFood($tableID, $tableName){
+            $query = "CALL USP_UpdateTableFood($tableID, '$tableName')";
+            $result = $this->db->procedure($query);
+            
+            if($result){
+                return true;
+            }
+            return false;
+        }
+
+        public function deleteTableFood($tableID){
+            $query = "CALL USP_DeleteTableFood($tableID)";
+            $result = $this->db->procedure($query);
+            
+            if($result){
+                return true;
+            }
+            return false;
+        }
+
         public function getTableByID($tableID){
             $query = "SELECT * FROM TableFood WHERE id = $tableID LIMIT 1";
             $result = $this->db->select($query);
