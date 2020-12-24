@@ -252,15 +252,16 @@ $(document).ready(function() {
     ////////////////////////////////////////////////
     */
 
-    // Load Category Datatable
+    // Load Table Datatable
     var table = $('#data-content').DataTable({
       ajax: {
-        url: 'inc/category-management/data/get-all-categories.php',
+        url: 'inc/table-management/data/get-all-tables.php',
         type: 'GET'
       },
       columns: [
         { "data": "id" },
-        { "data": "name" }
+        { "data": "name" },
+        { "data": "status" }
       ]
     });
 
@@ -277,9 +278,10 @@ $(document).ready(function() {
     ////////////////////////////////////////////////
     */
 
-    function updateForm(categoryID, categoryName){
-        $('#category-id').val(categoryID);
-        $('#category-name').val(categoryName);
+    function updateForm(tableID, tableName, tableStatus){
+        $('#table-id').val(tableID);
+        $('#table-name').val(tableName);
+        $('#table-status').val(tableStatus);
     }
 
     function isExists(response, attribute){
@@ -306,44 +308,47 @@ $(document).ready(function() {
     ////////////////////////////////////////////////
     */
 
-    // Category Datatable Click
+    // Table Datatable Click
     $('#data-content tbody').on('click', 'tr', function () {
         var row = table.row(this).data();
-        var categoryID = row.id;
-        var categoryName = row.name;
-        updateForm(categoryID, categoryName);
+        var tableID = row.id;
+        var tableName = row.name;
+        var tableStatus = row.status;
+        updateForm(tableID, tableName, tableStatus);
     });
 
-    // Add Food Category
+    // Add Table
     $('#btn-add').on('click', function(){
-      // Get category name
-      var categoryName = $('#category-name').val();
+      // Get table name
+      var tableName = $('#table-name').val();
       // Check duplicate data
       $.ajax({
-        url: 'inc/category-management/data/get-all-categories.php',
+        url: 'inc/table-management/data/get-all-tables.php',
         type: 'GET',
         success: function(response){
-          if(isExists(response, categoryName)){
-            toastr.warning('Danh mục này đã tồn tại!');
-          }else if(categoryName == ''){
-            toastr.warning('Tên danh mục không được rỗng!');
+          if(isExists(response, tableName)){
+            toastr.warning('Bàn này đã tồn tại!');
+          }else if(tableName == ''){
+            toastr.warning('Tên bàn không được rỗng!');
           }else{
             $.ajax({
-              url: 'inc/category-management/data/add-category.php',
-              data: {categoryName: categoryName},
+              url: 'inc/table-management/data/add-table.php',
+              data: {tableName: tableName},
               type: 'POST',
               success: function(response){
+                // alert(response);
                 if(response.indexOf("KHÔNG") != -1){
-                  toastr.error('Thêm danh mục không thành công!');
+                  toastr.error('Thêm bàn không thành công!');
                 }else{
-                  toastr.success('Thêm danh mục thành công!');
-                  // Reload Category Datatable
+                  toastr.success('Thêm bàn thành công!');
+                  
+                  // Reload Table Datatable
                   $('#data-content').DataTable().ajax.reload(null, false);
                   $('#data-content').DataTable().page('last').draw('page');
                 }
               },
               error: function(){
-                toastr.error('Thêm danh mục không thành công!');
+                toastr.error('Thêm bàn không thành công!');
               }
             });
           }
@@ -351,41 +356,41 @@ $(document).ready(function() {
       });
     });
     
-    // Update Food Category
+    // Update Table
     $('#btn-update').on('click', function(){
-      // Get category id & category name
-      var categoryID = $('#category-id').val();
-      var categoryName = $('#category-name').val();
+      // Get table id & table name
+      var tableID = $('#table-id').val();
+      var tableName = $('#table-name').val();
       // Check duplicate data
       $.ajax({
-        url: 'inc/category-management/data/get-all-categories.php',
+        url: 'inc/table-management/data/get-all-tables.php',
         type: 'GET',
         success: function(response){
-          if(isExists(response, categoryName)){
-            toastr.warning('Danh mục này đã tồn tại!');
-          }else if(!isExists(response, categoryID)){
-            toastr.warning('Danh mục này không tồn tại!');
-          }else if(categoryName == ''){
-            toastr.warning('Tên danh mục không được rỗng!');
+          if(isExists(response, tableName)){
+            toastr.warning('Bàn này đã tồn tại!');
+          }else if(!isExists(response, tableID)){
+            toastr.warning('Bàn này không tồn tại!');
+          }else if(tableName == ''){
+            toastr.warning('Tên Bàn không được rỗng!');
           }else{
             $.ajax({
-              url: 'inc/category-management/data/update-category.php',
+              url: 'inc/table-management/data/update-table.php',
               data: {
-                categoryID: categoryID,
-                categoryName: categoryName
+                tableID: tableID,
+                tableName: tableName
               },
               type: 'POST',
               success: function(response){
                 if(response.indexOf("KHÔNG") != -1){
-                  toastr.error('Cập nhật danh mục không thành công!');
+                  toastr.error('Cập nhật bàn không thành công!');
                 }else{
-                  toastr.success('Cập nhật danh mục thành công!');
-                  // Reload Category Datatable
+                  toastr.success('Cập nhật bàn thành công!');
+                  // Reload Table Datatable
                   $('#data-content').DataTable().ajax.reload(null, false);
                 }
               },
               error: function(){
-                toastr.error('Cập nhật danh mục không thành công!');
+                toastr.error('Cập nhật bàn không thành công!');
               }
             });
           }
@@ -393,33 +398,33 @@ $(document).ready(function() {
       });
     });
 
-    // Delete Food Category
+    // Delete Table
     $('#btn-delete').on('click', function(){
-      // Get category id
-      var categoryID = $('#category-id').val();
+      // Get table id
+      var tableID = $('#table-id').val();
       // Check exist data
       $.ajax({
-        url: 'inc/category-management/data/get-all-categories.php',
+        url: 'inc/table-management/data/get-all-tables.php',
         type: 'GET',
         success: function(response){
-          if(!isExists(response, categoryID)){
-            toastr.warning('Danh mục này không tồn tại!');
+          if(!isExists(response, tableID)){
+            toastr.warning('Bàn này không tồn tại!');
           }else{
             $.ajax({
-              url: 'inc/category-management/data/delete-category.php',
-              data: {categoryID: categoryID},
+              url: 'inc/table-management/data/delete-table.php',
+              data: {tableID: tableID},
               type: 'POST',
               success: function(response){
                 if(response.indexOf("KHÔNG") != -1){
-                  toastr.error('Xoá danh mục không thành công!');
+                  toastr.error('Xoá bàn không thành công!');
                 }else{
-                  toastr.success('Xoá danh mục thành công!');
-                  // Reload Category Datatable
+                  toastr.success('Xoá bàn thành công!');
+                  // Reload Table Datatable
                   $('#data-content').DataTable().ajax.reload();
                 }
               },
               error: function(){
-                toastr.error('Xoá danh mục không thành công!');
+                toastr.error('Xoá bàn không thành công!');
               }
             });
           }
