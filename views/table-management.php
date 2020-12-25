@@ -25,9 +25,9 @@
     <meta name="description" content="Quản lý bàn quán cafe Keycode Mon">
     <meta name="author" content="Huỳnh Tấn Thịnh">
 
-    <title>Quản lý bàn| Quán cafe Keycode Mon</title>
+    <title>Quản lý bàn | Quán cafe Keycode Mon</title>
 
-    <link href="../assets/css/table-management.css" rel="stylesheet">
+    <link href="../assets/css/management.css" rel="stylesheet">
 
 </head>
 
@@ -61,19 +61,18 @@
                     <!-- Content Row -->
                     <div class="row">
 
-                        <!-- Add Food -->
-                        <div class="col-lg-6 mb-4">
+                        <!-- Create, Update, Delete Table -->
+                        <div class="col-lg-4 mb-4">
                             <?php include 'inc/table-management/table-crud.php';?>
                         </div>
 
-                        <!-- Add Food -->
-                        <div class="col-lg-6 mb-4">
+                        <!-- Table Data -->
+                        <div class="col-lg-8 mb-4">
                             <?php include 'inc/table-management/table-data.php';?>
                         </div>
 
                     </div>
                 </div>
-                <!-- /.container-fluid -->
 
             </div>
             <!-- End of Main Content -->

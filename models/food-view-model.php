@@ -41,6 +41,16 @@
             return $this->status;
         }
 
+        public function getJson(){
+            return [
+                'id' => $this->id,
+                'name' => $this->name,
+                'categoryID' => $this->categoryID,
+                'price' => $this->price,
+                'status' => $this->status,
+            ];
+        }
+
     }
 
 ?>

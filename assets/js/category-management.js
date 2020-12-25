@@ -316,7 +316,7 @@ $(document).ready(function() {
 
     // Add Food Category
     $('#btn-add').on('click', function(){
-      // Get category name
+      // Get category info
       var categoryName = $('#category-name').val();
       // Check duplicate data
       $.ajax({
@@ -353,7 +353,7 @@ $(document).ready(function() {
     
     // Update Food Category
     $('#btn-update').on('click', function(){
-      // Get category id & category name
+      // Get category info
       var categoryID = $('#category-id').val();
       var categoryName = $('#category-name').val();
       // Check duplicate data
@@ -395,7 +395,7 @@ $(document).ready(function() {
 
     // Delete Food Category
     $('#btn-delete').on('click', function(){
-      // Get category id
+      // Get category info
       var categoryID = $('#category-id').val();
       // Check exist data
       $.ajax({

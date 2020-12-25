@@ -373,22 +373,24 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_UpdateFood$$
-CREATE PROCEDURE USP_UpdateFood(IN idFood INT, IN foodName VARCHAR(100) CHARSET utf8, IN idCategory INT, IN price FLOAT, IN stateID INT)
+CREATE PROCEDURE USP_UpdateFood(IN idFood INT, IN foodName VARCHAR(100) CHARSET utf8, IN idCategory INT, IN foodPrice FLOAT)
 	UPDATE Food
-	SET name = foodName, idCategory = idCategory, price = price, stateID = stateID
+	SET name = foodName, idCategory = idCategory, price = foodPrice
 	WHERE id = idFood; $$
 DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_DeleteFood$$
 CREATE PROCEDURE USP_DeleteFood(IN idFood INT)
-	DELETE FROM Food WHERE id = idFood; $$
+BEGIN
+	DELETE FROM Food WHERE id = idFood; 
+END; $$
 DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_FoodWasUsing$$
-CREATE PROCEDURE USP_FoodWasUsing(IN idFood INT)
-	SELECT id FROM BillInfo WHERE idFood = idFood; $$
+CREATE PROCEDURE USP_FoodWasUsing(IN foodID INT)
+	SELECT id FROM BillInfo WHERE idFood = foodID; $$
 DELIMITER ;
 
 /*------------------------------ END PROCEDURES OF Food ------------------------------*/
