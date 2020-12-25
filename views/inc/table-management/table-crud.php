@@ -16,7 +16,7 @@
 
             <div class="col-12 form-group">
                 <label for="table-id">Mã bàn</label>
-                <input id="table-id" name="category-id" class="form-control" type="number" readonly value="<?php echo $tableList[0]->getID(); ?>">
+                <input id="table-id" name="table-id" class="form-control" type="number" readonly value="<?php echo $tableList[0]->getID(); ?>">
             </div>
             
             <div class="col-12 form-group">

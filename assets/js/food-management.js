@@ -252,16 +252,18 @@ $(document).ready(function() {
     ////////////////////////////////////////////////
     */
 
-    // Load Table Datatable
+    // Load Food Datatable
     var table = $('#data-content').DataTable({
       ajax: {
-        url: 'inc/table-management/data/get-all-tables.php',
+        url: 'inc/food-management/data/get-all-foods.php',
         type: 'GET'
       },
       columns: [
         { "data": "id" },
         { "data": "name" },
-        { "data": "status" }
+        { "data": "categoryID" },
+        { "data": "price" },
+        { "data": "status" },
       ]
     });
 
@@ -278,10 +280,12 @@ $(document).ready(function() {
     ////////////////////////////////////////////////
     */
 
-    function updateForm(tableID, tableName, tableStatus){
-        $('#table-id').val(tableID);
-        $('#table-name').val(tableName);
-        $('#table-status').val(tableStatus);
+    function updateForm(foodID, foodName, categoryID, foodPrice, foodStatus){
+        $('#food-id').val(foodID);
+        $('#food-name').val(foodName);
+        $('#category-id').val(categoryID);
+        $('#food-price').val(foodPrice);
+        $('#food-status').val(foodStatus);
     }
 
     function isExists(response, attribute){
@@ -308,47 +312,55 @@ $(document).ready(function() {
     ////////////////////////////////////////////////
     */
 
-    // Table Datatable Click
+    // Food Datatable Click
     $('#data-content tbody').on('click', 'tr', function () {
         var row = table.row(this).data();
-        var tableID = row.id;
-        var tableName = row.name;
-        var tableStatus = row.status;
-        updateForm(tableID, tableName, tableStatus);
+        var foodID = row.id;
+        var foodName = row.name;
+        var categoryID = row.categoryID;
+        var foodPrice = row.price;
+        var foodStatus = row.status;
+        updateForm(foodID, foodName, categoryID, foodPrice, foodStatus);
     });
 
-    // Add Table
+    // Add Food
     $('#btn-add').on('click', function(){
-      // Get table info
-      var tableName = $('#table-name').val();
+      // Get food info
+      var foodName = $('#food-name').val();
+      var categoryID = $('#category-id').val();
+      var foodPrice = $('#food-price').val();
       // Check duplicate data
       $.ajax({
-        url: 'inc/table-management/data/get-all-tables.php',
+        url: 'inc/food-management/data/get-all-foods.php',
         type: 'GET',
         success: function(response){
-          if(isExists(response, tableName)){
-            toastr.warning('Bàn này đã tồn tại!');
-          }else if(tableName == ''){
-            toastr.warning('Tên bàn không được rỗng!');
+          if(isExists(response, foodName)){
+            toastr.warning('Món này đã tồn tại!');
+          }else if(foodName == ''){
+            toastr.warning('Tên món không được rỗng!');
           }else{
             $.ajax({
-              url: 'inc/table-management/data/add-table.php',
-              data: {tableName: tableName},
+              url: 'inc/food-management/data/add-food.php',
+              data: {
+                foodName: foodName,
+                categoryID: categoryID,
+                foodPrice: foodPrice
+              },
               type: 'POST',
               success: function(response){
                 // alert(response);
                 if(response.indexOf("KHÔNG") != -1){
-                  toastr.error('Thêm bàn không thành công!');
+                  toastr.error('Thêm món không thành công!');
                 }else{
-                  toastr.success('Thêm bàn thành công!');
+                  toastr.success('Thêm món thành công!');
                   
-                  // Reload Table Datatable
+                  // Reload Food Datatable
                   $('#data-content').DataTable().ajax.reload(null, false);
                   $('#data-content').DataTable().page('last').draw('page');
                 }
               },
               error: function(){
-                toastr.error('Thêm bàn không thành công!');
+                toastr.error('Thêm món không thành công!');
               }
             });
           }
@@ -356,41 +368,45 @@ $(document).ready(function() {
       });
     });
     
-    // Update Table
+    // Update Food
     $('#btn-update').on('click', function(){
-      // Get table info
-      var tableID = $('#table-id').val();
-      var tableName = $('#table-name').val();
+      // Get food info
+      var foodID = $('#food-id').val();
+      var foodName = $('#food-name').val();
+      var categoryID = $('#category-id').val();
+      var foodPrice = $('#food-price').val();
       // Check duplicate data
       $.ajax({
-        url: 'inc/table-management/data/get-all-tables.php',
+        url: 'inc/food-management/data/get-all-foods.php',
         type: 'GET',
         success: function(response){
-          if(isExists(response, tableName)){
-            toastr.warning('Bàn này đã tồn tại!');
-          }else if(!isExists(response, tableID)){
-            toastr.warning('Bàn này không tồn tại!');
-          }else if(tableName == ''){
-            toastr.warning('Tên Bàn không được rỗng!');
+          if(!isExists(response, foodID)){
+            toastr.warning('Món này không tồn tại!');
+          }else if(foodName == ''){
+            toastr.warning('Tên món không được rỗng!');
+          }else if(foodPrice == '' || foodPrice == 0){
+            toastr.warning('Giá món không được rỗng hoặc không được bằng 0!');
           }else{
             $.ajax({
-              url: 'inc/table-management/data/update-table.php',
+              url: 'inc/food-management/data/update-food.php',
               data: {
-                tableID: tableID,
-                tableName: tableName
+                foodID: foodID,
+                foodName: foodName,
+                categoryID: categoryID,
+                foodPrice: foodPrice
               },
               type: 'POST',
               success: function(response){
                 if(response.indexOf("KHÔNG") != -1){
-                  toastr.error('Cập nhật bàn không thành công!');
+                  toastr.error('Cập nhật món không thành công!');
                 }else{
-                  toastr.success('Cập nhật bàn thành công!');
-                  // Reload Table Datatable
+                  toastr.success('Cập nhật món thành công!');
+                  // Reload Food Datatable
                   $('#data-content').DataTable().ajax.reload(null, false);
                 }
               },
               error: function(){
-                toastr.error('Cập nhật bàn không thành công!');
+                toastr.error('Cập nhật món không thành công!');
               }
             });
           }
@@ -398,33 +414,33 @@ $(document).ready(function() {
       });
     });
 
-    // Delete Table
+    // Delete Food
     $('#btn-delete').on('click', function(){
-      // Get table info
-      var tableID = $('#table-id').val();
+      // Get food info
+      var foodID = $('#food-id').val();
       // Check exist data
       $.ajax({
-        url: 'inc/table-management/data/get-all-tables.php',
+        url: 'inc/food-management/data/get-all-foods.php',
         type: 'GET',
         success: function(response){
-          if(!isExists(response, tableID)){
-            toastr.warning('Bàn này không tồn tại!');
+          if(!isExists(response, foodID)){
+            toastr.warning('Món này không tồn tại!');
           }else{
             $.ajax({
-              url: 'inc/table-management/data/delete-table.php',
-              data: {tableID: tableID},
+              url: 'inc/food-management/data/delete-food.php',
+              data: {foodID: foodID},
               type: 'POST',
               success: function(response){
                 if(response.indexOf("KHÔNG") != -1){
-                  toastr.error('Xoá bàn không thành công!');
+                  toastr.error('Xoá món không thành công!');
                 }else{
-                  toastr.success('Xoá bàn thành công!');
-                  // Reload Table Datatable
+                  toastr.success('Xoá món thành công!');
+                  // Reload Food Datatable
                   $('#data-content').DataTable().ajax.reload();
                 }
               },
               error: function(){
-                toastr.error('Xoá bàn không thành công!');
+                toastr.error('Xoá món không thành công!');
               }
             });
           }

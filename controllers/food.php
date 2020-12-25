@@ -26,6 +26,36 @@
             return $foodList;
         }
 
+        public function addFood($foodName, $categoryID, $foodPrice){
+            $query = "CALL USP_AddFood('$foodName', $categoryID, $foodPrice)";
+            $result = $this->db->procedure($query);
+
+            if($result){
+                return true;
+            }
+            return false;
+        }
+
+        public function updateFood($foodID, $foodName, $categoryID, $foodPrice){
+            $query = "CALL USP_UpdateFood($foodID, '$foodName', $categoryID, $foodPrice)";
+            $result = $this->db->procedure($query);
+
+            if($result){
+                return true;
+            }
+            return false;
+        }
+
+        public function deleteFood($foodID){
+            $query = "CALL USP_DeleteFood($foodID)";
+            $result = $this->db->procedure($query);
+
+            if($result){
+                return true;
+            }
+            return false;
+        }
+        
         public function getFoodsByCategoryID($categoryID){
             $query = "CALL USP_LoadFoodListByCategoryID($categoryID)";
             $result = $this->db->procedure($query);
