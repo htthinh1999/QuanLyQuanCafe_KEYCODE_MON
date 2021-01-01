@@ -1,4 +1,4 @@
-DROP DATABASE IF EXISTS QL_QuanCafe_KeycodeMon;
+﻿DROP DATABASE IF EXISTS QL_QuanCafe_KeycodeMon;
 CREATE DATABASE QL_QuanCafe_KeycodeMon CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 USE QL_QuanCafe_KeycodeMon;
@@ -478,7 +478,7 @@ DELIMITER ;
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_LoadAccountList$$
 CREATE PROCEDURE USP_LoadAccountList()
-	SELECT username 'Tên tài khoản', displayName 'Tên hiển thị', t.name 'Loại tài khoản', sex 'Giới tính', birthday 'Ngày sinh', address 'Địa chỉ'
+	SELECT username, displayName, t.id, t.name, gender, birthday, address
     FROM Account a INNER JOIN AccountType t ON t.id = a.typeID; $$
 DELIMITER ;
 
@@ -500,9 +500,9 @@ DELIMITER ;
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_Login$$
 CREATE PROCEDURE USP_Login(username VARCHAR(100), password VARCHAR(100))
-	SELECT username
-	FROM Account
-	WHERE username = username AND password = password; $$
+	SELECT *
+	FROM account ac INNER JOIN accountType act ON ac.typeID = act.id
+	WHERE ac.username = username AND ac.password = password LIMIT 1; $$
 DELIMITER ;
 
 DELIMITER $$
@@ -515,10 +515,10 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_UpdateAccountInfo$$
-CREATE PROCEDURE USP_UpdateAccountInfo(IN username VARCHAR(100), IN displayName VARCHAR(100) CHARSET utf8, IN typeID INT, IN sex VARCHAR(5) CHARSET utf8, IN birthday DATE, IN address VARCHAR(100) CHARSET utf8)
+CREATE PROCEDURE USP_UpdateAccountInfo(IN username VARCHAR(100), IN displayName VARCHAR(100) CHARSET utf8, IN typeID INT, IN gender VARCHAR(5) CHARSET utf8, IN birthday DATE, IN address VARCHAR(100) CHARSET utf8)
     UPDATE Account
-	SET displayName = displayName, typeID = typeID, sex = sex, birthday = birthday, address = address
-	WHERE username = username; $$
+	SET Account.displayName = displayName, Account.typeID = typeID, Account.gender = gender, Account.birthday = birthday, Account.address = address
+	WHERE Account.username = username; $$
 DELIMITER ;
 
 DELIMITER $$
@@ -531,18 +531,18 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_AddAccount$$
-CREATE PROCEDURE USP_AddAccount(IN username VARCHAR(100), IN displayName VARCHAR(100) CHARSET utf8, IN typeID INT, IN sex VARCHAR(5) CHARSET utf8, IN birthday DATE, IN address VARCHAR(100) CHARSET utf8)
+CREATE PROCEDURE USP_AddAccount(IN username VARCHAR(100), IN displayName VARCHAR(100) CHARSET utf8, IN typeID INT, IN gender VARCHAR(5) CHARSET utf8, IN birthday DATE, IN address VARCHAR(100) CHARSET utf8)
     INSERT INTO Account
-    (username, displayName, typeID, sex, birthday, address)
+    (username, displayName, typeID, gender, birthday, address)
     VALUES
-    (username, displayName, typeID, sex, birthday, address); $$
+    (username, displayName, typeID, gender, birthday, address); $$
 DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_DeleteAccount$$
 CREATE PROCEDURE USP_DeleteAccount(username VARCHAR(100))
     DELETE FROM Account
-	WHERE username = username; $$
+	WHERE Account.username = username; $$
 DELIMITER ;
 
 DELIMITER $$
@@ -550,7 +550,7 @@ DROP PROCEDURE IF EXISTS USP_ResetPassword$$
 CREATE PROCEDURE USP_ResetPassword(username VARCHAR(100))
     UPDATE Account
 	SET password = 'c4ca4238a0b923820dcc509a6f75849b'
-	WHERE username = username; $$
+	WHERE Account.username = username; $$
 DELIMITER ;
 
 /*------------------------------ END PROCEDURES OF Account & AccountInfo ------------------------------*/

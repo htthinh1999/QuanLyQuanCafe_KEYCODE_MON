@@ -36,7 +36,7 @@ class Session{
 
 	public static function checkLogin(){
 		self::init();
-		if(self::get("login") == true){
+		if(self::get("login") == true && basename($_SERVER['PHP_SELF']) == 'login.php'){
 			header("Location: index.php");
 		}
 	}
