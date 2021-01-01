@@ -82,3 +82,23 @@
         </div>
     </div>
 </div>
+
+<!-- Reset Password Modal-->
+<div class="modal fade" id="resetPasswordModal" tabindex="-1" role="dialog" aria-labelledby="Reset Password Modal"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="Reset Password Modal">Xác nhận đặt lại mật khẩu</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Bạn có chắc chắn muốn đặt lại mật khẩu?</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Huỷ</button>
+                <a class="btn btn-primary" id="btn-reset-password" data-dismiss="modal">Xác nhận</a>
+            </div>
+        </div>
+    </div>
+</div>
