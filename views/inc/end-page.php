@@ -94,7 +94,7 @@
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">Bạn có chắc chắn muốn đặt lại mật khẩu?</div>
+            <div class="modal-body">Bạn có chắc chắn muốn đặt lại mật khẩu?<br><strong>(Mật khẩu sẽ được đặt lại là 1)</strong></div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Huỷ</button>
                 <a class="btn btn-primary" id="btn-reset-password" data-dismiss="modal">Xác nhận</a>

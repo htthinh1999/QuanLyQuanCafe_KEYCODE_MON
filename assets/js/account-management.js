@@ -468,6 +468,38 @@ $(document).ready(function() {
       }
     });
 
+    // Reset Password
+    $('#btn-reset-password').on('click', function(){
+      // Get account info
+      var accountUsername = $('#account-username').val();
+      // Check exist data
+      $.ajax({
+        url: 'inc/account-management/data/get-all-accounts.php',
+        type: 'GET',
+        success: function(response){
+          if(!isExists(response, accountUsername)){
+            toastr.warning('Tài khoản này không tồn tại!');
+          }else{
+            $.ajax({
+              url: 'inc/account-management/data/reset-password.php',
+              data: {accountUsername: accountUsername},
+              type: 'POST',
+              success: function(response){
+                if(response.indexOf("KHÔNG") != -1){
+                  toastr.error('Đặt lại mật khẩu cho tài khoản không thành công!');
+                }else{
+                  toastr.success('Đặt lại mật khẩu thành công!<br><strong>Mật khẩu được đặt lại là 1!</strong>');
+                }
+              },
+              error: function(){
+                toastr.error('Đặt lại mật khẩu cho tài khoản không thành công!');
+              }
+            });
+          }
+        }
+      });
+    });
+
     /*
     ////////////////////////////////////////////////
       End Events

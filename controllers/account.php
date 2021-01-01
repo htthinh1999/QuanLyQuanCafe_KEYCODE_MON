@@ -83,6 +83,16 @@
             }
             return false;
         }
+        
+        public function resetPassword($username){
+            $query = "CALL USP_ResetPassword('$username')";
+            $result = $this->db->procedure($query);
+
+            if($result){
+                return true;
+            }
+            return false;
+        }
     }
 
 ?>
