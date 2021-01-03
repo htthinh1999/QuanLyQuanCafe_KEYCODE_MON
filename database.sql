@@ -522,11 +522,11 @@ CREATE PROCEDURE USP_UpdateAccountInfo(IN username VARCHAR(100), IN displayName 
 DELIMITER ;
 
 DELIMITER $$
-DROP PROCEDURE IF EXISTS USP_UpdatePassword$$
-CREATE PROCEDURE USP_UpdatePassword(IN username VARCHAR(100), IN newPass VARCHAR(100))
+DROP PROCEDURE IF EXISTS USP_ChangePassword$$
+CREATE PROCEDURE USP_ChangePassword(IN username VARCHAR(100), IN newPass VARCHAR(100))
 	UPDATE Account
 	SET password = newPass
-	WHERE username = username; $$
+	WHERE Account.username = username; $$
 DELIMITER ;
 
 DELIMITER $$
