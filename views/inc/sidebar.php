@@ -91,7 +91,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Tài khoản:</h6>
                 <a class="collapse-item" href="change-password.php">Thay đổi mật khẩu</a>
-                <a class="collapse-item" href="profile.php">Thông tin tài khoản</a>
+                <a class="collapse-item" href="account-information.php">Thông tin tài khoản</a>
             </div>
         </div>
     </li>
