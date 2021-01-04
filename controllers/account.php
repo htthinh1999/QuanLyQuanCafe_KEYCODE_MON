@@ -72,6 +72,18 @@
             return $accountList;
         }
 
+        public function getAccountInformation($username){
+            $query = "CALL USP_GetAccountInfoByUsername('$username')";
+            $result = $this->db->procedure($query);
+
+            if($row = mysqli_fetch_array($result)){
+                $account = new AccountViewModel($row['username'], $row['id'], $row['name'], $row['displayName'], $row['gender'], $row['birthday'], $row['address']);
+                return $account;
+            }
+
+            return false;
+        }
+
         public function addAccount($username, $displayName, $typeID, $gender, $birthday, $address){
             $query = "CALL USP_AddAccount('$username', '$displayName', $typeID, '$gender', '$birthday', '$address')";
             $result = $this->db->procedure($query);
@@ -83,7 +95,7 @@
         }
         
         public function updateAccount($username, $displayName, $typeID, $gender, $birthday, $address){
-            $query = "CALL USP_UpdateAccountInfo('$username', '$displayName', $typeID, '$gender', '$birthday', '$address')";
+            $query = "CALL USP_UpdateAccount('$username', '$displayName', $typeID, '$gender', '$birthday', '$address')";
             $result = $this->db->procedure($query);
 
             if($result){
@@ -117,6 +129,16 @@
             $password = $this->fm->validation($password);
             $password = md5($password);
             $query = "CALL USP_ChangePassword('$username', '$password')";
+            $result = $this->db->procedure($query);
+
+            if($result){
+                return true;
+            }
+            return false;
+        }
+        
+        public function changeAccountInfo($username, $displayName, $gender, $birthday, $address){
+            $query = "CALL USP_ChangeAccountInfo('$username', '$displayName', '$gender', '$birthday', '$address')";
             $result = $this->db->procedure($query);
 
             if($result){
