@@ -93,7 +93,7 @@ $(document).ready(function() {
         if(response.indexOf("KHÔNG") != -1){
           toastr.error('Thay đổi mật khẩu cho tài khoản không thành công!');
         }else{
-          toastr.success('Thay đổi mật khẩu thành công!');
+          $('#changePasswordSuccessModal').modal('show');
         }
       },
       error: function(){
@@ -155,6 +155,10 @@ $(document).ready(function() {
         }
       }
     });
+  });
+
+  $('#btn-change-password-success').on('click', function(){
+    document.location.href = 'logout.php';
   });
 
   /*
