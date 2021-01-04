@@ -21,10 +21,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Thay đổi mật khẩu tài khoản quán cafe Keycode Mon">
+    <meta name="description" content="Thông tin tài khoản quán cafe Keycode Mon">
     <meta name="author" content="Huỳnh Tấn Thịnh">
 
-    <title>Thay đổi mật khẩu | Quán cafe Keycode Mon</title>
+    <title>Thông tin tài khoản | Quán cafe Keycode Mon</title>
 
     <link href="../assets/css/management.css" rel="stylesheet">
 
@@ -54,7 +54,7 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Thay đổi mật khẩu</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Thông tin tài khoản</h1>
                     </div>
 
                     <!-- Content -->
@@ -62,25 +62,40 @@
                     <div class="col-xl-5 col-lg-6">
                         <div class="card shadow">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Thay đổi mật khẩu</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Thông tin tài khoản</h6>
                             </div>
 
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="current-password">Mật khẩu hiện tại</label>
-                                    <input id="current-password" name="current-password" class="form-control" type="password">
+                                    <label for="username">Tên tài khoản</label>
+                                    <input id="username" name="username" class="form-control" type="text" readonly>
                                 </div>
                                 <div class="form-group">
-                                    <label for="new-password">Mật khẩu mới</label>
-                                    <input id="new-password" name="new-password" class="form-control" type="password">
+                                    <label for="display-name">Tên hiển thị</label>
+                                    <input id="display-name" name="display-name" class="form-control" type="text" readonly>
                                 </div>
                                 <div class="form-group">
-                                    <label for="confirm-new-password">Nhập lại mật khẩu mới</label>
-                                    <input id="confirm-new-password" name="confirm-new-password" class="form-control" type="password">
+                                    <label for="type-name">Thuộc loại</label>
+                                    <input id="type-name" name="type-name" class="form-control" type="text" readonly>
                                 </div>
                                 <div class="form-group">
-                                    <button class="btn btn-primary w-100 h-100" id="btn-change-password-modal" data-toggle="modal" data-target="#changePasswordModal">
-                                        <span class="text-uppercase font-weight-bold">Thay đổi mật khẩu</span>
+                                    <label for="gender">Giới tính</label>
+                                    <select id="gender" name="gender" class="form-control" disabled>
+                                        <option value="Nam">Nam</option>
+                                        <option value="Nữ">Nữ</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="birthday">Ngày sinh</label>
+                                    <input id="birthday" name="birthday" class="form-control" type="date" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="address">Địa chỉ</label>
+                                    <input id="address" name="address" class="form-control" type="text" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary w-100 h-100" id="btn-change-information">
+                                        <span class="text-uppercase font-weight-bold">Thay đổi thông tin</span>
                                     </button>
                                 </div>
                             </div>
@@ -106,7 +121,7 @@
     ?>
 
     <!-- Main JavaScript -->
-    <script src="../assets/js/change-password.js"></script>
+    <script src="../assets/js/account-information.js"></script>
 
 </body>
 

@@ -508,14 +508,22 @@ DELIMITER ;
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_GetAccountInfoByUsername$$
 CREATE PROCEDURE USP_GetAccountInfoByUsername(IN username VARCHAR(100))
-    SELECT *
-	FROM Account
-	WHERE username = username; $$
+    SELECT username, displayName, t.id, t.name, gender, birthday, address
+    FROM Account a INNER JOIN AccountType t ON t.id = a.typeID;
+	WHERE a.username = username; $$
 DELIMITER ;
 
 DELIMITER $$
-DROP PROCEDURE IF EXISTS USP_UpdateAccountInfo$$
-CREATE PROCEDURE USP_UpdateAccountInfo(IN username VARCHAR(100), IN displayName VARCHAR(100) CHARSET utf8, IN typeID INT, IN gender VARCHAR(5) CHARSET utf8, IN birthday DATE, IN address VARCHAR(100) CHARSET utf8)
+DROP PROCEDURE IF EXISTS USP_ChangeAccountInfo$$
+CREATE PROCEDURE USP_ChangeAccountInfo(IN username VARCHAR(100), IN displayName VARCHAR(100) CHARSET utf8, IN gender VARCHAR(5) CHARSET utf8, IN birthday DATE, IN address VARCHAR(100) CHARSET utf8)
+    UPDATE Account
+	SET Account.displayName = displayName, Account.gender = gender, Account.birthday = birthday, Account.address = address
+	WHERE Account.username = username; $$
+DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS USP_UpdateAccount$$
+CREATE PROCEDURE USP_UpdateAccount(IN username VARCHAR(100), IN displayName VARCHAR(100) CHARSET utf8, IN typeID INT, IN gender VARCHAR(5) CHARSET utf8, IN birthday DATE, IN address VARCHAR(100) CHARSET utf8)
     UPDATE Account
 	SET Account.displayName = displayName, Account.typeID = typeID, Account.gender = gender, Account.birthday = birthday, Account.address = address
 	WHERE Account.username = username; $$
