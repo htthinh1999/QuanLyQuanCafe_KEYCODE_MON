@@ -122,3 +122,19 @@
         </div>
     </div>
 </div>
+
+<!-- Change Password Success Modal-->
+<div class="modal fade" id="changePasswordSuccessModal" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="Change Password Success Modal"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="Change Password Modal">Thay đổi mật khẩu thành công</h5>
+            </div>
+            <div class="modal-body">Thay đổi mật khẩu thành công! Bạn cần đăng nhập lại!</div>
+            <div class="modal-footer">
+                <a class="btn btn-primary" id="btn-change-password-success" data-dismiss="modal">Đồng ý</a>
+            </div>
+        </div>
+    </div>
+</div>
