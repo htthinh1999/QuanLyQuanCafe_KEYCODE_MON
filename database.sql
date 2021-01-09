@@ -655,12 +655,7 @@ DELIMITER ;
 /*------------------------------ END PROCEDURES OF TableFood ------------------------------*/
 
 /*--**************************************** END CREATE PROCEDURES ****************************************--*/
-CREATE TABLE messages (
-  id INT(11) NOT NULL AUTO_INCREMENT,
-  message VARCHAR(255) DEFAULT NULL,
-  time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (id)
-);
+
 
 /*--**************************************** CREATE TRIGGERS ****************************************--*/
 DELIMITER $$
