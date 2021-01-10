@@ -86,6 +86,10 @@ $(document).ready(function() {
             });
         }, 500);
 
+        toastr.success('Sao lưu dữ liệu thành công!');
+      },
+      error: function(){
+        toastr.error('Sao lưu dữ liệu không thành công!');
       }
     });
   });
@@ -95,30 +99,6 @@ $(document).ready(function() {
     var fileName = $(this).val().split("\\").pop();
     $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
   });
-
-  // Restore data
-  $('#btn-restore-data').on('click', function(){
-
-    var formData = new FormData();
-    formData.append("fileName", document.getElementById('file-upload').files[0]);
-    $.ajax({
-      url: 'inc/backup-restore/data/restore.php',
-      type: 'POST',
-      data: {
-        fileName: function(){
-            return formData;
-        }
-      },
-      processData: false,
-      contentType: false,
-      success: function(response){
-        alert(response);
-        // Logout
-        // document.location.href = 'logout.php';
-      }
-    });
-  });
-
 
   /*
   ////////////////////////////////////////////////

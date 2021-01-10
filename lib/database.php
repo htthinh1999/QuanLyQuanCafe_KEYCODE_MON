@@ -71,6 +71,10 @@ class Database{
 	public function backupData(){
 		$return='';
 		$allTables = array();
+		$listBillIDCheckedout = array();
+
+		$return.="SET FOREIGN_KEY_CHECKS=0;\n\n";
+
 		$result = $this->link->query('SHOW TABLES');
 		while($row = mysqli_fetch_array($result)){
 			$allTables[] = $row[0];
@@ -80,9 +84,9 @@ class Database{
 			$result = $this->link->query('SELECT * FROM '.$table);
 			$num_fields = mysqli_num_fields($result);
 			
-			$return.= 'DROP TABLE IF EXISTS '.$table.';';
+			$return.= 'DELETE FROM '.$table.";\n\n";
 			$row2 = mysqli_fetch_array($this->link->query('SHOW CREATE TABLE '.$table));
-			$return.= "\n\n".$row2[1].";\n\n";
+			// $return.= "\n\n".$row2[1].";\n\n";
 			
 			for ($i = 0; $i < $num_fields; $i++) {
 				while($row = mysqli_fetch_array($result)){
@@ -93,12 +97,22 @@ class Database{
 						if (isset($row[$j])) { $return.= '"'.$row[$j].'"' ; }
 						else { $return.= '""'; }
 						if ($j<($num_fields-1)) { $return.= ','; }
+
+						if($row[$j] == 'Đã thanh toán'){
+							array_push($listBillIDCheckedout, $row[0]);
+						}
 					}
 					$return.= ");\n";
 				}
 			}
 			$return.="\n\n";
 		}
+
+		foreach($listBillIDCheckedout as $billID){
+			$return.="UPDATE Bill SET status = 'Đã thanh toán' WHERE id = " . $billID . ";\n";
+		}
+
+		$return.="\n\nSET FOREIGN_KEY_CHECKS=1;\n\n";
 		
 		// Create backup folder
 		$folder = 'backup/';
@@ -106,7 +120,8 @@ class Database{
 		mkdir($folder, 0777, true);
 		chmod($folder, 0777);	
 		// Create filename
-		$date = date('m-d-Y-H-i-s', time());
+		date_default_timezone_set('Asia/Bangkok');	// change timezone
+		$date = date('d-m-Y-H-i-s', time());
 		$filename = $folder."ql-quancafe-keycodemon-".$date.'.sql';
 		// Create sql file
 		$handle = fopen($filename,'w+');
@@ -120,12 +135,13 @@ class Database{
 		$templine = '';
     
 		// Read in entire file
-		$lines = file($filePath);
+		$lines = file($fileName);
 		
 		$error = '';
 		
 		// Loop through each line
 		foreach ($lines as $line){
+			
 			// Skip it if it's a comment
 			if(substr($line, 0, 2) == '--' || $line == ''){
 				continue;

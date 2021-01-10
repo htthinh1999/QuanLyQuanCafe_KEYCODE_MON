@@ -46,7 +46,7 @@ CREATE TABLE Account
 	birthday DATE NOT NULL,
 	address VARCHAR(100) CHARSET utf8 NOT NULL,
 
-	FOREIGN KEY(typeID) REFERENCES AccountType(id)
+	FOREIGN KEY(typeID) REFERENCES AccountType(id) ON DELETE CASCADE
 );
 
 /*
@@ -72,8 +72,8 @@ CREATE TABLE Food
 	price FLOAT NOT NULL DEFAULT 0,
 	stateID INT NOT NULL DEFAULT 1,
 	
-	FOREIGN KEY (idCategory) REFERENCES FoodCategory(id),
-	FOREIGN KEY (stateID) REFERENCES State(id)
+	FOREIGN KEY (idCategory) REFERENCES FoodCategory(id) ON DELETE CASCADE,
+	FOREIGN KEY (stateID) REFERENCES State(id) ON DELETE CASCADE
 );
 
 /*
@@ -89,7 +89,7 @@ CREATE TABLE Bill
 	timeOut DATETIME DEFAULT NULL,
 	status VARCHAR(100) CHARSET utf8 NOT NULL DEFAULT N'Chưa thanh toán',
 
-	FOREIGN KEY (idTable) REFERENCES TableFood(id)
+	FOREIGN KEY (idTable) REFERENCES TableFood(id) ON DELETE CASCADE
 );
 
 CREATE TABLE BillInfo
@@ -99,8 +99,8 @@ CREATE TABLE BillInfo
 	idFood INT NOT NULL,
 	count INT NOT NULL DEFAULT 1,
 	
-	FOREIGN KEY (idBill) REFERENCES Bill(id),
-	FOREIGN KEY (idFood) REFERENCES Food(id)
+	FOREIGN KEY (idBill) REFERENCES Bill(id) ON DELETE CASCADE,
+	FOREIGN KEY (idFood) REFERENCES Food(id) ON DELETE CASCADE
 );
 
 /**************************************** END CREATE TABLES *****************************************/

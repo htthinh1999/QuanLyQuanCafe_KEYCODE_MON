@@ -13,6 +13,18 @@
     require_once '../controllers/account.php';
 ?>
 
+<?php
+
+    if(isset($_FILES["file-upload"]) && $_FILES["file-upload"]['error'] == 0){
+        $db = new Database();
+        $result = $db->restoreData($_FILES["file-upload"]["tmp_name"]);
+    }
+
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -73,19 +85,18 @@
                                             <span class="text-uppercase font-weight-bold"><i class="fa fa-file-download"></i> Sao lưu dữ liệu</span>
                                         </button>
                                     </div>
-                                    <div class="form-group ">
+
+                                    <form class="form-group" method="post" enctype="multipart/form-data">
                                         <label for="file-upload">Phục hồi</label>
                                         <div class="custom-file">
                                             <label id="file-upload-label" for="file-upload" class="custom-file-label">Chọn tệp...</label>
                                             <input type="file" class="custom-file-input" id="file-upload" name="file-upload" class="form-control">    
                                         </div>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <button class="btn btn-primary w-100 h-100" id="btn-restore-modal" data-toggle="modal" data-target="#restoreDataModal">
+                                        <button class="btn btn-primary w-100 h-100 mt-3" id="btn-restore" type="submit">
                                             <span class="text-uppercase font-weight-bold"><i class="fa fa-file-upload"></i> Phục hồi dữ liệu</span>
                                         </button>
-                                    </div>
+                                    </form>
+
                                 </div>
                             </div>
                         </div>
@@ -112,6 +123,20 @@
 
     <!-- Main JavaScript -->
     <script src="../assets/js/backup-restore.js"></script>
+
+    <?php
+        if(isset($_FILES["file-upload"])){
+            if($_FILES["file-upload"]['error'] != 0){
+                echo "<script type='text/javascript'>toastr.error('Dữ liệu không đúng cấu trúc!')</script>";
+            }else{
+                if($result == 1){
+                    echo "<script type='text/javascript'>toastr.success('Phục hồi dữ liệu thành công!')</script>";
+                }else{
+                    echo "<script type='text/javascript'>toastr.error('Phục hồi dữ liệu không thành công!')</script>";
+                }
+            }
+        }
+    ?>
 
 </body>
 
