@@ -33,6 +33,17 @@
 
 <body id="page-top">
 
+    <!-- Spinner Loading Page -->
+    <div id="loading">
+        <div class="spinner spinner-grow text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- End Spinner Loading Page -->
+
     <!-- Page Wrapper -->
     <div id="wrapper">
 

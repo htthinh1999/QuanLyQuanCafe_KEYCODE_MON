@@ -58,30 +58,32 @@
                     </div>
 
                     <!-- Content -->
-                    <!-- Change Password Card -->
-                    <div class="col-xl-5 col-lg-6">
-                        <div class="card shadow">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Thay đổi mật khẩu</h6>
-                            </div>
+                    <div class="row">
+                        <!-- Change Password Card -->
+                        <div class="col-xl-5 col-lg-6">
+                            <div class="card shadow">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Thay đổi mật khẩu</h6>
+                                </div>
 
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="current-password">Mật khẩu hiện tại</label>
-                                    <input id="current-password" name="current-password" class="form-control" type="password">
-                                </div>
-                                <div class="form-group">
-                                    <label for="new-password">Mật khẩu mới</label>
-                                    <input id="new-password" name="new-password" class="form-control" type="password">
-                                </div>
-                                <div class="form-group">
-                                    <label for="confirm-new-password">Nhập lại mật khẩu mới</label>
-                                    <input id="confirm-new-password" name="confirm-new-password" class="form-control" type="password">
-                                </div>
-                                <div class="form-group">
-                                    <button class="btn btn-primary w-100 h-100" id="btn-change-password-modal" data-toggle="modal" data-target="#changePasswordModal">
-                                        <span class="text-uppercase font-weight-bold">Thay đổi mật khẩu</span>
-                                    </button>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="current-password">Mật khẩu hiện tại</label>
+                                        <input id="current-password" name="current-password" class="form-control" type="password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="new-password">Mật khẩu mới</label>
+                                        <input id="new-password" name="new-password" class="form-control" type="password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="confirm-new-password">Nhập lại mật khẩu mới</label>
+                                        <input id="confirm-new-password" name="confirm-new-password" class="form-control" type="password">
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-primary w-100 h-100" id="btn-change-password-modal" data-toggle="modal" data-target="#changePasswordModal">
+                                            <span class="text-uppercase font-weight-bold">Thay đổi mật khẩu</span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

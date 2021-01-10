@@ -58,45 +58,47 @@
                     </div>
 
                     <!-- Content -->
-                    <!-- Change Password Card -->
-                    <div class="col-xl-5 col-lg-6">
-                        <div class="card shadow">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Thông tin tài khoản</h6>
-                            </div>
+                    <div class="row">
+                        <!-- Change Password Card -->
+                        <div class="col-xl-5 col-lg-6">
+                            <div class="card shadow">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Thông tin tài khoản</h6>
+                                </div>
 
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="username">Tên tài khoản</label>
-                                    <input id="username" name="username" class="form-control" type="text" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <label for="display-name">Tên hiển thị</label>
-                                    <input id="display-name" name="display-name" class="form-control" type="text" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <label for="type-name">Thuộc loại</label>
-                                    <input id="type-name" name="type-name" class="form-control" type="text" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <label for="gender">Giới tính</label>
-                                    <select id="gender" name="gender" class="form-control" disabled>
-                                        <option value="Nam">Nam</option>
-                                        <option value="Nữ">Nữ</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="birthday">Ngày sinh</label>
-                                    <input id="birthday" name="birthday" class="form-control" type="date" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <label for="address">Địa chỉ</label>
-                                    <input id="address" name="address" class="form-control" type="text" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <button class="btn btn-primary w-100 h-100" id="btn-change-information">
-                                        <span class="text-uppercase font-weight-bold">Thay đổi thông tin</span>
-                                    </button>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="username">Tên tài khoản</label>
+                                        <input id="username" name="username" class="form-control" type="text" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="display-name">Tên hiển thị</label>
+                                        <input id="display-name" name="display-name" class="form-control" type="text" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="type-name">Thuộc loại</label>
+                                        <input id="type-name" name="type-name" class="form-control" type="text" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="gender">Giới tính</label>
+                                        <select id="gender" name="gender" class="form-control" disabled>
+                                            <option value="Nam">Nam</option>
+                                            <option value="Nữ">Nữ</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="birthday">Ngày sinh</label>
+                                        <input id="birthday" name="birthday" class="form-control" type="date" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="address">Địa chỉ</label>
+                                        <input id="address" name="address" class="form-control" type="text" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-primary w-100 h-100" id="btn-change-information">
+                                            <span class="text-uppercase font-weight-bold">Thay đổi thông tin</span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -35,6 +35,17 @@
 
 <body id="page-top">
 
+    <!-- Spinner Loading Page -->
+    <div id="loading">
+        <div class="spinner spinner-grow text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- End Spinner Loading Page -->
+
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -59,7 +70,7 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Quản lý món</h1>
                     </div>
-
+                    
                     <!-- Content Row -->
                     <div class="row">
 
