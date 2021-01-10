@@ -107,8 +107,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Cài đặt khác:</h6>
                 <a class="collapse-item" href="theme.php">Thay đổi màu sắc</a>
-                <a class="collapse-item" href="backup.php">Sao lưu dữ liệu</a>
-                <a class="collapse-item" href="restore.php">Phục hồi dữ liệu</a>
+                <a class="collapse-item" href="backup-restore.php">Sao lưu & Phục hồi dữ liệu</a>
                 <a class="collapse-item" href="information.php">Thông tin trang</a>
             </div>
         </div>
