@@ -26,7 +26,7 @@
 
     <title>Thay đổi mật khẩu | Quán cafe Keycode Mon</title>
 
-    <link href="../assets/css/management.css" rel="stylesheet">
+    <link href="../assets/css/change-password.css" rel="stylesheet">
 
 </head>
 

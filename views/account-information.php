@@ -26,7 +26,7 @@
 
     <title>Thông tin tài khoản | Quán cafe Keycode Mon</title>
 
-    <link href="../assets/css/management.css" rel="stylesheet">
+    <link href="../assets/css/account-information.css" rel="stylesheet">
 
 </head>
 
