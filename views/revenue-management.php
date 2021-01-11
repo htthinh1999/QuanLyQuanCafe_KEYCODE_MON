@@ -12,11 +12,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Trang chủ quán cafe Keycode Mon">
+    <meta name="description" content="Quản lý doanh thu quán cafe Keycode Mon">
     <meta name="author" content="Huỳnh Tấn Thịnh">
 
-    <title>Trang chủ | Quán cafe Keycode Mon</title>
-    <link href="../assets/css/index.css" rel="stylesheet">
+    <title>Quản lý doanh thu | Quán cafe Keycode Mon</title>
+    <link href="../assets/css/revenue-management.css" rel="stylesheet">
 
 </head>
 
@@ -44,7 +44,7 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Trang chủ</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Quản lý doanh thu</h1>
                     </div>
 
                     <!-- Content Row -->
@@ -58,7 +58,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Doanh thu hàng tháng</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">3.500.000 VNĐ</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="avg-month-revenue">... VNĐ</div>
                                         </div>
                                         <div class="col-auto">
                                         <i class="fas fa-money-bill fa-2x text-gray-300"></i>
@@ -76,7 +76,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 Doanh thu năm nay</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">25.500.000 VNĐ</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="current-year-revenue">... VNĐ</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -107,7 +107,7 @@
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-area">
-                                        <canvas id="myAreaChart"></canvas>
+                                        <canvas id="allMonthRevenuesAreaChart"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -129,22 +129,9 @@
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-pie pt-4 pb-2">
-                                        <canvas id="myPieChart"></canvas>
+                                        <canvas id="revenueSource"></canvas>
                                     </div>
-                                    <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Cà phê sữa
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Trà sữa
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Bò né
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-warning"></i> Khác
-                                        </span>
-                                    </div>
+                                    <div class="mt-4 text-center small" id="revenueSourceDetail"></div>
                                 </div>
                             </div>
                         </div>
@@ -170,12 +157,7 @@
     ?>
     
     <!-- Index JavaScript -->
-    <script src="../assets/js/index.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="../assets/js/demo/chart-area-demo.js"></script>
-    <script src="../assets/js/demo/chart-pie-demo.js"></script>
-
+    <script src="../assets/js/revenue-management.js"></script>
 
 </body>
 

@@ -652,6 +652,52 @@ CREATE PROCEDURE USP_DeleteTableFood(IN tableID INT)
 	DELETE FROM TableFood
 	WHERE id = tableID; $$
 DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS USP_GetAvgRevenue$$
+CREATE PROCEDURE USP_GetAvgMonthRevenue()
+	SELECT TRUNCATE(SUM(totalPrice)/COUNT(*),0) AS 'AVG Month Revenue'
+	FROM Bill
+	WHERE YEAR(timeIn) = YEAR(CURRENT_TIMESTAMP()); $$
+DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS USP_GetCurrentYearRevenue$$
+CREATE PROCEDURE USP_GetCurrentYearRevenue()
+	SELECT TRUNCATE(SUM(totalPrice),0) AS 'Current Year Revenue'
+	FROM Bill
+	WHERE YEAR(timeIn) = YEAR(CURRENT_TIMESTAMP()); $$
+DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS USP_GetAllMonthRevenues$$
+CREATE PROCEDURE USP_GetAllMonthRevenues()
+	SELECT MONTH(timeIn) AS 'Month', TRUNCATE(SUM(totalPrice),0) AS 'Month Revenue'
+	FROM Bill
+	WHERE YEAR(timeIn) = YEAR(CURRENT_TIMESTAMP())
+	GROUP BY MONTH(timeIn)
+    ORDER BY timeIn; $$
+DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS USP_GetAllSourceRevenues$$
+CREATE PROCEDURE USP_GetAllSourceRevenues()
+	BEGIN
+		DECLARE allFoodCount INT DEFAULT 0;
+		SELECT SUM(count)
+		INTO allFoodCount
+		FROM BillInfo bi INNER JOIN BIll b ON bi.idBill = b.id
+		WHERE YEAR(b.timeIn) = YEAR(CURRENT_TIMESTAMP());
+
+		SELECT f.name AS 'Food', TRUNCATE(SUM(count)/allFoodCount*100, 2) AS 'Percent'
+		FROM BillInfo bi INNER JOIN Food f ON bi.idFood = f.id
+        					INNER JOIN Bill b ON bi.idBill = b.id
+        WHERE YEAR(timeIn) = YEAR(CURRENT_TIMESTAMP())
+		GROUP BY idFood
+		ORDER BY Percent DESC;
+	END; $$
+DELIMITER ;
+
 /*------------------------------ END PROCEDURES OF TableFood ------------------------------*/
 
 /*--**************************************** END CREATE PROCEDURES ****************************************--*/
