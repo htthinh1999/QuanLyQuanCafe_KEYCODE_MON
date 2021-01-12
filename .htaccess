@@ -1,0 +1,2 @@
+DirectoryIndex all-tables.php
+ErrorDocument 404 /php/QuanLyQuanCafe_KEYCODE_MON/views/404.php
