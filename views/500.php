@@ -52,11 +52,11 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- 404 Error Text -->
+                    <!-- 500 Error Text -->
                     <div class="text-center">
-                        <div class="error mx-auto" data-text="404">404</div>
-                        <p class="lead text-gray-800 mb-5">Không tìm thấy trang</p>
-                        <p class="text-gray-500 mb-0">Có vẻ như đường dẫn không đúng...</p>
+                        <div class="error mx-auto" data-text="500">500</div>
+                        <p class="lead text-gray-800 mb-5">Lỗi máy chủ</p>
+                        <p class="text-gray-500 mb-0">Có vẻ như máy chủ đang bị lỗi, hãy thử tải lại trang web hoặc xoá bộ nhớ caches và cookies trên trình duyệt...</p>
                         <a href="all-tables.php ">&larr; Trở về trang Danh sách các bàn</a>
                     </div>
 

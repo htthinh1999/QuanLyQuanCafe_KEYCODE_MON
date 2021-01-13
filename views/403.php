@@ -52,11 +52,11 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- 404 Error Text -->
+                    <!-- 403 Error Text -->
                     <div class="text-center">
-                        <div class="error mx-auto" data-text="404">404</div>
-                        <p class="lead text-gray-800 mb-5">Không tìm thấy trang</p>
-                        <p class="text-gray-500 mb-0">Có vẻ như đường dẫn không đúng...</p>
+                        <div class="error mx-auto" data-text="403">403</div>
+                        <p class="lead text-gray-800 mb-5">Bạn đang bị chặn hoặc không có quyền truy cập</p>
+                        <p class="text-gray-500 mb-0">Có vẻ như bạn đang bị chặn truy cập vào địa chỉ web, do địa chỉ đó không có dữ liệu hoặc bạn không có đủ quyền truy cập hay bị chặn bởi hosting...</p>
                         <a href="all-tables.php ">&larr; Trở về trang Danh sách các bàn</a>
                     </div>
 

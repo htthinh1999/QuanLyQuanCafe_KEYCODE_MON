@@ -52,11 +52,11 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- 404 Error Text -->
+                    <!-- 401 Error Text -->
                     <div class="text-center">
-                        <div class="error mx-auto" data-text="404">404</div>
-                        <p class="lead text-gray-800 mb-5">Không tìm thấy trang</p>
-                        <p class="text-gray-500 mb-0">Có vẻ như đường dẫn không đúng...</p>
+                        <div class="error mx-auto" data-text="401">401</div>
+                        <p class="lead text-gray-800 mb-5">Thông tin đăng nhập không hợp lệ</p>
+                        <p class="text-gray-500 mb-0">Có vẻ như thông tin đăng nhập của bạn không chính xác...</p>
                         <a href="all-tables.php ">&larr; Trở về trang Danh sách các bàn</a>
                     </div>
 
