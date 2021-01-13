@@ -71,19 +71,29 @@ $(document).ready(function() {
   */
 
   // Change format number: 12345 -> 12 345
-  function numberFormat(nStr)
-  {
-      nStr += '';
-      x = nStr.split('.');
-      x1 = x[0];
-      x2 = x.length > 1 ? '.' + x[1] : '';
-      var rgx = /(\d+)(\d{3})/;
-      while (rgx.test(x1)) {
-          x1 = x1.replace(rgx, '$1' + ' ' + '$2');
-      }
-      return x1 + x2;
+  function separatorNumber(nStr){
+    nStr += '';
+    x = nStr.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ' ' + '$2');
+    }
+    return x1 + x2;
   }
 
+  // Round number: 12.00 -> 12, 2.30 -> 2.3
+  function roundNumber(nStr){
+    if(nStr.charAt(nStr.length-1) == '0'){
+      nStr = nStr.slice(0, -1);
+    }
+    if(nStr.charAt(nStr.length-1) == '0'){
+      nStr = nStr.slice(0, -2);
+    }
+    
+    return nStr;
+  }
   
   /*
     ////////////////////////////////////////////////
@@ -104,7 +114,7 @@ $(document).ready(function() {
     type: 'GET',
     success: function(response){
       response = JSON.parse(response);
-      $('#avg-month-revenue').text(numberFormat(response.avgMonthRevenue) + ' VNĐ');
+      $('#avg-month-revenue').text(separatorNumber(response.avgMonthRevenue) + ' VNĐ');
     }
   });
 
@@ -115,7 +125,7 @@ $(document).ready(function() {
     type: 'GET',
     success: function(response){
       response = JSON.parse(response);
-      $('#current-year-revenue').text(numberFormat(response.currentYearRevenue) + ' VNĐ');
+      $('#current-year-revenue').text(separatorNumber(response.currentYearRevenue) + ' VNĐ');
     }
   });
 
@@ -170,7 +180,7 @@ $(document).ready(function() {
             padding: 10,
             // Show money
             callback: function(value, index, values) {
-              return numberFormat(value) + ' VNĐ';
+              return separatorNumber(value) + ' VNĐ';
             }
           },
           gridLines: {
@@ -202,7 +212,7 @@ $(document).ready(function() {
         callbacks: {
           label: function(tooltipItem, chart) {
             var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-            return datasetLabel + ': ' + numberFormat(tooltipItem.yLabel) + ' VNĐ';
+            return datasetLabel + ': ' + separatorNumber(tooltipItem.yLabel) + ' VNĐ';
           }
         }
       }
@@ -244,8 +254,8 @@ $(document).ready(function() {
       labels: [],
       datasets: [{
         data: [],
-        backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#ffd362'],
-        hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf', '#f6c23e'],
+        backgroundColor: ['#f14621', '#ffd362', '#3ede4f', '#3795e8', '#f82dd6', '#bbb4ba'],
+        hoverBackgroundColor: ['#c70039', '#f6c23e', '#2cbc3b', '#2c7fc8', '#cd21b0', '#918b90'],
         hoverBorderColor: "rgba(234, 236, 244, 1)",
       }],
     },
@@ -260,6 +270,15 @@ $(document).ready(function() {
         yPadding: 15,
         displayColors: false,
         caretPadding: 10,
+        callbacks: {
+          label: function(tooltipItem, data) {
+            var i = tooltipItem.index;
+            var label = data.labels[i];
+            var percent = data.datasets[0].data[i];
+
+            return label + ': ' + roundNumber(percent) + ' %';
+          }
+        }
       },
       legend: {
         display: false
@@ -278,11 +297,20 @@ $(document).ready(function() {
       response = JSON.parse(response);
       // alert(response.AllSourceRevenues);
       allSourceRevenues = response.AllSourceRevenues;
+      var rest = 100;
       $.each(allSourceRevenues, function(i, item){
         // alert(i+ ' ' +item.Food + ' ' +  item.Percent);
-        pieChart.data.labels[i] = item.Food;
-        pieChart.data.datasets[0].data[i] = item.Percent;
-        $('#revenueSourceDetail').append("<span class='mr-2'><i class='fas fa-circle' style='color: "+(pieChart.data.datasets[0].backgroundColor[i])+"'></i> " + item.Food + "</span>");
+        if(i < 5){
+          pieChart.data.labels[i] = item.Food;
+          pieChart.data.datasets[0].data[i] = item.Percent;
+          rest -= parseFloat(item.Percent);
+          $('#revenueSourceDetail').append("<span class='mr-2'><i class='fas fa-circle' style='color: "+(pieChart.data.datasets[0].backgroundColor[i])+"'></i> " + item.Food + "</span>");
+        }else{
+          pieChart.data.labels[i] = 'Còn lại';
+          pieChart.data.datasets[0].data[i] = rest.toFixed(2).toString();
+          $('#revenueSourceDetail').append("<span class='mr-2'><i class='fas fa-circle' style='color: "+(pieChart.data.datasets[0].backgroundColor[i])+"'></i> Còn lại</span>");
+          return false;
+        }
       });
 
       pieChart.update();
