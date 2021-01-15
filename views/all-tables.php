@@ -70,27 +70,27 @@
                         <input type="hidden" class="currentTableID" name="currentTableID" value="1" />
 
                         <!-- Add Food -->
-                        <div class="col-lg-6 wrap-add-food mb-4">
+                        <div class="col-lg-6 wrap-add-food mb-4 block-content">
                             <?php include 'inc/all-tables/add-food.php';?>
                         </div>
 
                         <!-- Checkout -->
-                        <div class="col-lg-3 wrap-check-out mb-4">
+                        <div class="col-lg-3 wrap-check-out mb-4 block-content">
                             <?php include 'inc/all-tables/check-out.php';?>
                         </div>
 
                         <!-- Change Table -->
-                        <div class="col-lg-3 wrap-change-table mb-4">
+                        <div class="col-lg-3 wrap-change-table mb-4 block-content">
                             <?php include 'inc/all-tables/change-table.php';?>
                         </div>
 
                         <!-- Tables -->
-                        <div class="col-xl-7 col-lg-6 wrap-all-tables-left">
+                        <div class="col-xl-7 col-lg-6 wrap-all-tables-left block-content">
                             <?php include 'inc/all-tables/tables.php';?>
                         </div>
 
                         <!-- Bill -->
-                        <div class="col-xl-5 col-lg-6">
+                        <div class="col-xl-5 col-lg-6 block-content">
                             <?php include 'inc/all-tables/bill.php';?>
                         </div>
 

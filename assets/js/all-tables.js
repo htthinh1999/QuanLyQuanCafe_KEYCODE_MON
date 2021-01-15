@@ -252,6 +252,7 @@ $(document).ready(function() {
     ////////////////////////////////////////////////
   */
  
+  var blocks = $('.block-content');
   var foods = $("#food");
   var tablesToChange = $('#to-table');
   var tableFoods = $("#table-foods");
@@ -274,6 +275,25 @@ $(document).ready(function() {
       Functions
     ////////////////////////////////////////////////
   */
+
+  // Find block has input search content
+  function findBlock(inputContent){
+    $.each(blocks, function(){
+      if($(this).html().includes(inputContent)){
+        if($(this).hasClass('d-none')){
+          $(this).removeClass('d-none');
+          $(this).addClass('d-block');
+        }else{
+          $(this).addClass('d-block');
+        }
+      }else if($(this).hasClass('d-block')){
+        $(this).removeClass('d-block');
+        $(this).addClass('d-none');
+      }else{
+        $(this).addClass('d-none');
+      }
+    });
+  }
 
   // Update foods follow category
   function updateFoods(foodsData){
@@ -549,6 +569,13 @@ $(document).ready(function() {
       });
     }
   });
+
+  // Find block content
+  $('.input-search').keyup(function(){
+    var inputContent = this.value;
+    findBlock(inputContent);
+  });
+
 
   /*
     ////////////////////////////////////////////////

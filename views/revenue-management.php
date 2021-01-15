@@ -61,7 +61,7 @@
                                             <div class="h5 mb-0 font-weight-bold text-gray-800" id="avg-month-revenue">... VNĐ</div>
                                         </div>
                                         <div class="col-auto">
-                                        <i class="fas fa-money-bill fa-2x text-gray-300"></i>
+                                        <i class="fas fa-money-bill fa-2x text-primary"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -79,7 +79,7 @@
                                             <div class="h5 mb-0 font-weight-bold text-gray-800" id="current-year-revenue">... VNĐ</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                            <i class="fas fa-dollar-sign fa-2x text-success"></i>
                                         </div>
                                     </div>
                                 </div>

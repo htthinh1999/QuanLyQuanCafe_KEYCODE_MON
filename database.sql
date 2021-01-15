@@ -256,10 +256,18 @@ DELIMITER ;
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_LoadFoodListByCategoryID$$
 CREATE PROCEDURE USP_LoadFoodListByCategoryID(IN categoryID INT)
-	SELECT f.id 'ID', f.name 'Tên món', fc.id 'Mã danh mục', fc.name 'Danh mục', price 'Giá tiền', s.name 'Trạng thái'
-    FROM Food f INNER JOIN FoodCategory fc ON fc.id = f.idCategory
-				INNER JOIN State s ON f.stateID = s.id
-	WHERE fc.id = categoryID; $$
+BEGIN
+	IF categoryID = 0 THEN
+		SELECT f.id 'ID', f.name 'Tên món', fc.id 'Mã danh mục', fc.name 'Danh mục', price 'Giá tiền', s.name 'Trạng thái'
+		FROM Food f INNER JOIN FoodCategory fc ON fc.id = f.idCategory
+					INNER JOIN State s ON f.stateID = s.id;
+	ELSE
+		SELECT f.id 'ID', f.name 'Tên món', fc.id 'Mã danh mục', fc.name 'Danh mục', price 'Giá tiền', s.name 'Trạng thái'
+		FROM Food f INNER JOIN FoodCategory fc ON fc.id = f.idCategory
+					INNER JOIN State s ON f.stateID = s.id
+		WHERE fc.id = categoryID;
+	END IF;
+END; $$
 DELIMITER ;
 
 DELIMITER $$
@@ -501,7 +509,7 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_Login$$
 CREATE PROCEDURE USP_Login(username VARCHAR(100), password VARCHAR(100))
 	SELECT *
-	FROM account ac INNER JOIN accountType act ON ac.typeID = act.id
+	FROM Account ac INNER JOIN AccountType act ON ac.typeID = act.id
 	WHERE ac.username = username AND ac.password = password LIMIT 1; $$
 DELIMITER ;
 
@@ -509,7 +517,7 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_GetAccountInfoByUsername$$
 CREATE PROCEDURE USP_GetAccountInfoByUsername(IN username VARCHAR(100))
     SELECT username, displayName, t.id, t.name, gender, birthday, address
-    FROM Account a INNER JOIN AccountType t ON t.id = a.typeID;
+    FROM Account a INNER JOIN AccountType t ON t.id = a.typeID
 	WHERE a.username = username; $$
 DELIMITER ;
 
@@ -686,7 +694,7 @@ CREATE PROCEDURE USP_GetAllSourceRevenues()
 		DECLARE allFoodCount INT DEFAULT 0;
 		SELECT SUM(count)
 		INTO allFoodCount
-		FROM BillInfo bi INNER JOIN BIll b ON bi.idBill = b.id
+		FROM BillInfo bi INNER JOIN Bill b ON bi.idBill = b.id
 		WHERE YEAR(b.timeIn) = YEAR(CURRENT_TIMESTAMP());
 
 		SELECT f.name AS 'Food', TRUNCATE(SUM(count)/allFoodCount*100, 2) AS 'Percent'
