@@ -32,3 +32,6 @@ Website "Quản lý quán cafe KEYCODE MON" là trang web hỗ trợ quản lý 
 - Gmail: htthinh1999@gmail.com
 ## Nguồn tham khảo
 - Youtube: [Quản lý quán Cafe với C# Winform- HowKteam](https://www.youtube.com/playlist?list=PL33lvabfss1xnPhBJHjM0A8TEBBcGCTsf)
+## Hướng dẫn cài đặt
+Trước tiên vào địa chỉ https://github.com/htthinh1999/QuanLyQuanCafe_KEYCODE_MON và nhấn nút **Code** > **Download ZIP**
+[Download Code](/image/download_code.jpg)
