@@ -38,19 +38,35 @@ Trước tiên, ta vào trang web https://www.apachefriends.org/download.html ch
 <p align="center">
   <img alt="Download XAMPP" src="/images/download-xampp.jpg">
 </p>
+
 Sau khi tải xuống hoàn tất, ta chạy tệp vừa tải lên, sau đó nhấn nút **Next >** cho đến khi cài đặt hoàn tất.
 Lúc này, **XAMPP Control Panel** sẽ được bật lên. Ta sẽ chọn **Start** vào 2 dịch vụ quan trọng là **Apache** và **MySQL**.
-![XAMPP Control Panel](/images/xampp-control-panel.jpg)
+<p align="center">
+  <img alt="XAMPP Control Panel" src="/images/xampp-control-panel.jpg">
+</p>
+
 ### Cài đặt cơ sở dữ liệu
 Ta chọn vào nút **Admin** của dịch vụ **MySQL** để vào được trang **phpMyAdmin**, sau đó nhấn vào tab **SQL** bên phải tab **Databases**.
-![PHP MyAdmin](/images/phpmyadmin.jpg)
+<p align="center">
+  <img alt="PHP MyAdmin" src="/images/phpmyadmin.jpg">
+</p>
+
 Lúc này ta mở tệp **database.sql** bằng **Notepad**, ta **copy hết tất cả** và **patse** vào ô **SQL query** trong **phpMyAdmin**.
-![SQL Copy Patse](/images/sql-copy-patse.jpg)
+<p align="center">
+  <img alt="SQL Copy Patse" src="/images/sql-copy-patse.jpg">
+</p>
+
 Sau khi copy patse hoàn tất, ta nhấn vào nút **Go** để thực thi các câu lệnh SQL. Sau khi thực thi hoàn tất, màn hình hiển thị **# MySQL returned an empty result set (i.e. zero rows)** là ta đã cài đặt cơ sở dữ liệu hoàn tất.
 ### Cài đặt code
 Ta vào địa chỉ https://github.com/htthinh1999/QuanLyQuanCafe_KEYCODE_MON và nhấn nút **Code** > **Download ZIP**
-![Download Code](/images/download-code.jpg)
+<p align="center">
+  <img alt="Download Code" src="/images/download-code.jpg">
+</p>
+
 Sau khi quá trình tải xuống hoàn tất, giải nén tệp đã tải được thư mục **QuanLyQuanCafe_KEYCODE_MON-main**, sau đó sửa tên thư mục thành **QLQuanCafe_KEYCODE_MON**. Cuối cùng, ta copy thư mục vào đường dẫn **C:/xampp/htdocs**.
-![htdocs Folder](/images/htdocs-folder.jpg)
+<p align="center">
+  <img alt="htdocs Folder" src="/images/htdocs-folder.jpg">
+</p>
+
 ### Khởi chạy trang web
 Ta vào địa chỉ http://localhost:8080/QLQuanCafe_KEYCODE_MON/views/login.php và đăng nhập với tên đăng nhập **admin** và mật khẩu là **admin**. Lúc này ta đã có thể sử dụng được trang web **Quản lý quán cafe KEYCODE MON**.
