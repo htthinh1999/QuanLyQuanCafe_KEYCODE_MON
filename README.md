@@ -35,7 +35,9 @@ Website "Quản lý quán cafe KEYCODE MON" là trang web hỗ trợ quản lý 
 ## Hướng dẫn cài đặt
 ### Cài đặt XAMPP
 Trước tiên, ta vào trang web https://www.apachefriends.org/download.html chọn **Download (64 bit)** phiên bản mới nhất cho Windows (Ở đây là phiên bản **8.0.1**)
-![Download XAMPP](/images/download-xampp.jpg)
+<p align="center">
+  <img alt="Download XAMPP" src="/images/download-xampp.jpg">
+</p>
 Sau khi tải xuống hoàn tất, ta chạy tệp vừa tải lên, sau đó nhấn nút **Next >** cho đến khi cài đặt hoàn tất.
 Lúc này, **XAMPP Control Panel** sẽ được bật lên. Ta sẽ chọn **Start** vào 2 dịch vụ quan trọng là **Apache** và **MySQL**.
 ![XAMPP Control Panel](/images/xampp-control-panel.jpg)
