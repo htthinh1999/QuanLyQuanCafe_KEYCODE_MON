@@ -56,14 +56,14 @@ Lúc này ta mở tệp **database.sql** bằng **Notepad**, ta **copy hết t�
   <img alt="SQL Copy Patse" src="/images/sql-copy-patse.jpg">
 </p>
 
-Sau khi copy patse hoàn tất, ta nhấn vào nút **Go** để thực thi các câu lệnh SQL. Sau khi thực thi hoàn tất, màn hình hiển thị **# MySQL returned an empty result set (i.e. zero rows)** là ta đã cài đặt cơ sở dữ liệu hoàn tất.
+Sau khi copy patse hoàn tất, ta nhấn vào nút **Go** để thực thi các câu lệnh SQL. Sau khi thực thi hoàn tất, màn hình hiển thị **"# MySQL returned an empty result set (i.e. zero rows)"** là ta đã cài đặt cơ sở dữ liệu hoàn tất.
 ### Cài đặt code
-Ta vào địa chỉ https://github.com/htthinh1999/QuanLyQuanCafe_KEYCODE_MON và nhấn nút **Code** > **Download ZIP**
+Ta vào địa chỉ https://github.com/htthinh1999/QuanLyQuanCafe_KEYCODE_MON và nhấn nút **Code** > **Download ZIP**.
 <p align="center">
   <img alt="Download Code" src="/images/download-code.jpg">
 </p>
 
-Sau khi quá trình tải xuống hoàn tất, giải nén tệp đã tải được thư mục **QuanLyQuanCafe_KEYCODE_MON-main**, sau đó sửa tên thư mục thành **QLQuanCafe_KEYCODE_MON**. Cuối cùng, ta copy thư mục vào đường dẫn **C:/xampp/htdocs**.
+Sau khi quá trình tải xuống hoàn tất, giải nén tệp đã tải được thư mục **QuanLyQuanCafe_KEYCODE_MON-main**, sau đó sửa tên thư mục thành **QLQuanCafe_KEYCODE_MON**. Cuối cùng, ta copy thư mục vào đường dẫn **"C:/xampp/htdocs"**.
 <p align="center">
   <img alt="htdocs Folder" src="/images/htdocs-folder.jpg">
 </p>
