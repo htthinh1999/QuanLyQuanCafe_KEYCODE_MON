@@ -72,52 +72,52 @@ Sau khi quá trình tải xuống hoàn tất, giải nén tệp đã tải đư
 Ta vào địa chỉ http://localhost:8080/QLQuanCafe_KEYCODE_MON/views/login.php và đăng nhập với tên đăng nhập **admin** và mật khẩu là **admin**. Lúc này ta đã có thể sử dụng được trang web **Quản lý quán cafe KEYCODE MON**.
 
 ## Một số hình ảnh trang web
-<p align="center">
+<figure align="center">
   <img alt="Login" src="/images/login.jpg">
   <figcaption>Trang "Đăng nhập"</figcaption>
-</p>
+</figure>
 
-<p align="center">
+<figure align="center">
   <img alt="Revenue Management" src="/images/revenue-management.jpg">
   <figcaption>Trang "Quản lý doanh thu"</figcaption>
-</p>
+</figure>
 
-<p align="center">
+<figure align="center">
   <img alt="Food Management" src="/images/food-management.jpg">
   <figcaption>Trang "Quản lý món"</figcaption>
-</p>
+</figure>
 
-<p align="center">
+<figure align="center">
   <img alt="Category Management" src="/images/category-management.jpg">
   <figcaption>Trang "Quản lý danh mục"</figcaption>
-</p>
+</figure>
 
-<p align="center">
+<figure align="center">
   <img alt="Table Management" src="/images/table-management.jpg">
   <figcaption>Trang "Quản lý bàn"</figcaption>
-</p>
+</figure>
 
-<p align="center">
+<figure align="center">
   <img alt="Account Management" src="/images/account-management.jpg">
   <figcaption>Trang "Quản lý tài khoản"</figcaption>
-</p>
+</figure>
 
-<p align="center">
+<figure align="center">
   <img alt="Change Password" src="/images/change-password.jpg">
   <figcaption>Trang "Thay đổi mật khẩu"</figcaption>
-</p>
+</figure>
 
-<p align="center">
+<figure align="center">
   <img alt="Change Account Info" src="/images/change-account-info.jpg">
   <figcaption>Trang "Thông tin tài khoản"</figcaption>
-</p>
+</figure>
 
-<p align="center">
+<figure align="center">
   <img alt="Backup Restore" src="/images/backup-restore.jpg">
   <figcaption>Trang "Sao lưu và phục hồi dữ liệu"</figcaption>
-</p>
+</figure>
 
-<p align="center">
+<figure align="center">
   <img alt="htdocs Folder" src="/images/web-information.jpg">
   <figcaption>Trang "Thông tin trang web"</figcaption>
-</p>
+</figure>
