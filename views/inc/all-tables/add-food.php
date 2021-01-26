@@ -16,6 +16,7 @@
                             $foodCategory = new FoodCategory();
                             $categoryList = $foodCategory->getAllCategories();
 
+                            echo "<option value='0'>Tất cả</option>";
                             foreach($categoryList as $categoryViewModel){
                                 $categoryID = $categoryViewModel->getID();
                                 $categoryName = $categoryViewModel->getName();
@@ -33,7 +34,7 @@
                         <?php
                             // Load foods follow first category id
                             $food = new Food();
-                            $foodList = $food->getFoodsByCategoryID(1);
+                            $foodList = $food->getFoodsByCategoryID(0);
 
                             foreach($foodList as $foodViewModel){
                                 $foodID = $foodViewModel->getID();

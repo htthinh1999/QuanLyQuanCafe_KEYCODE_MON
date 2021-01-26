@@ -69,13 +69,6 @@
                                         </div>
                                         <input class="btn btn-primary btn-user btn-block" type="submit" value="ĐĂNG NHẬP"/>
                                     </form>
-                                    <hr>
-                                    <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Quên mật khẩu?</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="small" href="register.html">Tạo tài khoản!</a>
-                                    </div>
                                 </div>
                             </div>
                         </div>
