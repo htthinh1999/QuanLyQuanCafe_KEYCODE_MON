@@ -74,50 +74,50 @@ Ta vào địa chỉ http://localhost:8080/QLQuanCafe_KEYCODE_MON/views/login.ph
 ## Một số hình ảnh trang web
 <p align="center">
   <img alt="Login" src="/images/login.jpg">
-  <label>Trang "Đăng nhập"</label>
+  <label><i>Trang "Đăng nhập"</i></label>
 </p>
 
 <p align="center">
   <img alt="Revenue Management" src="/images/revenue-management.jpg">
-  <label>Trang "Quản lý doanh thu"</label>
+  <label><i>Trang "Quản lý doanh thu"</i></label>
 </p>
 
 <p align="center">
   <img alt="Food Management" src="/images/food-management.jpg">
-  <label>Trang "Quản lý món"</label>
+  <label><i>Trang "Quản lý món"</i></label>
 </p>
 
 <p align="center">
   <img alt="Category Management" src="/images/category-management.jpg">
-  <label>Trang "Quản lý danh mục"</label>
+  <label><i>Trang "Quản lý danh mục"</i></label>
 </p>
 
 <p align="center">
   <img alt="Table Management" src="/images/table-management.jpg">
-  <label>Trang "Quản lý bàn"</label>
+  <label><i>Trang "Quản lý bàn"</i></label>
 </p>
 
 <p align="center">
   <img alt="Account Management" src="/images/account-management.jpg">
-  <label>Trang "Quản lý tài khoản"</label>
+  <label><i>Trang "Quản lý tài khoản"</i></label>
 </p>
 
 <p align="center">
   <img alt="Change Password" src="/images/change-password.jpg">
-  <label>Trang "Thay đổi mật khẩu"</label>
+  <label><i>Trang "Thay đổi mật khẩu"</i></label>
 </p>
 
 <p align="center">
   <img alt="Change Account Info" src="/images/change-account-info.jpg">
-  <label>Trang "Thông tin tài khoản"</label>
+  <label><i>Trang "Thông tin tài khoản"</i></label>
 </p>
 
 <p align="center">
   <img alt="Backup Restore" src="/images/backup-restore.jpg">
-  <label>Trang "Sao lưu và phục hồi dữ liệu"</label>
+  <label><i>Trang "Sao lưu và phục hồi dữ liệu"</i></label>
 </p>
 
 <p align="center">
   <img alt="htdocs Folder" src="/images/web-information.jpg">
-  <label>Trang "Thông tin trang web"</label>
+  <label><i>Trang "Thông tin trang web"</i></label>
 </p>
