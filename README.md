@@ -70,3 +70,44 @@ Sau khi quá trình tải xuống hoàn tất, giải nén tệp đã tải đư
 
 ### Khởi chạy trang web
 Ta vào địa chỉ http://localhost:8080/QLQuanCafe_KEYCODE_MON/views/login.php và đăng nhập với tên đăng nhập **admin** và mật khẩu là **admin**. Lúc này ta đã có thể sử dụng được trang web **Quản lý quán cafe KEYCODE MON**.
+
+## Một số hình ảnh trang web
+<p align="center">
+  <img alt="htdocs Folder" src="/images/login.jpg">
+</p>
+
+<p align="center">
+  <img alt="htdocs Folder" src="/images/revenue-management.jpg">
+</p>
+
+<p align="center">
+  <img alt="htdocs Folder" src="/images/food-management.jpg">
+</p>
+
+<p align="center">
+  <img alt="htdocs Folder" src="/images/category-management.jpg">
+</p>
+
+<p align="center">
+  <img alt="htdocs Folder" src="/images/table-management.jpg">
+</p>
+
+<p align="center">
+  <img alt="htdocs Folder" src="/images/account-management.jpg">
+</p>
+
+<p align="center">
+  <img alt="htdocs Folder" src="/images/change-password.jpg">
+</p>
+
+<p align="center">
+  <img alt="htdocs Folder" src="/images/change-account-info.jpg">
+</p>
+
+<p align="center">
+  <img alt="htdocs Folder" src="/images/backup-restore.jpg">
+</p>
+
+<p align="center">
+  <img alt="htdocs Folder" src="/images/web-information.jpg">
+</p>
