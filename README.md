@@ -73,41 +73,51 @@ Ta vào địa chỉ http://localhost:8080/QLQuanCafe_KEYCODE_MON/views/login.ph
 
 ## Một số hình ảnh trang web
 <p align="center">
-  <img alt="htdocs Folder" src="/images/login.jpg">
+  <img alt="Login" src="/images/login.jpg">
+  <figcaption>Trang "Đăng nhập"</figcaption>
 </p>
 
 <p align="center">
-  <img alt="htdocs Folder" src="/images/revenue-management.jpg">
+  <img alt="Revenue Management" src="/images/revenue-management.jpg">
+  <figcaption>Trang "Quản lý doanh thu"</figcaption>
 </p>
 
 <p align="center">
-  <img alt="htdocs Folder" src="/images/food-management.jpg">
+  <img alt="Food Management" src="/images/food-management.jpg">
+  <figcaption>Trang "Quản lý món"</figcaption>
 </p>
 
 <p align="center">
-  <img alt="htdocs Folder" src="/images/category-management.jpg">
+  <img alt="Category Management" src="/images/category-management.jpg">
+  <figcaption>Trang "Quản lý danh mục"</figcaption>
 </p>
 
 <p align="center">
-  <img alt="htdocs Folder" src="/images/table-management.jpg">
+  <img alt="Table Management" src="/images/table-management.jpg">
+  <figcaption>Trang "Quản lý bàn"</figcaption>
 </p>
 
 <p align="center">
-  <img alt="htdocs Folder" src="/images/account-management.jpg">
+  <img alt="Account Management" src="/images/account-management.jpg">
+  <figcaption>Trang "Quản lý tài khoản"</figcaption>
 </p>
 
 <p align="center">
-  <img alt="htdocs Folder" src="/images/change-password.jpg">
+  <img alt="Change Password" src="/images/change-password.jpg">
+  <figcaption>Trang "Thay đổi mật khẩu"</figcaption>
 </p>
 
 <p align="center">
-  <img alt="htdocs Folder" src="/images/change-account-info.jpg">
+  <img alt="Change Account Info" src="/images/change-account-info.jpg">
+  <figcaption>Trang "Thông tin tài khoản"</figcaption>
 </p>
 
 <p align="center">
-  <img alt="htdocs Folder" src="/images/backup-restore.jpg">
+  <img alt="Backup Restore" src="/images/backup-restore.jpg">
+  <figcaption>Trang "Sao lưu và phục hồi dữ liệu"</figcaption>
 </p>
 
 <p align="center">
   <img alt="htdocs Folder" src="/images/web-information.jpg">
+  <figcaption>Trang "Thông tin trang web"</figcaption>
 </p>
