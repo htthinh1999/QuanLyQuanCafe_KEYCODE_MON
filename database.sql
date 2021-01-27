@@ -706,6 +706,19 @@ CREATE PROCEDURE USP_GetAllSourceRevenues()
 	END; $$
 DELIMITER ;
 
+DELIMITER $$
+DROP PROCEDURE IF EXISTS USP_GetAllBill$$
+CREATE PROCEDURE USP_GetAllBill()
+	BEGIN
+		SELECT CONCAT(b.timeIn, " - ", t.name) 'timeInAndTableName', f.name 'foodName', fc.name 'categoryName', f.price, bi.count, b.discount, (f.price*bi.count*(1-b.discount/100)) 'totalPrice'
+		FROM Bill b INNER JOIN BillInfo bi ON b.id = bi.idBill
+					INNER JOIN TableFood t ON b.idTable = t.id
+					INNER JOIN Food f ON f.id = bi.idBill
+					INNER JOIN FoodCategory fc ON f.idCategory = fc.id;
+	END; $$
+DELIMITER ;
+
+
 /*------------------------------ END PROCEDURES OF TableFood ------------------------------*/
 
 /*--**************************************** END CREATE PROCEDURES ****************************************--*/

@@ -62,6 +62,27 @@
 
             return $allMonthRevenues;
         }
+
+        public function getAllBill(){
+            $query = "CALL USP_GetAllBill()";
+            $result = $this->db->procedure($query);
+
+            $allBill = array();
+            while ($row = mysqli_fetch_array($result)){
+                $bill['timeInAndTableName'] = $row['timeInAndTableName'];
+                $bill['foodName'] = $row['foodName'];
+                $bill['categoryName'] = $row['categoryName'];
+                $bill['price'] = $row['price'];
+                $bill['count'] = $row['count'];
+                $bill['discount'] = $row['discount'];
+                $bill['totalPrice'] = $row['totalPrice'];
+                
+                array_push($allBill, $bill);
+            }
+
+            return $allBill;
+        }
+
     }
 
 ?>
