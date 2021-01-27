@@ -457,7 +457,7 @@ $(document).ready(function() {
         { "data": "id" },
         { "data": "name" }
       ],
-      dom: 'Bfrtip',
+      dom: '<"float-left mb-3"B><"float-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
       buttons: [
         'copy', 'csv', 'excel', 'pdf', 'print'
       ]

@@ -22,6 +22,17 @@
 
 <body id="page-top">
 
+    <!-- Spinner Loading Page -->
+    <div id="loading">
+        <div class="spinner spinner-grow text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- End Spinner Loading Page -->
+
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -88,7 +99,6 @@
                     </div>
 
                     <!-- Content Row -->
-
                     <div class="row">
 
                         <!-- Area Chart -->
@@ -136,6 +146,53 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <!-- Bill Data -->
+                        <div class="col-12">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary" id='table-title'>
+                                        Danh sách hoá đơn
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-hover" id="data-content" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Thời gian vào - Tên bàn</th>
+                                                    <th>Tên món</th>
+                                                    <th>Danh mục</th>
+                                                    <th>Giá tiền</th>
+                                                    <th>Số lượng</th>
+                                                    <th>Giảm giá</th>
+                                                    <th>Thành tiền</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>Thời gian vào - Tên bàn</th>
+                                                    <th>Tên món</th>
+                                                    <th>Danh mục</th>
+                                                    <th>Giá tiền</th>
+                                                    <th>Số lượng</th>
+                                                    <th>Giảm giá</th>
+                                                    <th>Thành tiền</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <!-- /.container-fluid -->
 
