@@ -19,7 +19,7 @@
                     $tableFoodStatus = $tableViewModel->getStatus();
                     
                     echo "<a role='button' class='col-xl-3 col-lg-4 col-md-6 text-center text-white mb-3 wrap-table-food'>
-                        <div class='table-food ".(($tableFoodStatus=='Trống')?"bg-success":"bg-danger")."' data-table-id='$tableFoodID'>
+                        <div class='table-food w-100 btn ".(($tableFoodStatus=='Trống')?"btn-success":"btn-danger")."' data-table-id='$tableFoodID'>
                             <h5>$tableFoodName</h5>
                             <p class='table-description'>$tableFoodStatus</p>
                         </div>
