@@ -49,14 +49,14 @@ CREATE TABLE Account
 	FOREIGN KEY(typeID) REFERENCES AccountType(id) ON DELETE CASCADE
 );
 
-/*
-1: Sử dụng, 2: Ngưng sử dụng
-*/
-CREATE TABLE State
-(
-	id INT AUTO_INCREMENT PRIMARY KEY,
-	name VARCHAR(50) CHARSET utf8 NOT NULL
-);
+-- /*
+-- 1: Sử dụng, 2: Ngưng sử dụng
+-- */
+-- CREATE TABLE State
+-- (
+-- 	id INT AUTO_INCREMENT PRIMARY KEY,
+-- 	name VARCHAR(50) CHARSET utf8 NOT NULL
+-- );
 
 CREATE TABLE FoodCategory
 (
@@ -70,10 +70,9 @@ CREATE TABLE Food
 	name VARCHAR(100) CHARSET utf8 NOT NULL,
 	idCategory INT NOT NULL,
 	price FLOAT NOT NULL DEFAULT 0,
-	stateID INT NOT NULL DEFAULT 1,
+	status VARCHAR(50) NOT NULL DEFAULT 'Sử dụng',
 	
-	FOREIGN KEY (idCategory) REFERENCES FoodCategory(id) ON DELETE CASCADE,
-	FOREIGN KEY (stateID) REFERENCES State(id) ON DELETE CASCADE
+	FOREIGN KEY (idCategory) REFERENCES FoodCategory(id) ON DELETE CASCADE
 );
 
 /*
@@ -144,8 +143,8 @@ INSERT INTO TableFood(name) VALUES (N'Bàn số 18');
 INSERT INTO TableFood(name) VALUES (N'Bàn số 19');
 INSERT INTO TableFood(name) VALUES (N'Bàn số 20');
 
-INSERT INTO State(name) VALUES(N'Sử dụng');
-INSERT INTO State(name) VALUES(N'Ngưng sử dụng');
+-- INSERT INTO State(name) VALUES(N'Sử dụng');
+-- INSERT INTO State(name) VALUES(N'Ngưng sử dụng');
 
 INSERT INTO FoodCategory(name) VALUES(N'Thức ăn khô');
 INSERT INTO FoodCategory(name) VALUES(N'Thức ăn nước');
@@ -171,24 +170,24 @@ INSERT INTO Food(name, idCategory, price) VALUES(N'Sữa tươi trân châu đư
 INSERT INTO Food(name, idCategory, price) VALUES(N'Trà đào', 4, 30000.0);
 INSERT INTO Food(name, idCategory, price) VALUES(N'Trà sen', 4, 30000.0);
 
-INSERT INTO Bill(idTable) VALUES(1);
-INSERT INTO Bill(idTable) VALUES(4);
-INSERT INTO Bill(idTable) VALUES(5);
-INSERT INTO Bill(idTable) VALUES(10);
+-- INSERT INTO Bill(idTable) VALUES(1);
+-- INSERT INTO Bill(idTable) VALUES(4);
+-- INSERT INTO Bill(idTable) VALUES(5);
+-- INSERT INTO Bill(idTable) VALUES(10);
 
-INSERT INTO BillInfo(idBill, idFood, count) VALUES(1, 2, 5);
-INSERT INTO BillInfo(idBill, idFood, count) VALUES(1, 4, 5);
-INSERT INTO BillInfo(idBill, idFood, count) VALUES(2, 1, 4);
-INSERT INTO BillInfo(idBill, idFood, count) VALUES(2, 3, 2);
-INSERT INTO BillInfo(idBill, idFood, count) VALUES(2, 4, 2);
-INSERT INTO BillInfo(idBill, idFood, count) VALUES(3, 3, 1);
-INSERT INTO BillInfo(idBill, idFood, count) VALUES(3, 4, 1);
-INSERT INTO BillInfo(idBill, idFood, count) VALUES(3, 5, 1);
-INSERT INTO BillInfo(idBill, idFood, count) VALUES(4, 4, 1);
+-- INSERT INTO BillInfo(idBill, idFood, count) VALUES(1, 2, 5);
+-- INSERT INTO BillInfo(idBill, idFood, count) VALUES(1, 4, 5);
+-- INSERT INTO BillInfo(idBill, idFood, count) VALUES(2, 1, 4);
+-- INSERT INTO BillInfo(idBill, idFood, count) VALUES(2, 3, 2);
+-- INSERT INTO BillInfo(idBill, idFood, count) VALUES(2, 4, 2);
+-- INSERT INTO BillInfo(idBill, idFood, count) VALUES(3, 3, 1);
+-- INSERT INTO BillInfo(idBill, idFood, count) VALUES(3, 4, 1);
+-- INSERT INTO BillInfo(idBill, idFood, count) VALUES(3, 5, 1);
+-- INSERT INTO BillInfo(idBill, idFood, count) VALUES(4, 4, 1);
 
-UPDATE TableFood
-SET status = N'Đã có người'
-WHERE id = 1 OR id = 4 OR id = 5 OR id = 10;
+-- UPDATE TableFood
+-- SET status = N'Đã có người'
+-- WHERE id = 1 OR id = 4 OR id = 5 OR id = 10;
 
 /***************************************** END INSERT DATA *****************************************/
 
@@ -248,9 +247,8 @@ DELIMITER ;
 DELIMITER $$
 DROP PROCEDURE IF EXISTS USP_LoadFoodList$$
 CREATE PROCEDURE USP_LoadFoodList()
-	SELECT f.id 'ID', f.name 'Tên món', fc.id 'Mã danh mục', fc.name 'Danh mục', price 'Giá tiền', s.name 'Trạng thái'
-    FROM Food f INNER JOIN FoodCategory fc ON fc.id = f.idCategory
-				INNER JOIN State s ON f.stateID = s.id; $$
+	SELECT f.id 'ID', f.name 'Tên món', fc.id 'Mã danh mục', fc.name 'Danh mục', price 'Giá tiền', status 'Trạng thái'
+    FROM Food f INNER JOIN FoodCategory fc ON fc.id = f.idCategory; $$
 DELIMITER ;
 
 DELIMITER $$
@@ -258,13 +256,11 @@ DROP PROCEDURE IF EXISTS USP_LoadFoodListByCategoryID$$
 CREATE PROCEDURE USP_LoadFoodListByCategoryID(IN categoryID INT)
 BEGIN
 	IF categoryID = 0 THEN
-		SELECT f.id 'ID', f.name 'Tên món', fc.id 'Mã danh mục', fc.name 'Danh mục', price 'Giá tiền', s.name 'Trạng thái'
-		FROM Food f INNER JOIN FoodCategory fc ON fc.id = f.idCategory
-					INNER JOIN State s ON f.stateID = s.id;
+		SELECT f.id 'ID', f.name 'Tên món', fc.id 'Mã danh mục', fc.name 'Danh mục', price 'Giá tiền', status 'Trạng thái'
+		FROM Food f INNER JOIN FoodCategory fc ON fc.id = f.idCategory;
 	ELSE
-		SELECT f.id 'ID', f.name 'Tên món', fc.id 'Mã danh mục', fc.name 'Danh mục', price 'Giá tiền', s.name 'Trạng thái'
+		SELECT f.id 'ID', f.name 'Tên món', fc.id 'Mã danh mục', fc.name 'Danh mục', price 'Giá tiền', status 'Trạng thái'
 		FROM Food f INNER JOIN FoodCategory fc ON fc.id = f.idCategory
-					INNER JOIN State s ON f.stateID = s.id
 		WHERE fc.id = categoryID;
 	END IF;
 END; $$

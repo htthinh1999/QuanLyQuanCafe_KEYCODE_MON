@@ -258,6 +258,7 @@ $(document).ready(function() {
   var tableFoods = $("#table-foods");
   var discount = $("#discount");
   var checkoutModal = $('#checkoutModal');
+  var currentTable = $('.table-food.w-100.btn').first();
 
   var currentTableID = 1;
   var totalBillPrice = 0;
@@ -275,6 +276,23 @@ $(document).ready(function() {
       Functions
     ////////////////////////////////////////////////
   */
+
+  if(currentTable.text().match("Trống")){
+    currentTable.css({"border":"8px solid #86f9d0", "padding":"8px"});
+  }else{
+    currentTable.css({"border":"8px solid #ff8a8a", "padding":"8px"});
+  }
+  // Make round table was selected
+  function roundTableSelect(table){
+    currentTable.css({"border":"", "padding":""});
+
+    if(table.text().match("Trống")){
+      table.css({"border":"8px solid #86f9d0", "padding":"8px"});
+    }else{
+      table.css({"border":"8px solid #ff8a8a", "padding":"8px"});
+    }
+    currentTable = table;
+  }
 
   // Find block has input search content
   function findBlock(inputContent){
@@ -319,7 +337,7 @@ $(document).ready(function() {
   function reloadAllTables(tableFoodsData){
     var divTags = $(tableFoods).find('div');
     $.each(JSON.parse(tableFoodsData), function(i){
-      $(divTags[i]).attr('class', 'table-food '+((this.status=='Trống')?"bg-success":"bg-danger"))
+      $(divTags[i]).attr('class', 'table-food w-100 btn '+((this.status=='Trống')?"btn-success":"btn-danger"))
                 .attr('data-table-id', this.id);
       $(divTags[i]).find('h5').text(this.name);
       $(divTags[i]).find('p').text(this.status);
@@ -381,6 +399,8 @@ $(document).ready(function() {
 
   // Load bill, change table when table was clicked
   $(".table-food").on('click', function(){
+    roundTableSelect($(this));
+
     var tableID = $(this).data('table-id');
     currentTableID = tableID;
 

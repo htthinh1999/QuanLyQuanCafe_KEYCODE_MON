@@ -500,7 +500,11 @@ $(document).ready(function() {
     type: 'GET',
     success: function(response){
       response = JSON.parse(response);
-      $('#avg-month-revenue').text(separatorNumber(response.avgMonthRevenue) + ' VNĐ');
+      if(response.avgMonthRevenue != null){
+        $('#avg-month-revenue').text(separatorNumber(response.avgMonthRevenue) + ' VNĐ');
+      }else{
+        $('#avg-month-revenue').text('0 VNĐ');
+      }
     }
   });
 
@@ -511,7 +515,11 @@ $(document).ready(function() {
     type: 'GET',
     success: function(response){
       response = JSON.parse(response);
-      $('#current-year-revenue').text(separatorNumber(response.currentYearRevenue) + ' VNĐ');
+      if(response.currentYearRevenue != null){
+        $('#current-year-revenue').text(separatorNumber(response.currentYearRevenue) + ' VNĐ');
+      }else{
+        $('#current-year-revenue').text('0 VNĐ');
+      }
     }
   });
 
