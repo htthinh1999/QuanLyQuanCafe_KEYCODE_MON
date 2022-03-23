@@ -24,7 +24,7 @@
     <meta name="description" content="Thay đổi mật khẩu tài khoản quán cafe Keycode Mon">
     <meta name="author" content="Huỳnh Tấn Thịnh">
 
-    <title>Thay đổi mật khẩu | Quán cafe Keycode Mon</title>
+    <title>Không tìm thấy trang | Quán cafe Keycode Mon</title>
 
     <link href="../assets/css/error.css" rel="stylesheet">
 
