@@ -1,5 +1,5 @@
 <?php
-
+ob_start();
 class Session{
 	
 	public static function init()
