@@ -51,7 +51,7 @@
                     Session::set('login', true);
                     $account = new AccountViewModel($value['username'], $value['id'], $value['name'], $value['displayName'], $value['gender'], $value['birthday'], $value['address']);
                     Session::set('account', $account);
-                    //header("Location: /views/all-tables.php");
+                    echo "<script>window.location.href='all-tables.php';</script>";
                 }else{
                     $alertText = "Tên tài khoản hoặc mật khẩu không hợp lệ";
                     return $alertText;
