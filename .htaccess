@@ -1,6 +1,11 @@
 # Replace index to all-tables.php
-RewriteEngine on
-RewriteRule ^home/?$ views/all-tables.php [L,NC]
+
+RewriteEngine On
+
+RewriteCond %{REQUEST_URI} !^/views/
+RewriteRule ^(.*)$ /views/$1 [L,R=301]
+
+DirectoryIndex all-tables.php
 
 # Replace all error pages
 ErrorDocument 401 views/401.php
