@@ -1,9 +1,10 @@
 # Replace index to all-tables.php
 
-RewriteEngine On
-
-RewriteCond %{REQUEST_URI} !^/views/
-RewriteRule ^(.*)$ /views/$1 [L,R=301]
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^htthinh1999.toh.info$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^www.htthinh1999.toh.info$
+RewriteCond %{REQUEST_URI} !views/
+RewriteRule (.*) /views/$1 [L]
 
 
 # Replace all error pages
