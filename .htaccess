@@ -1,5 +1,5 @@
 # Replace index to all-tables.php
-DirectoryIndex all-tables.php
+DirectoryIndex views/all-tables.php
 
 # Replace all error pages
 ErrorDocument 401 /php/QuanLyQuanCafe_KEYCODE_MON/views/401.php
